@@ -17,13 +17,25 @@ public class DAOAdmin implements DAO<Admin>{
 
     @Override
     public List<Admin> get(int id) throws SQLException {
-        String sql = "SELECT * FROM Admin WHERE admin_id = " + id;
-        return adminDatabaseComments(sql);
+        String sql = "SELECT * FROM admin WHERE admin_id = " + id;
+        return adminDatabaseCommends(sql);
     }
 
     @Override
     public List<Admin> getAll(int id) throws SQLException {
-        return null;
+        String sql = "SELECT * FROM admin";
+        return adminDatabaseCommends(sql);
+    }
+
+    @Override
+    public void save(Admin daoAdmin) throws SQLException {
+        int admin_id = daoAdmin.getAdmin_id();
+        int user_id = daoAdmin.getUser_id();
+        String name = daoAdmin.getAdmin_name();
+        String surname = daoAdmin.getAdmin_surname();
+        String sql = "INSERT INTO admin (admin_id, user_id, admin_name, admin_surname) VALUES (" + admin_id + ", " + user_id +
+                ", '" + name + "', '" + surname + "')";
+        statement.executeUpdate(sql);
     }
 
     @Override
@@ -36,12 +48,7 @@ public class DAOAdmin implements DAO<Admin>{
 
     }
 
-    @Override
-    public void save(Admin daoAdmin) throws SQLException {
-
-    }
-
-    private List<Admin> adminDatabaseComments(String sql) throws SQLException{
+    private List<Admin> adminDatabaseCommends(String sql) throws SQLException{
         return null;
     }
 }

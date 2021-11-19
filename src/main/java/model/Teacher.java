@@ -7,6 +7,8 @@ public class Teacher {
     private String teacher_name;
     private String teacher_surname;
     private String teacher_subject;
+    private Class teacherClass;
+    private Lesson lesson;
 
     public Teacher(int teacher_id, int user_id, int school_id, String teacher_name, String teacher_surname, String teacher_subject) {
         this.teacher_id = teacher_id;
@@ -63,6 +65,22 @@ public class Teacher {
 
     public void setTeacher_subject(String teacher_subject) {
         this.teacher_subject = teacher_subject;
+    }
+
+    public Class getTeacherClass() {
+        return teacherClass;
+    }
+
+    public void setTeacherClass(Class teacherClass) {
+        this.teacherClass = teacherClass;
+    }
+
+    public Lesson getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
     }
 
     @Override

@@ -8,6 +8,7 @@ public class Guardian {
     private String guardian_name;
     private String guardian_surname;
     private LocalDate guardian_date_of_birth;
+    private Student student;
 
     public Guardian(int guardian_id, int user_id, String guardian_name, String guardian_surname, LocalDate guardian_date_of_birth) {
         this.guardian_id = guardian_id;
@@ -55,6 +56,14 @@ public class Guardian {
 
     public void setGuardian_date_of_birth(LocalDate guardian_date_of_birth) {
         this.guardian_date_of_birth = guardian_date_of_birth;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 
     @Override

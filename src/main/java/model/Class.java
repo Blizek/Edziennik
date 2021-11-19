@@ -4,6 +4,7 @@ public class Class {
     private int class_id;
     private int class_supervising_teacher;
     private String class_name;
+    private Teacher teacher;
 
     public Class(int class_id, int class_supervising_teacher, String class_name) {
         this.class_id = class_id;
@@ -33,6 +34,14 @@ public class Class {
 
     public void setClass_name(String class_name) {
         this.class_name = class_name;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     @Override

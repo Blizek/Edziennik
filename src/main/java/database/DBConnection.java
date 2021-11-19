@@ -7,13 +7,14 @@ public class DBConnection {
     private static Connection connection;
     final String DB_URL = "jdbc:mysql://localhost:3306/dziennik";
     final String USER = "root";
-    final String PASS = "zxcv";
+    final String PASSWORD = "root";
 
     private DBConnection() throws SQLException {
-        connection = DriverManager.getConnection(DB_URL, USER, PASS);
+        connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
     }
 
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() throws SQLException
+    {
         if (dbConnection == null) dbConnection = new DBConnection();
         return connection;
     }

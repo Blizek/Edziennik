@@ -10,6 +10,8 @@ public class Student {
     private String student_name;
     private String student_surname;
     private LocalDate student_date_of_birth;
+    private Guardian guardian;
+    private Lesson lesson;
 
     public Student(int student_id, int user_id, int school_id, int class_id, String student_name, String student_surname, LocalDate student_date_of_birth) {
         this.student_id = student_id;
@@ -75,6 +77,22 @@ public class Student {
 
     public void setStudent_date_of_birth(LocalDate student_date_of_birth) {
         this.student_date_of_birth = student_date_of_birth;
+    }
+
+    public Guardian getGuardian() {
+        return guardian;
+    }
+
+    public void setGuardian(Guardian guardian) {
+        this.guardian = guardian;
+    }
+
+    public Lesson getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
     }
 
     @Override

@@ -4,6 +4,8 @@ public class Lesson {
     private int lesson_id;
     private String lesson_subject;
     private boolean student_presence;
+    private Student student;
+    private Teacher teacher;
 
     public Lesson(int lesson_id, String lesson_subject, boolean student_presence) {
         this.lesson_id = lesson_id;
@@ -33,6 +35,22 @@ public class Lesson {
 
     public void setStudent_presence(boolean student_presence) {
         this.student_presence = student_presence;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Teacher getTeacher() {
+        return teacher;
+    }
+
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 
     @Override
