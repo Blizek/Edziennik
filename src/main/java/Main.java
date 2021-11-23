@@ -1,16 +1,8 @@
-import DAO.DAOClass;
-import DAO.DAOGuardian;
-import database.DBConnection;
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import model.Class;
-import model.Guardian;
-
-import java.time.LocalDate;
 
 
 public class Main extends Application {
