@@ -29,6 +29,16 @@ public class DAOUser implements DAO<User> {
         return userDatabaseCommends(sql);
     }
 
+    public List<User> getByEmail(String email) throws SQLException {
+        String sql = "SELECT * FROM user WHERE user_email = " + email;
+        return userDatabaseCommends(sql);
+    }
+
+    public List<User> getByRole(String role) throws SQLException {
+        String sql = "SELECT * FROM user WHERE user_role = " + role;
+        return userDatabaseCommends(sql);
+    }
+
     @Override
     public void save(User user) throws SQLException {
         int user_id = user.getUser_id();

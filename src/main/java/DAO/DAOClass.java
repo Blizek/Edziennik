@@ -29,6 +29,16 @@ public class DAOClass implements DAO<Class> {
         return classDatabaseCommends(sql);
     }
 
+    public List<Class> getBySupervisingTeacher(int class_supervising_teacher_id) throws SQLException {
+        String sql = "SELECT * FROM class WHERE class_supervising_teacher_id = " + class_supervising_teacher_id;
+        return classDatabaseCommends(sql);
+    }
+
+    public List<Class> getByClassName(String class_name) throws SQLException {
+        String sql = "SELECT * FROM class WHERE class_name = '" + class_name + "'";
+        return classDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Class daoClass) throws SQLException {
         int class_id = daoClass.getClass_id();

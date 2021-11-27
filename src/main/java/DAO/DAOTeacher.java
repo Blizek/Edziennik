@@ -29,6 +29,11 @@ public class DAOTeacher implements DAO<Teacher> {
         return teacherDatabaseCommends(sql);
     }
 
+    public List<Teacher> getByTeachersSubject(String subject) throws SQLException {
+        String sql = "SELECT * FROM teacher WHERE teacher_subject = " + subject;
+        return teacherDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Teacher teacher) throws SQLException {
         int teacher_id = teacher.getTeacher_id();

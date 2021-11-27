@@ -29,6 +29,16 @@ public class DAOMark implements DAO<Mark> {
         return markDatabaseCommends(sql);
     }
 
+    public List<Mark> getByStudent(int student_id) throws SQLException {
+        String sql = "SELECT * FROM mark WHERE student_id = " + student_id;
+        return markDatabaseCommends(sql);
+    }
+
+    public List<Mark> getByTeacher(int teacher_id) throws SQLException {
+        String sql = "SELECT * FROM mark WHERE teacher_id = " + teacher_id;
+        return markDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Mark mark) throws SQLException {
         int mark_id = mark.getMark_id();

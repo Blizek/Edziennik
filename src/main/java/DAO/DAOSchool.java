@@ -29,6 +29,11 @@ public class DAOSchool implements DAO<School> {
         return schoolDatabaseCommends(sql);
     }
 
+    public List<School> getBySchoolName(String school_name) throws SQLException {
+        String sql = "SELECT * FROM school WHERE school_name = " + school_name;
+        return schoolDatabaseCommends(sql);
+    }
+
     @Override
     public void save(School school) throws SQLException {
         int school_id = school.getSchool_id();
@@ -61,6 +66,7 @@ public class DAOSchool implements DAO<School> {
     public void delete(School school) throws SQLException {
         int school_id = school.getSchool_id();
         String sql = "DELETE FROM school WHERE school_id = " + school_id;
+        statement.executeUpdate(sql);
     }
 
     private List<School> schoolDatabaseCommends(String sql) throws SQLException {

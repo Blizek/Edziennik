@@ -30,6 +30,16 @@ public class DAOStudent implements DAO<Student> {
         return studentDatabaseCommends(sql);
     }
 
+    public List<Student> getBySchool(int school_id) throws SQLException {
+        String sql = "SELECT * FROM student WHERE school_id = " + school_id;
+        return studentDatabaseCommends(sql);
+    }
+
+    public List<Student> getByClass(int class_id) throws SQLException {
+        String sql = "SELECT * FROM student WHERE class_id = " + class_id;
+        return studentDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Student student) throws SQLException {
         int student_id = student.getStudent_id();
