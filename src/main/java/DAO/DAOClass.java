@@ -4,8 +4,10 @@ import database.DBConnection;
 import model.Class;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DAOClass implements DAO<Class> {
@@ -39,15 +41,29 @@ public class DAOClass implements DAO<Class> {
 
     @Override
     public void update(Class daoClass) throws SQLException {
-
+        int new_class_id = daoClass.getClass_id();
+        String new_class_name = daoClass.getClass_name();
+        String sql = "UPDATE class SET class_id = " + new_class_id + ", class_name = '" + new_class_name
+                + "' WHERE class_id = " + new_class_id;
+        statement.executeUpdate(sql);
     }
 
     @Override
     public void delete(Class daoClass) throws SQLException {
-
+        int class_id = daoClass.getClass_id();
+        String sql = "DELETE FROM class WHERE class_id = " + class_id;
+        statement.executeUpdate(sql);
     }
 
     private List<Class> classDatabaseCommends(String sql) throws SQLException {
-        return null;
+        ResultSet resultSet = statement.executeQuery(sql);
+        List<Class> classes = new ArrayList<>();
+        while (resultSet.next()) {
+            int class_id = resultSet.getInt(1);
+            int class_supervising_teacher = resultSet.getInt(2);
+            String class_name = resultSet.getString(3);
+            classes.add(new Class(class_id, class_supervising_teacher, class_name));
+        }
+        return classes;
     }
 }
