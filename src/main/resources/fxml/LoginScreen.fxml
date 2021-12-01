@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="FXML.LoginScreen">
+   <children>
+      <Text fill="#3c56bc" layoutX="386.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Electronic School Diary">
+         <font>
+            <Font name="Calibri Bold" size="45.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
