@@ -10,7 +10,7 @@ import java.io.IOException;
 public class GoToLoginScreen {
     public GoToLoginScreen runThis(MainController mainController) {
         FXMLLoader loadLoginScreen = new FXMLLoader();
-        loadLoginScreen.setLocation(this.getClass().getResource("/fxml/AddAlbumScreen.fxml"));
+        loadLoginScreen.setLocation(this.getClass().getResource("/fxml/LoginScreen.fxml"));
         AnchorPane pane = null;
         try {
             pane = loadLoginScreen.load();
