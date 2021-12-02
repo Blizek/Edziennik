@@ -30,7 +30,7 @@ public class DAOSchool implements DAO<School> {
     }
 
     public List<School> getBySchoolName(String school_name) throws SQLException {
-        String sql = "SELECT * FROM school WHERE school_name = " + school_name;
+        String sql = "SELECT * FROM school WHERE school_name = '" + school_name + "'";
         return schoolDatabaseCommends(sql);
     }
 

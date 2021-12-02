@@ -30,12 +30,12 @@ public class DAOUser implements DAO<User> {
     }
 
     public List<User> getByEmail(String email) throws SQLException {
-        String sql = "SELECT * FROM user WHERE user_email = " + email;
+        String sql = "SELECT * FROM user WHERE user_email = '" + email + "'";
         return userDatabaseCommends(sql);
     }
 
     public List<User> getByRole(String role) throws SQLException {
-        String sql = "SELECT * FROM user WHERE user_role = " + role;
+        String sql = "SELECT * FROM user WHERE user_role = '" + role + "'";
         return userDatabaseCommends(sql);
     }
 
