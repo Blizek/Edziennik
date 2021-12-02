@@ -27,35 +27,40 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <JFXButton layoutX="802.0" layoutY="568.0" prefHeight="84.0" prefWidth="258.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 25; -fx-border-radius: 25;" text="Sign in" textAlignment="CENTER" textFill="WHITE">
+      <JFXButton layoutX="803.0" layoutY="519.0" onAction="#checkData" prefHeight="84.0" prefWidth="258.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 25; -fx-border-radius: 25;" text="Sign in" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Calibri Bold" size="30.0" />
          </font>
       </JFXButton>
       <AnchorPane layoutX="656.0" layoutY="154.0" prefHeight="357.0" prefWidth="404.0">
          <children>
-            <TextField layoutX="13.0" layoutY="21.0" prefHeight="46.0" prefWidth="391.0" promptText="Login" style="-fx-text-inner-color: #3c56bc; -fx-prompt-text-fill: #3c56bc; -fx-background-color: white;">
+            <TextField fx:id="userEmail" layoutX="13.0" layoutY="21.0" prefHeight="46.0" prefWidth="391.0" promptText="E-mail adress" style="-fx-text-inner-color: #3c56bc; -fx-prompt-text-fill: #3c56bc; -fx-background-color: white;">
                <font>
                   <Font name="Calibri" size="25.0" />
                </font>
             </TextField>
-            <PasswordField layoutX="13.0" layoutY="98.0" prefHeight="46.0" prefWidth="391.0" promptText="Password" style="-fx-text-inner-color: #3c56bc; -fx-prompt-text-fill: #3c56bc; -fx-background-color: white;">
+            <PasswordField fx:id="userPassword" layoutX="13.0" layoutY="98.0" prefHeight="46.0" prefWidth="391.0" promptText="Password" style="-fx-text-inner-color: #3c56bc; -fx-prompt-text-fill: #3c56bc; -fx-background-color: white;">
                <font>
                   <Font name="Calibri" size="25.0" />
                </font>
             </PasswordField>
             <Line endX="303.0" endY="-1.0" layoutX="101.0" layoutY="68.0" startX="-88.0" startY="-1.0" stroke="#3c56bc" strokeWidth="2.0" />
             <Line endX="293.0" endY="66.0" layoutX="111.0" layoutY="78.0" startX="-98.0" startY="66.0" stroke="#3c56bc" strokeWidth="2.0" />
-            <JFXToggleButton layoutX="169.0" layoutY="179.0" prefHeight="64.0" prefWidth="231.0" style="-fx-background-color: white;" text="Remember me" textFill="#3c56bc" toggleColor="#3c56bc" toggleLineColor="#0080ff">
+            <JFXToggleButton fx:id="rememberMeToggleButton" layoutX="180.0" layoutY="188.0" prefHeight="64.0" prefWidth="231.0" style="-fx-background-color: white;" text="Remember me" textFill="#3c56bc" toggleColor="#3c56bc" toggleLineColor="#0080ff">
                <font>
                   <Font name="Calibri" size="20.0" />
                </font>
             </JFXToggleButton>
-            <JFXButton layoutX="233.0" layoutY="243.0" style="-fx-background-color: white;" text="Forgot password?" textFill="#3c56bc" underline="true">
+            <JFXButton layoutX="233.0" layoutY="243.0" onAction="#goToForgotPasswordScreen" style="-fx-background-color: white;" text="Forgot password?" textFill="#3c56bc" underline="true">
                <font>
                   <Font name="Calibri" size="20.0" />
                </font>
             </JFXButton>
+            <Text fx:id="wrongDataText" fill="#da0606" layoutX="70.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wrong login or password! Please type again" visible="false" wrappingWidth="325.13671875">
+               <font>
+                  <Font name="Calibri" size="18.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
    </children>

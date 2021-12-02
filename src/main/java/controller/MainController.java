@@ -1,17 +1,14 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import routings.GoToLoginScreen;
-
-import java.io.IOException;
 
 public class MainController {
     @FXML
     AnchorPane pane;
 
-    public void initialize() throws IOException {
+    public void initialize() {
         loadLoginScreen();
     }
 
@@ -20,7 +17,7 @@ public class MainController {
         this.pane.getChildren().add(pane);
     }
 
-    public void loadLoginScreen() throws IOException {
+    public void loadLoginScreen() {
         new GoToLoginScreen().runThis(this);
     }
 }
