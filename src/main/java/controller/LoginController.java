@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import model.User;
 import routings.GoToForgotPasswordScreen;
+import routings.GoToHomeScreen;
+import variables.UserIDHolder;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -61,6 +63,8 @@ public class LoginController {
                 wrongDataText.setVisible(false);
                 System.out.println("Logged as: ID: " + lookingUser.getUser_id() + ", e-mail: " + lookingUser.getUser_email()
                 + ", password: " + lookingUser.getUser_password() + ", role: " + lookingUser.getUser_role());
+                UserIDHolder.setUserID(lookingUser.getUser_id());
+                new GoToHomeScreen().runThis(mainController);
             }
         }
     }
