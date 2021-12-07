@@ -18,8 +18,6 @@ public class LoggingAlgorithm {
             if (!user.getUser_email().equals(email) || !user.getUser_password().equals(password)) return false;
             else {
                 if (rememberMeToggleButton.isSelected()) new SetRememberMeData().setData(email, password);
-                System.out.println("Logged as: ID: " + user.getUser_id() + ", e-mail: " + user.getUser_email()
-                        + ", password: " + user.getUser_password() + ", role: " + user.getUser_role());
                 UserIDHolder.setUserID(user.getUser_id());
                 return true;
             }
