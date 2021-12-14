@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class GetUser {
+    /** function to get actually log in user **/
     public static User get() throws SQLException {
         DAOUser userDao = new DAOUser();
         List<User> users = userDao.get(UserIDHolder.getUserID());

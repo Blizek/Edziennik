@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class ClearRememberMeData {
+    /** function which clean RememberMe data after logging out **/
     public void clearData(){
         JSONObject rememberMeData = new JSONObject();
         rememberMeData.put("email", "");

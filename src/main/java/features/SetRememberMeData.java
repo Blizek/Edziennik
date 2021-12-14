@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class SetRememberMeData {
+    /** function to set RememberMe data if user has selected button to JSON file **/
     public void setData(String email, String password) {
         JSONObject rememberData = new JSONObject();
         rememberData.put("email", email);

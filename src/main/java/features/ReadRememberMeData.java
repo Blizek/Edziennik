@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReadRememberMeData {
+    /** function to read RememberMe data **/
     public static List<String> readData() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         FileReader reader = new FileReader(FilesLocations.jsonRememberMeFile);
