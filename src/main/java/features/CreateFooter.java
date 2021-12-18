@@ -11,7 +11,7 @@ public class CreateFooter {
         // footer height and width and getting whole anchor pane height (to calculate where insert footer)
         final double FOOTER_HEIGHT = 70;
         final double FOOTER_WIDTH = 1200;
-        double height = pane.getHeight();
+        double height = pane.getPrefHeight();
 
         // setting for footer
         AnchorPane footer = new AnchorPane();
@@ -19,13 +19,16 @@ public class CreateFooter {
         footer.setLayoutY(height - FOOTER_HEIGHT);
         footer.setMinHeight(FOOTER_HEIGHT);
         footer.setMinWidth(FOOTER_WIDTH);
-        pane.setStyle("-fx-background-color: white;");
+        footer.setStyle("-fx-background-color: white;");
 
         // copyright information text
         Text infoText = new Text(282, 41, "App created by Błażej Naziemiec (Blizek). Copyright 2021©. All Rights Reserved.");
         infoText.setFont(Font.font("Calibri", FontWeight.NORMAL, 20));
 
         // adding copyright information to footer
-        pane.getChildren().add(infoText);
+        footer.getChildren().add(infoText);
+
+        // adding footer to pane
+        pane.getChildren().add(footer);
     }
 }
