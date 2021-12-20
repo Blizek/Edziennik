@@ -1,8 +1,9 @@
 package controller;
 
 import features.ClearRememberMeData;
-import features.CreateFooter;
-import features.CreateManageBox;
+import loaders.CreateFooter;
+import loaders.CreateLessonsSchedule;
+import loaders.CreateManageBox;
 import features.GetUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
@@ -33,7 +34,6 @@ public class HomeController {
         user = GetUser.get();
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         loggedData.setText("Logged in as: " + user.getUser_email() + " (" + user.getUser_role() + ")");
-        new CreateFooter().create(scrollAnchorPane);
         switch (user.getUser_role()) {
             case "STUDENT" -> loadStudentView();
             case "TEACHER" -> loadTeacherView();
@@ -41,6 +41,7 @@ public class HomeController {
             case "GUARDIAN" -> loadGuardianView();
             case "ADMIN" -> loadAdminView();
         }
+        new CreateFooter().create(scrollAnchorPane);
     }
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -52,19 +53,23 @@ public class HomeController {
     }
 
     private void loadStudentView() {
-
+        new CreateManageBox().create(scrollAnchorPane, "Student");
+        new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
     }
 
     private void loadTeacherView() {
         new CreateManageBox().create(scrollAnchorPane, "Manage student");
+        new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
     }
 
     private void loadPrincipalView() {
-        new CreateManageBox().create(scrollAnchorPane, "Manage student");
+        new CreateManageBox().create(scrollAnchorPane, "Manage");
+        new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
     }
 
     private void loadGuardianView() {
-
+        new CreateManageBox().create(scrollAnchorPane, "Student");
+        new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
     }
 
     private void loadAdminView() {

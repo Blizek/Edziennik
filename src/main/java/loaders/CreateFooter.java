@@ -1,4 +1,4 @@
-package features;
+package loaders;
 
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;

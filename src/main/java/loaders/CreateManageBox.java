@@ -1,4 +1,4 @@
-package features;
+package loaders;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
