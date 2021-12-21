@@ -6,4 +6,6 @@ public class FilesLocations {
     public static final String studentsIconPath = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\student.png";
 
     public static final String scheduleIconPath = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\lessons_schedule.png";
+
+    public static final String examsIconPath = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\exam.png";
 }

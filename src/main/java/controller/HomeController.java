@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import loaders.CreateNearestExams;
 import model.User;
 import routings.GoToLoginScreen;
 
@@ -42,6 +43,7 @@ public class HomeController {
             case "ADMIN" -> loadAdminView();
         }
         new CreateFooter().create(scrollAnchorPane);
+
     }
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -55,21 +57,25 @@ public class HomeController {
     private void loadStudentView() {
         new CreateManageBox().create(scrollAnchorPane, "Student");
         new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
+        new CreateNearestExams().create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
     }
 
     private void loadTeacherView() {
-        new CreateManageBox().create(scrollAnchorPane, "Manage student");
+        new CreateManageBox().create(scrollAnchorPane, "Manage students");
         new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
+        new CreateNearestExams().create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
     }
 
     private void loadPrincipalView() {
         new CreateManageBox().create(scrollAnchorPane, "Manage");
         new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
+        new CreateNearestExams().create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
     }
 
     private void loadGuardianView() {
         new CreateManageBox().create(scrollAnchorPane, "Student");
         new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
+        new CreateNearestExams().create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
     }
 
     private void loadAdminView() {
