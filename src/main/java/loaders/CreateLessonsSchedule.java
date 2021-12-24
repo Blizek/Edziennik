@@ -136,8 +136,8 @@ public class CreateLessonsSchedule {
 
         pane.getChildren().add(lessonPane);
 
-        if (lessonYPosition + 395 >= 730) {
-            pane.setPrefHeight(lessonYPosition + 600);
+        if (lessonPane.getPrefHeight() >= 265) {
+            pane.setPrefHeight(465 + lessonPane.getPrefHeight());
         }
     }
 }

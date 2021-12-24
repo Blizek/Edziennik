@@ -116,8 +116,8 @@ public class CreateNearestExams {
 
         pane.getChildren().add(examsPane);
 
-        if (315 + examsPane.getPrefHeight() >= actualPaneHeight - 150) {
-            pane.setPrefHeight(315 + examsPane.getPrefHeight() + 150);
+        if (examsPane.getPrefHeight() >= actualPaneHeight - 465) {
+            pane.setPrefHeight(465 + examsPane.getPrefHeight());
         }
     }
 }
