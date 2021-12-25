@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateLessonsSchedule {
-    List<String> sampleLessonsHours = new ArrayList<>();
-    List<String> sampleLessons = new ArrayList<>();
-    List<String> sampleLessonsPlace = new ArrayList<>();
-    List<String> sampleLessonsClasses = new ArrayList<>();
+    static List<String> sampleLessonsHours = new ArrayList<>();
+    static List<String> sampleLessons = new ArrayList<>();
+    static List<String> sampleLessonsPlace = new ArrayList<>();
+    static List<String> sampleLessonsClasses = new ArrayList<>();
 
-    public void setSampleLessons(List<String> sampleLessons) {
+    public static void setSampleLessons(List<String> sampleLessons) {
         sampleLessons.add("j.hiszpański");
         sampleLessons.add("j.hiszpański");
         sampleLessons.add("informatyka");
@@ -30,7 +30,7 @@ public class CreateLessonsSchedule {
         sampleLessons.add("matematyka");
     }
 
-    public void setSampleLessonsHours(List<String> sampleLessonsHours) {
+    public static void setSampleLessonsHours(List<String> sampleLessonsHours) {
         sampleLessonsHours.add("8.00 - 8.45");
         sampleLessonsHours.add("8.55 - 9.40");
         sampleLessonsHours.add("9.50 - 10.35");
@@ -40,7 +40,7 @@ public class CreateLessonsSchedule {
         sampleLessonsHours.add("13.35 - 14.20");
     }
 
-    public void setSampleLessonsPlace(List<String> sampleLessonsPlace) {
+    public static void setSampleLessonsPlace(List<String> sampleLessonsPlace) {
         sampleLessonsPlace.add("205");
         sampleLessonsPlace.add("205");
         sampleLessonsPlace.add("211");
@@ -50,7 +50,7 @@ public class CreateLessonsSchedule {
         sampleLessonsPlace.add("1");
     }
 
-    public void setSampleLessonsClasses(List<String> sampleLessonsClasses) {
+    public static void setSampleLessonsClasses(List<String> sampleLessonsClasses) {
         sampleLessonsClasses.add("3A");
         sampleLessonsClasses.add("3A");
         sampleLessonsClasses.add("3A");
@@ -60,7 +60,7 @@ public class CreateLessonsSchedule {
         sampleLessonsClasses.add("3gg");
     }
 
-    public void create(AnchorPane pane, String role) {
+    public static void create(AnchorPane pane, String role) {
         setSampleLessons(sampleLessons);
         setSampleLessonsPlace(sampleLessonsPlace);
         setSampleLessonsHours(sampleLessonsHours);
@@ -85,7 +85,7 @@ public class CreateLessonsSchedule {
         scheduleIcon.setFitHeight(71);
         scheduleIcon.setLayoutX(30);
         scheduleIcon.setLayoutY(14);
-        scheduleIcon.setImage(new Image(FilesLocations.scheduleIconPath));
+        scheduleIcon.setImage(new Image(FilesLocations.SCHEDULE_ICON_PATH));
 
         Line topLine = new Line();
         topLine.setLayoutX(131);
@@ -130,7 +130,7 @@ public class CreateLessonsSchedule {
         lessonPane.getChildren().add(scheduleIcon);
         lessonPane.getChildren().add(topLine);
         lessonPane.getChildren().add(bottomLine);
-        lessonPane.getChildren().add(new CreateCheckMoreButton().createButton(lessonYPosition));
+        lessonPane.getChildren().add(CreateCheckMoreButton.createButton(lessonYPosition));
 
         lessonPane.setPrefHeight(lessonYPosition + 80);
 

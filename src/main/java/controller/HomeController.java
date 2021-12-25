@@ -1,18 +1,17 @@
 package controller;
 
 import features.ClearRememberMeData;
-import loaders.CreateFooter;
-import loaders.CreateLessonsSchedule;
-import loaders.CreateManageBox;
+import loaders.*;
 import features.GetUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import loaders.CreateNearestExams;
 import model.User;
+import org.json.simple.parser.ParseException;
 import routings.GoToLoginScreen;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class HomeController {
@@ -29,9 +28,7 @@ public class HomeController {
 
     private MainController mainController;
 
-    double anchorPaneHeight = 728;
-
-    public void initialize() throws SQLException {
+    public void initialize() throws SQLException, IOException, ParseException {
         user = GetUser.get();
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         loggedData.setText("Logged in as: " + user.getUser_email() + " (" + user.getUser_role() + ")");
@@ -42,7 +39,7 @@ public class HomeController {
             case "GUARDIAN" -> loadGuardianView();
             case "ADMIN" -> loadAdminView();
         }
-        new CreateFooter().create(scrollAnchorPane);
+        CreateFooter.create(scrollAnchorPane);
 
     }
     public void setMainController(MainController mainController) {
@@ -50,35 +47,36 @@ public class HomeController {
     }
 
     public void goToLoginScreen() {
-        new ClearRememberMeData().clearData();
+        ClearRememberMeData.clearData();
         new GoToLoginScreen().runThis(mainController);
     }
 
     private void loadStudentView() {
-        new CreateManageBox().create(scrollAnchorPane, "Student");
-        new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
-        new CreateNearestExams().create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
+        CreateManageBox.create(scrollAnchorPane, "Student");
+        CreateLessonsSchedule.create(scrollAnchorPane, user.getUser_role());
+        CreateNearestExams.create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
     }
 
     private void loadTeacherView() {
-        new CreateManageBox().create(scrollAnchorPane, "Manage students");
-        new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
-        new CreateNearestExams().create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
+        CreateManageBox.create(scrollAnchorPane, "Manage students");
+        CreateLessonsSchedule.create(scrollAnchorPane, user.getUser_role());
+        CreateNearestExams.create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
     }
 
     private void loadPrincipalView() {
-        new CreateManageBox().create(scrollAnchorPane, "Manage");
-        new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
-        new CreateNearestExams().create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
+        CreateManageBox.create(scrollAnchorPane, "Manage");
+        CreateLessonsSchedule.create(scrollAnchorPane, user.getUser_role());
+        CreateNearestExams.create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
     }
 
     private void loadGuardianView() {
-        new CreateManageBox().create(scrollAnchorPane, "Student");
-        new CreateLessonsSchedule().create(scrollAnchorPane, user.getUser_role());
-        new CreateNearestExams().create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
+        CreateManageBox.create(scrollAnchorPane, "Student");
+        CreateLessonsSchedule.create(scrollAnchorPane, user.getUser_role());
+        CreateNearestExams.create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
     }
 
-    private void loadAdminView() {
-        new CreateManageBox().create(scrollAnchorPane, "Manage");
+    private void loadAdminView() throws IOException, ParseException {
+        CreateManageBox.create(scrollAnchorPane, "Manage");
+        CreateCheckingPasswordFormatBox.create(scrollAnchorPane);
     }
 }

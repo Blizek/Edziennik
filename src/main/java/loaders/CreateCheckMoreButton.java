@@ -7,7 +7,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 
 public class CreateCheckMoreButton {
-    public JFXButton createButton(int YPosition) {
+    public static JFXButton createButton(int YPosition) {
         JFXButton checkMore = new JFXButton();
 
         checkMore.setLayoutX(74);

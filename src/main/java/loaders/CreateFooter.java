@@ -7,7 +7,7 @@ import javafx.scene.text.Text;
 
 public class CreateFooter {
     /** function to create footer in every screen in app **/
-    public void create(AnchorPane pane) {
+    public static void create(AnchorPane pane) {
         // footer height and width and getting whole anchor pane height (to calculate where insert footer)
         final double FOOTER_HEIGHT = 70;
         final double FOOTER_WIDTH = 1200;

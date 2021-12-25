@@ -11,7 +11,7 @@ import javafx.scene.text.TextAlignment;
 import locations.FilesLocations;
 
 public class CreateManageBox {
-    public void create(AnchorPane pane, String text) {
+    public static void create(AnchorPane pane, String text) {
         AnchorPane manageBox = new AnchorPane();
 
         manageBox.setPrefWidth(479);
@@ -31,7 +31,7 @@ public class CreateManageBox {
         studentIcon.setFitWidth(124);
         studentIcon.setLayoutX(23);
         studentIcon.setLayoutY(29);
-        studentIcon.setImage(new Image(FilesLocations.studentsIconPath));
+        studentIcon.setImage(new Image(FilesLocations.STUDENTS_ICON_PATH));
 
         manageBox.getChildren().add(manageText);
         manageBox.getChildren().add(studentIcon);

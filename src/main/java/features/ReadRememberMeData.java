@@ -14,7 +14,7 @@ public class ReadRememberMeData {
     /** function to read RememberMe data **/
     public static List<String> readData() throws IOException, ParseException {
         JSONParser parser = new JSONParser();
-        FileReader reader = new FileReader(FilesLocations.jsonRememberMeFile);
+        FileReader reader = new FileReader(FilesLocations.JSON_REMEMBER_ME_FILE);
 
         Object obj = parser.parse(reader);
 

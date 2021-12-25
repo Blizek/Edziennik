@@ -22,7 +22,7 @@ public class LoggingAlgorithm {
             if (!user.getUser_email().equals(email) || !user.getUser_password().equals(password)) return false;
             else {
                 // if RememberMeToggleButton is selected remember user's data and after that log to app
-                if (rememberMeToggleButton.isSelected()) new SetRememberMeData().setData(email, password);
+                if (rememberMeToggleButton.isSelected()) SetRememberMeData.setData(email, password);
                 UserIDHolder.setUserID(user.getUser_id());
                 return true;
             }

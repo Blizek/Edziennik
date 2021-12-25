@@ -11,37 +11,36 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import locations.FilesLocations;
 
-import java.text.FieldPosition;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreateNearestExams {
-    List<String> sampleExam = new ArrayList<>();
-    List<String> sampleExamDay = new ArrayList<>();
-    List<String> sampleClass = new ArrayList<>();
+    static List<String> sampleExam = new ArrayList<>();
+    static List<String> sampleExamDay = new ArrayList<>();
+    static List<String> sampleClass = new ArrayList<>();
 
-    public void setSampleClass(List<String> sampleClass) {
+    public static void setSampleClass(List<String> sampleClass) {
         sampleClass.add("1A");
         sampleClass.add("3A");
         sampleClass.add("2G");
         sampleClass.add("3Bg");
     }
 
-    public void setSampleExam(List<String> sampleExam) {
+    public static void setSampleExam(List<String> sampleExam) {
         sampleExam.add("informatyka");
         sampleExam.add("matmematyka");
         sampleExam.add("j.polski");
         sampleExam.add("geografia");
     }
 
-    public void setSampleExamDay(List<String> sampleExamDay) {
+    public static void setSampleExamDay(List<String> sampleExamDay) {
         sampleExamDay.add("8.00 Monday");
         sampleExamDay.add("8.00 Monday");
         sampleExamDay.add("8.00 Monday");
         sampleExamDay.add("8.00 Monday");
     }
 
-    public void create(AnchorPane pane, String role, double actualPaneHeight) {
+    public static void create(AnchorPane pane, String role, double actualPaneHeight) {
         setSampleExamDay(sampleExamDay);
         setSampleClass(sampleClass);
         setSampleExam(sampleExam);
@@ -65,7 +64,7 @@ public class CreateNearestExams {
         examsIcon.setFitHeight(71);
         examsIcon.setLayoutX(29);
         examsIcon.setLayoutY(14);
-        examsIcon.setImage(new Image(FilesLocations.examsIconPath));
+        examsIcon.setImage(new Image(FilesLocations.EXAMS_ICON_PATH));
 
         Line topLine = new Line();
         topLine.setLayoutX(131);
@@ -110,7 +109,7 @@ public class CreateNearestExams {
         examsPane.getChildren().add(theNearestExamsText);
         examsPane.getChildren().add(topLine);
         examsPane.getChildren().add(bottomLine);
-        examsPane.getChildren().add(new CreateCheckMoreButton().createButton(examYPosition));
+        examsPane.getChildren().add(CreateCheckMoreButton.createButton(examYPosition));
 
         examsPane.setPrefHeight(examYPosition + 80);
 
