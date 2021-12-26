@@ -39,11 +39,16 @@
                   <Font name="Calibri" size="25.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="userPassword" layoutX="13.0" layoutY="98.0" prefHeight="46.0" prefWidth="391.0" promptText="Password" style="-fx-text-inner-color: #3c56bc; -fx-prompt-text-fill: #3c56bc; -fx-background-color: white;">
+            <PasswordField fx:id="userPassword" layoutX="13.0" layoutY="97.0" prefHeight="46.0" prefWidth="391.0" promptText="Password" style="-fx-text-inner-color: #3c56bc; -fx-prompt-text-fill: #3c56bc; -fx-background-color: white;">
                <font>
                   <Font name="Calibri" size="25.0" />
                </font>
             </PasswordField>
+            <TextField fx:id="uncoverPassword" layoutX="13.0" layoutY="97.0" prefHeight="46.0" prefWidth="391.0" promptText="Password" style="-fx-text-inner-color: #3c56bc; -fx-prompt-text-fill: #3c56bc; -fx-background-color: white;" visible="false">
+               <font>
+                  <Font name="Calibri" size="25.0" />
+               </font>
+            </TextField>
             <Line endX="303.0" endY="-1.0" layoutX="101.0" layoutY="68.0" startX="-88.0" startY="-1.0" stroke="#3c56bc" strokeWidth="2.0" />
             <Line endX="293.0" endY="66.0" layoutX="111.0" layoutY="78.0" startX="-98.0" startY="66.0" stroke="#3c56bc" strokeWidth="2.0" />
             <JFXToggleButton fx:id="rememberMeToggleButton" layoutX="180.0" layoutY="188.0" prefHeight="64.0" prefWidth="231.0" style="-fx-background-color: white;" text="Remember me" textFill="#3c56bc" toggleColor="#3c56bc" toggleLineColor="#0080ff">
@@ -61,6 +66,16 @@
                   <Font name="Calibri" size="18.0" />
                </font>
             </Text>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="passwordViewIcon" fitHeight="24.0" fitWidth="48.0" layoutX="1081.0" layoutY="263.0" onMouseClicked="#changePasswordView" onMouseEntered="#showInfoAboutIcon" onMouseExited="#hideInfoAboutIcon" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/cover_password.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="iconInformation" layoutX="1119.0" layoutY="221.0" prefHeight="45.0" prefWidth="74.0" style="-fx-background-color: #4E4A4A; -fx-background-radius: 15; -fx-border-radius: 15;" visible="false">
+         <children>
+            <Text fx:id="iconInformationText" fill="#fffefe" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="73.44140625" />
          </children>
       </AnchorPane>
    </children>

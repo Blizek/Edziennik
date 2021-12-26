@@ -12,4 +12,10 @@ public class FilesLocations {
     public static final String EXAMS_ICON_PATH = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\exam.png";
 
     public static final String PASSWORD_FORMAT_ICON_PATH = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\password_format.png";
+
+    public static final String COVER_PASSWORD_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\cover_password.png";
+
+    public static final String UNCOVER_PASSWORD_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\uncover_password.png";
+
+    public static final String ENTERED_MOUSE_PASSWORD_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\entered_mouse_password.png";
 }
