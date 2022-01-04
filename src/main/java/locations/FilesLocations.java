@@ -18,4 +18,8 @@ public class FilesLocations {
     public static final String UNCOVER_PASSWORD_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\uncover_password.png";
 
     public static final String ENTERED_MOUSE_PASSWORD_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\entered_mouse_password.png";
+
+    public static final String CLOSE_FOLDER_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\close_folder.png";
+
+    public static final String OPEN_FOLDER_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\open_folder.png";
 }

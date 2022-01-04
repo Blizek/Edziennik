@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mainAnchorPane" maxHeight="800.0" maxWidth="1200.0" minHeight="800.0" minWidth="1200.0" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #3c56bc;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EmailController">
+   <children>
+      <AnchorPane prefHeight="71.0" prefWidth="1200.0" style="-fx-background-color: white; -fx-border-color: #3c56bc; -fx-border-width: 5;">
+         <children>
+            <JFXButton layoutX="1008.0" layoutY="17.0" onAction="#goToHomeScreen" prefHeight="31.0" prefWidth="153.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 15; -fx-border-radius: 15;" text="Home" textFill="WHITE">
+               <font>
+                  <Font name="Calibri Bold" size="20.0" />
+               </font>
+            </JFXButton>
+            <Text fx:id="loggedData" fill="#3c56bc" layoutX="22.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Logged in as:" wrappingWidth="806.13671875">
+               <font>
+                  <Font name="Calibri" size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="71.0" prefHeight="660.0" prefWidth="260.0" style="-fx-background-color: white; -fx-border-color: #3c56bc; -fx-border-width: 5;">
+         <children>
+            <AnchorPane fx:id="receivedMailsPane" layoutX="28.0" layoutY="224.0" prefHeight="71.0" prefWidth="206.0" style="-fx-border-color: #3c56bc; -fx-border-width: 2; -fx-border-radius: 5;">
+               <children>
+                  <AnchorPane fx:id="receivedBox" layoutX="11.0" layoutY="14.0" onMouseClicked="#setReceivedPaneHeight" prefHeight="22.0" prefWidth="184.0">
+                     <children>
+                        <ImageView fx:id="receivedIcon" fitHeight="22.0" fitWidth="29.0" layoutX="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/close_folder.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#3c56bc" layoutX="59.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Received" wrappingWidth="100.0">
+                           <font>
+                              <Font name="Calibri" size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="receivedPeriods" layoutY="27.0" prefHeight="0.0" prefWidth="200.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="8.0" layoutY="22.0" prefHeight="192.0" prefWidth="115.0" style="-fx-background-color: #FFE600; -fx-border-color: black; -fx-border-width: 5;">
+               <children>
+                  <Text layoutX="13.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MESSAGE" textAlignment="CENTER" wrappingWidth="100.0">
+                     <font>
+                        <Font name="Calibri Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="105.0" fitWidth="100.0" layoutX="12.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/message.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="140.0" layoutY="22.0" prefHeight="192.0" prefWidth="115.0" style="-fx-background-color: #3c56bc; -fx-border-color: black; -fx-border-width: 5;">
+               <children>
+                  <Text fill="WHITE" layoutX="16.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEW MESSAGE" textAlignment="CENTER" wrappingWidth="90.0">
+                     <font>
+                        <Font name="Calibri Bold" size="15.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="105.0" fitWidth="100.0" layoutX="12.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/new_message.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="sentMailsPane" layoutX="28.0" layoutY="312.0" prefHeight="71.0" prefWidth="206.0" style="-fx-border-color: #3c56bc; -fx-border-width: 2; -fx-border-radius: 5;">
+               <children>
+                  <AnchorPane fx:id="sentBox" layoutX="11.0" layoutY="14.0" onMouseClicked="#setSentPaneHeight" prefHeight="22.0" prefWidth="184.0">
+                     <children>
+                        <ImageView fx:id="sentIcon" fitHeight="22.0" fitWidth="29.0" layoutX="9.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/close_folder.png" />
+                           </image>
+                        </ImageView>
+                        <Text fill="#3c56bc" layoutX="59.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sent" wrappingWidth="100.0">
+                           <font>
+                              <Font name="Calibri" size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="sentPeriods" layoutY="27.0" prefHeight="0.0" prefWidth="200.0" />
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+      <ScrollPane fx:id="listOfMailsScroll" layoutX="272.0" layoutY="71.0" prefHeight="263.0" prefWidth="922.0" style="-fx-border-color: #3c56bc; -fx-border-width: 5;">
+        <content>
+          <AnchorPane fx:id="listOfMailsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="251.0" prefWidth="897.0" style="-fx-background-color: white;">
+               <children>
+                  <AnchorPane layoutX="5.0" prefHeight="30.0" prefWidth="294.0" style="-fx-background-color: #DBDBDB; -fx-border-color: black; -fx-border-width: 2;">
+                     <children>
+                        <Text layoutX="77.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sender" textAlignment="CENTER" wrappingWidth="145.13671875">
+                           <font>
+                              <Font name="Calibri" size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="299.0" prefHeight="30.0" prefWidth="294.0" style="-fx-background-color: #DBDBDB; -fx-border-color: black; -fx-border-width: 2;">
+                     <children>
+                        <Text layoutX="72.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject" textAlignment="CENTER" wrappingWidth="163.09765625">
+                           <font>
+                              <Font name="Calibri" size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane layoutX="593.0" prefHeight="30.0" prefWidth="294.0" style="-fx-background-color: #DBDBDB; -fx-border-color: black; -fx-border-width: 2;">
+                     <children>
+                        <Text layoutX="72.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" textAlignment="CENTER" wrappingWidth="189.0">
+                           <font>
+                              <Font name="Calibri" size="20.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <ScrollPane fx:id="mailTextScroll" layoutX="272.0" layoutY="334.0" prefHeight="396.0" prefWidth="922.0" style="-fx-border-color: #3c56bc; -fx-border-width: 5;">
+        <content>
+          <AnchorPane fx:id="mailTextAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="384.0" prefWidth="897.0" style="-fx-background-color: white;">
+               <children>
+                  <AnchorPane prefHeight="100.0" prefWidth="912.0" style="-fx-background-color: #DBDBDB;">
+                     <children>
+                        <Text fx:id="mailSubjectText" layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="500.0">
+                           <font>
+                              <Font name="Calibri" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="mailDateText" layoutX="14.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="500.0">
+                           <font>
+                              <Font name="Calibri" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="mailSenderText" layoutX="14.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="500.0">
+                           <font>
+                              <Font name="Calibri" size="18.0" />
+                           </font>
+                        </Text>
+                        <Text fx:id="mailRecipientsText" layoutX="14.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="500.0">
+                           <font>
+                              <Font name="Calibri" size="18.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </AnchorPane>
+                  <Text fx:id="mailText" layoutX="3.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="890.13671875">
+                     <font>
+                        <Font name="Calibri" size="22.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

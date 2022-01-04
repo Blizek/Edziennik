@@ -29,6 +29,11 @@ public class DAOPrincipal implements DAO<Principal> {
         return principalDatabaseCommends(sql);
     }
 
+    public List<Principal> getByUserID(int id) throws SQLException {
+        String sql = "SELECT * FROM principal WHERE user_id = " + id;
+        return principalDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Principal principal) throws SQLException {
         int principal_id = principal.getPrincipal_id();

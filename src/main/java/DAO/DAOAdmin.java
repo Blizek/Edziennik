@@ -29,31 +29,36 @@ public class DAOAdmin implements DAO<Admin>{
         return adminDatabaseCommends(sql);
     }
 
+    public List<Admin> getByUserID(int id) throws SQLException {
+        String sql = "SELECT * FROM admin WHERE user_id = " + id;
+        return adminDatabaseCommends(sql);
+    }
+
     @Override
-    public void save(Admin daoAdmin) throws SQLException {
-        int admin_id = daoAdmin.getAdmin_id();
-        int user_id = daoAdmin.getUser_id();
-        String name = daoAdmin.getAdmin_name();
-        String surname = daoAdmin.getAdmin_surname();
+    public void save(Admin admin) throws SQLException {
+        int admin_id = admin.getAdmin_id();
+        int user_id = admin.getUser_id();
+        String name = admin.getAdmin_name();
+        String surname = admin.getAdmin_surname();
         String sql = "INSERT INTO admin (admin_id, user_id, admin_name, admin_surname) VALUES (" + admin_id + ", " + user_id +
                 ", '" + name + "', '" + surname + "')";
         statement.executeUpdate(sql);
     }
 
     @Override
-    public void update(Admin daoAdmin) throws SQLException {
-        int new_admin_id = daoAdmin.getAdmin_id();
-        int new_user_id = daoAdmin.getUser_id();
-        String new_admin_name = daoAdmin.getAdmin_name();
-        String new_admin_surname = daoAdmin.getAdmin_surname();
+    public void update(Admin admin) throws SQLException {
+        int new_admin_id = admin.getAdmin_id();
+        int new_user_id = admin.getUser_id();
+        String new_admin_name = admin.getAdmin_name();
+        String new_admin_surname = admin.getAdmin_surname();
         String sql = "UPDATE admin SET admin_id = " + new_admin_id +", user_id = " + new_user_id + ", admin_name = '" +
                 new_admin_name + "', admin_surname = '" + new_admin_surname + "' WHERE admin_id = " + new_admin_id;
         statement.executeUpdate(sql);
     }
 
     @Override
-    public void delete(Admin daoAdmin) throws SQLException {
-        int admin_id = daoAdmin.getAdmin_id();
+    public void delete(Admin admin) throws SQLException {
+        int admin_id = admin.getAdmin_id();
         String sql = "DELETE FROM admin WHERE admin_id = " + admin_id;
         statement.executeUpdate(sql);
     }

@@ -1,18 +1,27 @@
 package controller;
 
 import features.ClearRememberMeData;
+import features.GetAllMailsToUser;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import loaders.*;
 import features.GetUser;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import model.Email;
 import model.User;
 import org.json.simple.parser.ParseException;
+import routings.GoToEmailScreen;
 import routings.GoToLoginScreen;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class HomeController {
     @FXML
@@ -39,8 +48,9 @@ public class HomeController {
             case "GUARDIAN" -> loadGuardianView();
             case "ADMIN" -> loadAdminView();
         }
+        List<Email> notOpenMails = GetAllMailsToUser.getNotOpened(user.getUser_id());
+        if (notOpenMails.size() > 0) CreateNotOpenedMailsCount.createNotOpenedMailsCount(notOpenMails.size(), scrollAnchorPane);
         CreateFooter.create(scrollAnchorPane);
-
     }
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -78,5 +88,9 @@ public class HomeController {
     private void loadAdminView() throws IOException, ParseException {
         CreateManageBox.create(scrollAnchorPane, "Manage");
         CreateCheckingPasswordFormatBox.create(scrollAnchorPane);
+    }
+
+    public void goToEmailScreen() {
+        new GoToEmailScreen().runThis(mainController);
     }
 }

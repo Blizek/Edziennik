@@ -27,6 +27,11 @@ public class DAOGuardian implements DAO<Guardian> {
         return guardianDatabaseCommends(sql);
     }
 
+    public List<Guardian> getByUserID(int id) throws SQLException {
+        String sql = "SELECT * FROM guardian WHERE user_id = " + id;
+        return guardianDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Guardian guardian) throws SQLException {
         int guardian_id = guardian.getGuardian_id();
