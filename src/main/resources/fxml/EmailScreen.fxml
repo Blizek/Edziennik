@@ -132,35 +132,7 @@
         <content>
           <AnchorPane fx:id="mailTextAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="384.0" prefWidth="897.0" style="-fx-background-color: white;">
                <children>
-                  <AnchorPane prefHeight="100.0" prefWidth="912.0" style="-fx-background-color: #DBDBDB;">
-                     <children>
-                        <Text fx:id="mailSubjectText" layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="500.0">
-                           <font>
-                              <Font name="Calibri" size="18.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="mailDateText" layoutX="14.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="500.0">
-                           <font>
-                              <Font name="Calibri" size="18.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="mailSenderText" layoutX="14.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="500.0">
-                           <font>
-                              <Font name="Calibri" size="18.0" />
-                           </font>
-                        </Text>
-                        <Text fx:id="mailRecipientsText" layoutX="14.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="500.0">
-                           <font>
-                              <Font name="Calibri" size="18.0" />
-                           </font>
-                        </Text>
-                     </children>
-                  </AnchorPane>
-                  <Text fx:id="mailText" layoutX="3.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="890.13671875">
-                     <font>
-                        <Font name="Calibri" size="22.0" />
-                     </font>
-                  </Text>
+                  <AnchorPane prefHeight="100.0" prefWidth="912.0" style="-fx-background-color: #DBDBDB;" />
                </children>
             </AnchorPane>
         </content>

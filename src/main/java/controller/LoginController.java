@@ -57,7 +57,9 @@ public class LoginController {
 
     public void checkData() throws SQLException {
         String emailAddress = userEmail.getText();
-        String password = userPassword.getText();
+        String password = "";
+        if (userPassword.isVisible()) password = userPassword.getText();
+        else password = uncoverPassword.getText();
         boolean result = LoggingAlgorithm.algorithm(emailAddress, password, rememberMeToggleButton);
 
         if (!result) wrongDataText.setVisible(true);

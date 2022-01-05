@@ -14,7 +14,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class AddPeriodsEmailScreen {
-    public static void addPeriods(AnchorPane paneForPeriods, String isReceived, AnchorPane listOfMailsPane, List<Text> texts, AnchorPane paneForMail) {
+    public static void addPeriods(AnchorPane paneForPeriods, String isReceived, AnchorPane listOfMailsPane, AnchorPane paneForMail) {
         PossibleMailsDates.setPossibleMailsDate(PossibleMailsDates.possibleMailsDate);
 
         for (int i = 0; i < 5; i++) {
@@ -31,7 +31,7 @@ public class AddPeriodsEmailScreen {
 
             EmailController.focusOnBox(period);
             EmailController.notFocusOnBox(period);
-            SetEmailPeriods.setEmailPeriodList(period, listOfMailsPane, texts, paneForMail);
+            SetEmailPeriods.setEmailPeriodList(period, listOfMailsPane, paneForMail);
 
             period.getChildren().add(periodText);
             paneForPeriods.getChildren().add(period);

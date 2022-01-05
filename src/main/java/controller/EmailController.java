@@ -1,9 +1,6 @@
 package controller;
 
-import DAO.DAOEmail;
-import features.CalculateDaysBack;
 import features.GetUser;
-import loaders.CreateMailsPane;
 import loaders.SetPaneHeightEmailScreen;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,27 +10,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import loaders.CreateFooter;
-import model.Email;
 import model.User;
 import routings.GoToHomeScreen;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class EmailController {
     @FXML
     Text loggedData;
 
     @FXML
-    Text mailSubjectText, mailDateText, mailSenderText, mailRecipientsText, mailText;
-
-    @FXML
     AnchorPane mainAnchorPane, receivedMailsPane, sentMailsPane, receivedBox, sentBox, receivedPeriods, sentPeriods,
-                listOfMailsAnchorPane;
-
-    @FXML
-    AnchorPane mailTextAnchorPane;
+                listOfMailsAnchorPane, mailTextAnchorPane;
 
     @FXML
     ImageView receivedIcon, sentIcon;
@@ -45,11 +33,7 @@ public class EmailController {
 
     private MainController mainController;
 
-    List<Text> mailTexts = new ArrayList<>();
-
     public void initialize() throws SQLException {
-        setMailTexts(mailTexts);
-
         user = GetUser.get();
         loggedData.setText("Logged in as: " + user.getUser_email() + " (" + user.getUser_role() + ")");
         CreateFooter.create(mainAnchorPane);
@@ -66,13 +50,6 @@ public class EmailController {
         mailTextScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
     }
 
-    public void setMailTexts(List<Text> mailTexts) {
-        mailTexts.add(mailSubjectText);
-        mailTexts.add(mailDateText);
-        mailTexts.add(mailSenderText);
-        mailTexts.add(mailRecipientsText);
-        mailTexts.add(mailText);
-    }
 
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
@@ -93,10 +70,10 @@ public class EmailController {
     }
 
     public void setReceivedPaneHeight() throws SQLException {
-        SetPaneHeightEmailScreen.setPaneHeight(receivedMailsPane, sentMailsPane, receivedPeriods, receivedIcon, true, listOfMailsAnchorPane, mailTexts, mailTextAnchorPane);
+        SetPaneHeightEmailScreen.setPaneHeight(receivedMailsPane, sentMailsPane, receivedPeriods, receivedIcon, true, listOfMailsAnchorPane, mailTextAnchorPane);
     }
 
     public void setSentPaneHeight() throws SQLException {
-        SetPaneHeightEmailScreen.setPaneHeight(sentMailsPane, receivedMailsPane, sentPeriods, sentIcon, false, listOfMailsAnchorPane, mailTexts, mailTextAnchorPane);
+        SetPaneHeightEmailScreen.setPaneHeight(sentMailsPane, receivedMailsPane, sentPeriods, sentIcon, false, listOfMailsAnchorPane, mailTextAnchorPane);
     }
 }

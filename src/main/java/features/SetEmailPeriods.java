@@ -6,14 +6,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import loaders.CreateMailsPane;
+import model.Email;
 import variables.ListOfEmails;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SetEmailPeriods {
-    public static void setEmailPeriodList(AnchorPane box, AnchorPane listOfMailsPane, List<Text> texts, AnchorPane paneForMail) {
+    public static void setEmailPeriodList(AnchorPane box, AnchorPane listOfMailsPane, AnchorPane paneForMail) {
         EventHandler<MouseEvent> getMails = e -> {
             String startDay, finishDay;
             String id = box.getId();
@@ -36,7 +38,8 @@ public class SetEmailPeriods {
 
             try {
                 ListOfEmails.emails = GetEmailsFromPeriod.get(startDay, finishDay);
-                CreateMailsPane.create(ListOfEmails.emails, listOfMailsPane, texts, paneForMail);
+                List<Email> emailsForUser = GetAllMailForUserInPeriod.get(ListOfEmails.emails, GetUser.get().getUser_id(), id.endsWith("true"));
+                CreateMailsPane.create(emailsForUser, listOfMailsPane, paneForMail);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
