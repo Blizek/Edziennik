@@ -1,17 +1,14 @@
 package features;
 
-import controller.EmailController;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import loaders.CreateMailsPane;
 import model.Email;
 import variables.ListOfEmails;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SetEmailPeriods {

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="mailPane" prefHeight="787.0" prefWidth="739.0" style="-fx-background-color: white; -fx-border-color: #3c56bc; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MailWritingController">
+   <children>
+      <Text layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="To: " wrappingWidth="350.0">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Text>
+      <JFXButton layoutX="393.0" layoutY="12.0" onAction="#goToManageReceiversPane" prefHeight="44.0" prefWidth="165.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Manage receivers" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="568.0" layoutY="12.0" onAction="#GoToShowAllReceiversScreen" prefHeight="44.0" prefWidth="165.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Show receivers" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="15.0" />
+         </font>
+      </JFXButton>
+      <TextField fx:id="mailSubject" layoutX="87.0" layoutY="67.0" prefHeight="25.0" prefWidth="548.0" style="-fx-background-color: white;">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </TextField>
+      <Text layoutX="14.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject:" wrappingWidth="72.9140625">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Text>
+      <Line endX="447.0" layoutX="188.0" layoutY="104.0" startX="-100.0" stroke="#3c56bc" strokeWidth="3.0" />
+      <TextArea fx:id="mailText" layoutX="14.0" layoutY="154.0" prefHeight="544.0" prefWidth="713.0" style="-fx-background-color: white; -fx-border-color: #3c56bc; -fx-border-width: 3; -fx-border-radius: 5; -fx-background-radius: 5;" wrapText="true">
+         <font>
+            <Font name="Calibri" size="22.0" />
+         </font>
+      </TextArea>
+      <Text layoutX="14.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text:" wrappingWidth="200.0">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </Text>
+      <JFXButton layoutX="272.0" layoutY="711.0" onAction="#sendMail" prefHeight="54.0" prefWidth="200.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Send" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="25.0" />
+         </font>
+      </JFXButton>
+      <Text fx:id="receiverErrorText" fill="RED" layoutX="14.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You can't send mail if there's no receivers" visible="false" wrappingWidth="278.0">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="mailTextError" fill="RED" layoutX="141.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your mesage has to have more than 0 words!" visible="false" wrappingWidth="577.13671875">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

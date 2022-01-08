@@ -12,7 +12,9 @@ import javafx.scene.text.Text;
 import loaders.CreateFooter;
 import model.User;
 import routings.GoToHomeScreen;
+import routings.MailWritingMain;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class EmailController {
@@ -69,11 +71,15 @@ public class EmailController {
         box.addEventHandler(MouseEvent.MOUSE_EXITED, notFocus);
     }
 
-    public void setReceivedPaneHeight() throws SQLException {
+    public void setReceivedPaneHeight() {
         SetPaneHeightEmailScreen.setPaneHeight(receivedMailsPane, sentMailsPane, receivedPeriods, receivedIcon, true, listOfMailsAnchorPane, mailTextAnchorPane);
     }
 
-    public void setSentPaneHeight() throws SQLException {
+    public void setSentPaneHeight() {
         SetPaneHeightEmailScreen.setPaneHeight(sentMailsPane, receivedMailsPane, sentPeriods, sentIcon, false, listOfMailsAnchorPane, mailTextAnchorPane);
+    }
+
+    public void setMailWritingScreen() throws IOException {
+        new MailWritingMain().runThis();
     }
 }

@@ -4,6 +4,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
+import locations.FilesLocations;
 
 
 public class Main extends Application {
@@ -20,10 +22,16 @@ public class Main extends Application {
 
         Scene scene = new Scene(anchorPane);
         stage.setScene(scene);
-        stage.getIcons().add(new Image("/images/logo.png"));
+        stage.getIcons().add(new Image(FilesLocations.LOGO));
         stage.setTitle("Electronic School Diary");
         stage.setResizable(false);
 
+        stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeAppByExitButton);
+
         stage.show();
+    }
+
+    private void closeAppByExitButton(WindowEvent event) {
+        System.exit(0);
     }
 }

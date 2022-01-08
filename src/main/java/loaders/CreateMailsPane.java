@@ -1,10 +1,8 @@
 package loaders;
 
 import DAO.DAOEmail;
-import DAO.DAOUser;
-import controller.EmailController;
+import features.GetUser;
 import features.GetUserNameAndRole;
-import features.GetUserNameAndSurname;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -13,13 +11,11 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.Email;
-import model.User;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class CreateMailsPane {
-
     public static void create(List<Email> emails, AnchorPane paneToAdd, AnchorPane mailTextPane) throws SQLException {
         paneToAdd.getChildren().clear();
         CreateTopInfoBarsInMailList.create(paneToAdd);
@@ -39,7 +35,8 @@ public class CreateMailsPane {
                 mailPane.setId(Integer.toString(email.getEmail_id()));
 
                 FontWeight fontWeight;
-                if (email.isEmail_received()) fontWeight = FontWeight.NORMAL;
+                if (email.isEmail_received() || email.getSender_user_id() == GetUser.get().getUser_id())
+                    fontWeight = FontWeight.NORMAL;
                 else fontWeight = FontWeight.BOLD;
 
                 TextAlignment textAlignment = TextAlignment.LEFT;
@@ -72,7 +69,8 @@ public class CreateMailsPane {
                         Email emailToOpen = new DAOEmail().get(emailId).get(0);
                         emailToOpen.setEmail_received(true);
                         FillMailText.fill(emailToOpen, mailTextPane);
-                        new DAOEmail().update(emailToOpen);
+                        if (emailToOpen.getSender_user_id() != GetUser.get().getUser_id())
+                            new DAOEmail().update(emailToOpen);
                     } catch (SQLException throwables) {
                         throwables.printStackTrace();
                     }

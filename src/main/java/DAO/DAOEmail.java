@@ -53,7 +53,7 @@ public class DAOEmail implements DAO<Email> {
         int recipient_user_id = email.getRecipient_user_id();
         String email_subject = email.getEmail_subject();
         String email_text = email.getEmail_text();
-        Timestamp email_send_date = email.getEmail_send_date();
+        String email_send_date = email.getEmail_send_date().toString().substring(0, 19);
         boolean email_received = email.isEmail_received();
         String sql = "INSERT INTO email (email_id, sender_user_id, recipient_user_id, email_subject, email_text, email_send_date, email_received) VALUES ("
                 + email_id + ", " + sender_user_id + ", " + recipient_user_id + ", '" + email_subject + "', '" + email_text
@@ -68,7 +68,7 @@ public class DAOEmail implements DAO<Email> {
         int new_recipient_user_id = email.getRecipient_user_id();
         String new_email_subject = email.getEmail_subject();
         String new_email_text = email.getEmail_text();
-        Timestamp new_email_send_date = email.getEmail_send_date();
+        String new_email_send_date = email.getEmail_send_date().toString().substring(0, 19);
         boolean new_email_received = email.isEmail_received();
         String sql = "UPDATE email SET email_id = " + new_email_id + ", sender_user_id = " + new_sender_user_id + ", recipient_user_id = "
                 + new_recipient_user_id + ", email_subject = '" + new_email_subject + "', email_text = '" + new_email_text

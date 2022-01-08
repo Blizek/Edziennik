@@ -5,6 +5,8 @@ public class FilesLocations {
 
     public static final String JSON_CHECKING_PASSWORD_FORMAT_DATA = System.getProperty("user.dir") + "\\src\\main\\JSON\\CheckingPasswordFormat.json";
 
+    public static final String LOGO = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\logo.png";
+
     public static final String STUDENTS_ICON_PATH = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\student.png";
 
     public static final String SCHEDULE_ICON_PATH = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\lessons_schedule.png";
@@ -22,4 +24,8 @@ public class FilesLocations {
     public static final String CLOSE_FOLDER_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\close_folder.png";
 
     public static final String OPEN_FOLDER_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\open_folder.png";
+
+    public static final String PLUS_RECEIVER_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\plus_receiver_icon.png";
+
+    public static final String MINUS_RECEIVER_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\minus_receiver_icon.png";
 }

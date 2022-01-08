@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="787.0" prefWidth="532.0" style="-fx-background-color: white; -fx-border-color: #3c56bc; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageReceiversController">
+   <children>
+      <JFXButton fx:id="addAll" disable="true" layoutX="30.0" layoutY="23.0" onAction="#addAllUsers" prefHeight="62.0" prefWidth="202.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Add all to receivers" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="16.0" />
+         </font>
+      </JFXButton>
+      <ScrollPane fx:id="boxesScroll" layoutX="30.0" layoutY="201.0" prefHeight="472.0" prefWidth="475.0" style="-fx-border-color: #3c56bc; -fx-border-width: 5; -fx-border-radius: 10; -fx-background-radius: 10;">
+        <content>
+          <AnchorPane fx:id="boxesAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="459.0" prefWidth="462.0" style="-fx-background-color: white;" />
+        </content>
+      </ScrollPane>
+      <JFXButton layoutX="167.0" layoutY="699.0" onAction="#closeWindow" prefHeight="62.0" prefWidth="202.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Set" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="22.0" />
+         </font>
+      </JFXButton>
+      <Text fill="#3c56bc" layoutX="112.0" layoutY="145.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Role: " wrappingWidth="46.279296875">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Text>
+      <MenuButton fx:id="lookingRole" layoutX="165.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="252.0" style="-fx-background-color: white;" textFill="#3c56bc">
+        <items>
+            <MenuItem mnemonicParsing="false" onAction="#getAllReceivers" text="RECEIVERS" />
+          <MenuItem mnemonicParsing="false" onAction="#getAllAdmins" text="ADMIN" />
+          <MenuItem mnemonicParsing="false" onAction="#getAllStudents" text="STUDENT" />
+            <MenuItem mnemonicParsing="false" onAction="#getAllTeachers" text="TEACHER" />
+            <MenuItem mnemonicParsing="false" onAction="#getAllGuardians" text="GUARDIAN" />
+            <MenuItem mnemonicParsing="false" onAction="#getAllPrincipals" text="PRINCIPAL" />
+        </items>
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </MenuButton>
+      <Line endX="151.0" layoutX="266.0" layoutY="158.0" startX="-100.0" stroke="#3c56bc" strokeWidth="3.0" />
+      <JFXButton fx:id="removeAll" disable="true" layoutX="303.0" layoutY="23.0" onAction="#removeAllUsers" prefHeight="62.0" prefWidth="202.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Remove all from receivers" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="16.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

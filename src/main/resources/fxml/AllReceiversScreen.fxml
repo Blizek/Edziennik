@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="787.0" prefWidth="532.0" style="-fx-background-color: white; -fx-border-color: #3c56bc; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AllReceiversController">
+   <children>
+      <ScrollPane fx:id="boxesScroll" layoutX="5.0" layoutY="5.0" prefHeight="784.0" prefWidth="528.0">
+        <content>
+          <AnchorPane fx:id="boxesAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="782.0" prefWidth="526.0" style="-fx-background-color: white;" />
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

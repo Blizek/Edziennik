@@ -18,6 +18,7 @@ import model.User;
 import org.json.simple.parser.ParseException;
 import routings.GoToEmailScreen;
 import routings.GoToLoginScreen;
+import variables.ListOfReceiversID;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -38,6 +39,7 @@ public class HomeController {
     private MainController mainController;
 
     public void initialize() throws SQLException, IOException, ParseException {
+        ListOfReceiversID.receiversID.clear();
         user = GetUser.get();
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         loggedData.setText("Logged in as: " + user.getUser_email() + " (" + user.getUser_role() + ")");
