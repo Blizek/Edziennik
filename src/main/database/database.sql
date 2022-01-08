@@ -74,7 +74,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 CREATE TABLE IF NOT EXISTS `dziennik`.`school` (
   `school_id` INT NOT NULL,
   `principal_id` INT NOT NULL,
-  `school_name` VARCHAR(50) NOT NULL,
+  `school_name` VARCHAR(100) NOT NULL,
   `school_place` VARCHAR(100) NOT NULL,
   `school_email` VARCHAR(50) NOT NULL,
   `school_phone_number` VARCHAR(15) NOT NULL,
@@ -127,6 +127,33 @@ CREATE TABLE IF NOT EXISTS `dziennik`.`class` (
   CONSTRAINT `class_teacher_id_fk`
     FOREIGN KEY (`class_supervising_teacher`)
     REFERENCES `dziennik`.`teacher` (`teacher_id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `dziennik`.`email`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dziennik`.`email` (
+  `email_id` INT NOT NULL,
+  `sender_user_id` INT NOT NULL,
+  `recipient_user_id` INT NOT NULL,
+  `email_subject` VARCHAR(50) NULL DEFAULT NULL,
+  `email_text` VARCHAR(1000) NOT NULL,
+  `email_send_date` DATETIME NOT NULL,
+  `email_received` TINYINT NOT NULL,
+  PRIMARY KEY (`email_id`),
+  INDEX `user_id_1_fk_idx` (`sender_user_id` ASC) VISIBLE,
+  INDEX `user_id_2_fk_idx` (`recipient_user_id` ASC) VISIBLE,
+  CONSTRAINT `user_id_1_fk`
+    FOREIGN KEY (`sender_user_id`)
+    REFERENCES `dziennik`.`user` (`user_id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `user_id_2_fk`
+    FOREIGN KEY (`recipient_user_id`)
+    REFERENCES `dziennik`.`user` (`user_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
