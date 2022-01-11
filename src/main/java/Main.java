@@ -31,6 +31,7 @@ public class Main extends Application {
         stage.show();
     }
 
+    /** function to close whole app after clicking exit button **/
     private void closeAppByExitButton(WindowEvent event) {
         System.exit(0);
     }

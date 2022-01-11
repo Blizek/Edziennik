@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MailWritingController {
+    // variables from MailWritingScreen.fxml file
     @FXML
     TextArea mailText;
 
@@ -41,6 +42,7 @@ public class MailWritingController {
     static Text mailReceivers = new Text();
 
     public void initialize() throws SQLException {
+        // settings for mail receivers text and adding it to pane
         mailReceivers.setLayoutX(14);
         mailReceivers.setLayoutY(39);
         mailReceivers.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
@@ -51,10 +53,15 @@ public class MailWritingController {
         mailPane.getChildren().add(mailReceivers);
     }
 
+    // implemented function from MailWritingScreen.fxml
     public void goToManageReceiversPane() throws IOException {
         new ManageReceiversMain().runThis();
     }
 
+    /** function from MailWritingScreen.fxml file thanks to which user can send mail to other user. If mail text has less
+     * than 1 char, more than 1000 chars or doesn't have receivers, then it shows information about it and blocks sending
+     * @throws SQLException
+     */
     public void sendMail() throws SQLException {
         ArrayList<Integer> IDList = ListOfReceiversID.receiversID;
         int senderID = GetUser.get().getUser_id();
@@ -85,13 +92,13 @@ public class MailWritingController {
         }
     }
 
+    public void GoToShowAllReceiversScreen() throws IOException {
+        new AllReceiversMain().runThis();
+    }
+
     public static void setReceivers(Text mailReceivers) throws SQLException {
         if (ListOfReceiversID.receiversID.size() == 1) mailReceivers.setText("To: " + GetUserNameAndRole.get(ListOfReceiversID.receiversID.get(0)));
         else if (ListOfReceiversID.receiversID.size() > 1) mailReceivers.setText("To: Many receivers");
         else mailReceivers.setText("To: ");
-    }
-
-    public void GoToShowAllReceiversScreen() throws IOException {
-        new AllReceiversMain().runThis();
     }
 }

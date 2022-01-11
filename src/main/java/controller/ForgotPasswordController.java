@@ -10,6 +10,7 @@ public class ForgotPasswordController {
         this.mainController = mainController;
     }
 
+    // implemented functions from ForgotPasswordScreen.fxml file
     public void goToLoginScreen() {
         new GoToLoginScreen().runThis(mainController);
     }

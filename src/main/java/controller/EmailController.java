@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 public class EmailController {
+    // variables from EmailScreen.fxml file
     @FXML
     Text loggedData;
 
@@ -40,11 +41,13 @@ public class EmailController {
         loggedData.setText("Logged in as: " + user.getUser_email() + " (" + user.getUser_role() + ")");
         CreateFooter.create(mainAnchorPane);
 
+        // setting anchorPanes' style when cursor is on it or not
         focusOnBox(receivedBox);
         notFocusOnBox(receivedBox);
         focusOnBox(sentBox);
         notFocusOnBox(sentBox);
 
+        // scrollPanes settings
         listOfMailsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         listOfMailsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
 
@@ -52,23 +55,13 @@ public class EmailController {
         mailTextScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
     }
 
-
     public void setMainController(MainController mainController) {
         this.mainController = mainController;
     }
 
+    // implemented functions from EmailScreen.fxml file
     public void goToHomeScreen() {
         new GoToHomeScreen().runThis(mainController);
-    }
-
-    public static void focusOnBox(AnchorPane box) {
-        EventHandler<MouseEvent> focus = e -> box.setStyle("-fx-background-color: #FCEB7E");
-        box.addEventHandler(MouseEvent.MOUSE_ENTERED, focus);
-    }
-
-    public static void notFocusOnBox(AnchorPane box) {
-        EventHandler<MouseEvent> notFocus = e -> box.setStyle("-fx-background-color: #FFFFFF");
-        box.addEventHandler(MouseEvent.MOUSE_EXITED, notFocus);
     }
 
     public void setReceivedPaneHeight() {
@@ -81,5 +74,17 @@ public class EmailController {
 
     public void setMailWritingScreen() throws IOException {
         new MailWritingMain().runThis();
+    }
+
+    /** function to set style for AnchorPane if cursor is on that AnchorPane **/
+    public static void focusOnBox(AnchorPane box) {
+        EventHandler<MouseEvent> focus = e -> box.setStyle("-fx-background-color: #FCEB7E");
+        box.addEventHandler(MouseEvent.MOUSE_ENTERED, focus);
+    }
+
+    /** function to set default style for AnchorPane if cursor isn't on that AnchorPane **/
+    public static void notFocusOnBox(AnchorPane box) {
+        EventHandler<MouseEvent> notFocus = e -> box.setStyle("-fx-background-color: #FFFFFF");
+        box.addEventHandler(MouseEvent.MOUSE_EXITED, notFocus);
     }
 }
