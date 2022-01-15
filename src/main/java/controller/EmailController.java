@@ -76,13 +76,17 @@ public class EmailController {
         new MailWritingMain().runThis();
     }
 
-    /** function to set style for AnchorPane if cursor is on that AnchorPane **/
+    /** function to set style for AnchorPane if cursor is on that AnchorPane
+     * @param box
+     */
     public static void focusOnBox(AnchorPane box) {
         EventHandler<MouseEvent> focus = e -> box.setStyle("-fx-background-color: #FCEB7E");
         box.addEventHandler(MouseEvent.MOUSE_ENTERED, focus);
     }
 
-    /** function to set default style for AnchorPane if cursor isn't on that AnchorPane **/
+    /** function to set default style for AnchorPane if cursor isn't on that AnchorPane
+     * @param box
+     */
     public static void notFocusOnBox(AnchorPane box) {
         EventHandler<MouseEvent> notFocus = e -> box.setStyle("-fx-background-color: #FFFFFF");
         box.addEventHandler(MouseEvent.MOUSE_EXITED, notFocus);

@@ -17,23 +17,41 @@ public class DAOAdmin implements DAO<Admin>{
     public DAOAdmin() throws SQLException {
     }
 
+    /** function to get admin with suitable admin_id in database
+     * @param id as admin_id in table "Admin" in database
+     * @return List of suitable admins
+     * @throws SQLException
+     */
     @Override
     public List<Admin> get(int id) throws SQLException {
         String sql = "SELECT * FROM admin WHERE admin_id = " + id;
         return adminDatabaseCommends(sql);
     }
 
+    /** function to get all admins from database
+     * @return List of all admins
+     * @throws SQLException
+     */
     @Override
     public List<Admin> getAll() throws SQLException {
         String sql = "SELECT * FROM admin";
         return adminDatabaseCommends(sql);
     }
 
+    /** function to get suitable admins by their user_id
+     * @param id as user_id in table "User" in database
+     * @return List of suitable admins
+     * @throws SQLException
+     */
     public List<Admin> getByUserID(int id) throws SQLException {
         String sql = "SELECT * FROM admin WHERE user_id = " + id;
         return adminDatabaseCommends(sql);
     }
 
+    /**  function to add new admin in database
+     * @param admin as new admin in app's database
+     * @throws SQLException
+     */
     @Override
     public void save(Admin admin) throws SQLException {
         int admin_id = admin.getAdmin_id();
@@ -45,6 +63,10 @@ public class DAOAdmin implements DAO<Admin>{
         statement.executeUpdate(sql);
     }
 
+    /** function to update fields in table "Admin" in database for admin with suitable "admin_id"
+     * @param admin as admin, for who app change records
+     * @throws SQLException
+     */
     @Override
     public void update(Admin admin) throws SQLException {
         int new_admin_id = admin.getAdmin_id();

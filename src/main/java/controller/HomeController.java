@@ -2,6 +2,8 @@ package controller;
 
 import features.ClearRememberMeData;
 import features.GetAllMailsToUser;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
 import loaders.*;
 import features.GetUser;
 import javafx.fxml.FXML;
@@ -13,6 +15,7 @@ import model.User;
 import org.json.simple.parser.ParseException;
 import routings.GoToEmailScreen;
 import routings.GoToLoginScreen;
+import routings.GoToManageScreen;
 import variables.ListOfReceiversID;
 
 import java.io.IOException;
@@ -68,35 +71,50 @@ public class HomeController {
 
     /** function to load student home screen's view **/
     private void loadStudentView() {
-        CreateManageBox.create(scrollAnchorPane, "Student");
+        AnchorPane pane = CreateManageBox.create(scrollAnchorPane, "Student");
         CreateLessonsSchedule.create(scrollAnchorPane, user.getUser_role());
         CreateNearestExams.create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
+        goToManageScreen(pane);
     }
 
     /** function to load teacher home screen's view **/
     private void loadTeacherView() {
-        CreateManageBox.create(scrollAnchorPane, "Manage students");
+        AnchorPane pane = CreateManageBox.create(scrollAnchorPane, "Manage students");
         CreateLessonsSchedule.create(scrollAnchorPane, user.getUser_role());
         CreateNearestExams.create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
+        goToManageScreen(pane);
     }
 
     /** function to load principal home screen's view **/
     private void loadPrincipalView() {
-        CreateManageBox.create(scrollAnchorPane, "Manage");
+        AnchorPane pane = CreateManageBox.create(scrollAnchorPane, "Manage");
         CreateLessonsSchedule.create(scrollAnchorPane, user.getUser_role());
         CreateNearestExams.create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
+        goToManageScreen(pane);
     }
 
     /** function to load guardian home screen's view **/
     private void loadGuardianView() {
-        CreateManageBox.create(scrollAnchorPane, "Student");
+        AnchorPane pane = CreateManageBox.create(scrollAnchorPane, "Student");
         CreateLessonsSchedule.create(scrollAnchorPane, user.getUser_role());
         CreateNearestExams.create(scrollAnchorPane, user.getUser_role(), scrollAnchorPane.getPrefHeight());
+        goToManageScreen(pane);
     }
 
     /** function to load admin home screen's view **/
     private void loadAdminView() throws IOException, ParseException {
-        CreateManageBox.create(scrollAnchorPane, "Manage");
+        AnchorPane pane = CreateManageBox.create(scrollAnchorPane, "Manage");
         CreateCheckingPasswordFormatBox.create(scrollAnchorPane);
+        goToManageScreen(pane);
+    }
+
+    /** function to go to manage screen by clicking box in home screen
+     * @param manageBox
+     */
+    private void goToManageScreen(AnchorPane manageBox) {
+        EventHandler<MouseEvent> goToManageScreenLambda = e -> {
+            new GoToManageScreen().runThis(mainController);
+        };
+        manageBox.addEventHandler(MouseEvent.MOUSE_CLICKED, goToManageScreenLambda);
     }
 }

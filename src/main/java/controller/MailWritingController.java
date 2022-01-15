@@ -92,10 +92,18 @@ public class MailWritingController {
         }
     }
 
+    /** function from MailWritingScreen.fxml thanks to which user can see all selected receivers
+     * @throws IOException
+     */
     public void GoToShowAllReceiversScreen() throws IOException {
         new AllReceiversMain().runThis();
     }
 
+    /** function to set information about receivers. If there is one receiver, user sees his/her name, if more information
+     * "More receivers".
+     * @param mailReceivers
+     * @throws SQLException
+     */
     public static void setReceivers(Text mailReceivers) throws SQLException {
         if (ListOfReceiversID.receiversID.size() == 1) mailReceivers.setText("To: " + GetUserNameAndRole.get(ListOfReceiversID.receiversID.get(0)));
         else if (ListOfReceiversID.receiversID.size() > 1) mailReceivers.setText("To: Many receivers");

@@ -9,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import loaders.LoadAllPossibleMailReceivers;
 import loaders.LoadPossibleReceivers;
 import model.*;
-import routings.MailWritingMain;
 import routings.ManageReceiversMain;
 import variables.ListOfReceiversID;
 
@@ -17,6 +16,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class ManageReceiversController {
+    // variables from ManageReceiversScreen.fxml file
     @FXML
     MenuButton lookingRole;
 
@@ -29,11 +29,15 @@ public class ManageReceiversController {
     @FXML
     JFXButton addAll, removeAll;
 
+    // screen initialize function
     public void initialize() {
         boxesScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         boxesScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
     }
 
+    /** function to show all receivers
+     * @throws SQLException
+     */
     public void getAllReceivers() throws SQLException {
         lookingRole.setText("RECEIVERS");
         LoadAllPossibleMailReceivers.load(boxesAnchorPane);
@@ -41,6 +45,9 @@ public class ManageReceiversController {
         removeAll.setDisable(false);
     }
 
+    /** function to show all admins
+     * @throws SQLException
+     */
     public void getAllAdmins() throws SQLException {
         lookingRole.setText("ADMIN");
         boxesAnchorPane.getChildren().clear();
@@ -53,6 +60,9 @@ public class ManageReceiversController {
         removeAll.setDisable(true);
     }
 
+    /** function to show all students
+     * @throws SQLException
+     */
     public void getAllStudents() throws SQLException {
         lookingRole.setText("STUDENT");
         boxesAnchorPane.getChildren().clear();
@@ -65,6 +75,9 @@ public class ManageReceiversController {
         removeAll.setDisable(true);
     }
 
+    /** function to show all teachers
+     * @throws SQLException
+     */
     public void getAllTeachers() throws SQLException {
         lookingRole.setText("TEACHER");
         boxesAnchorPane.getChildren().clear();
@@ -77,6 +90,9 @@ public class ManageReceiversController {
         removeAll.setDisable(true);
     }
 
+    /** function to show all guardians
+     * @throws SQLException
+     */
     public void getAllGuardians() throws SQLException {
         lookingRole.setText("GUARDIAN");
         boxesAnchorPane.getChildren().clear();
@@ -89,6 +105,9 @@ public class ManageReceiversController {
         removeAll.setDisable(true);
     }
 
+    /** function to show all principals
+     * @throws SQLException
+     */
     public void getAllPrincipals() throws SQLException {
         lookingRole.setText("PRINCIPAL");
         boxesAnchorPane.getChildren().clear();
@@ -101,6 +120,7 @@ public class ManageReceiversController {
         removeAll.setDisable(true);
     }
 
+    /** function to add to list all shew user **/
     public void addAllUsers() {
         for (int i = 0; i < LoadPossibleReceivers.panes.size(); i++) {
             AnchorPane actualPane = LoadPossibleReceivers.panes.get(i);
@@ -109,11 +129,15 @@ public class ManageReceiversController {
         }
     }
 
+    /** function to remove all shew users **/
     public void removeAllUsers() throws SQLException {
         ListOfReceiversID.receiversID.clear();
         getAllReceivers();
     }
 
+    /** function to close this window and set receivers information tet in mail writing screen
+     * @throws SQLException
+     */
     public void closeWindow() throws SQLException {
         new ManageReceiversMain().closeStageBySendingMail();
         MailWritingController.setReceivers(MailWritingController.mailReceivers);
