@@ -32,25 +32,6 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `dziennik`.`admin`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dziennik`.`admin` (
-  `admin_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `admin_name` VARCHAR(50) NOT NULL,
-  `admin_surname` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`admin_id`),
-  INDEX `admin_user_id_fk_idx` (`user_id` ASC) VISIBLE,
-  CONSTRAINT `admin_user_id_fk`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `dziennik`.`user` (`user_id`)
-    ON DELETE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
 -- Table `dziennik`.`principal`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dziennik`.`principal` (
@@ -90,25 +71,61 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `dziennik`.`school_subject`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dziennik`.`school_subject` (
+  `subject_id` INT NOT NULL,
+  `subject_name` VARCHAR(75) NOT NULL,
+  PRIMARY KEY (`subject_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `dziennik`.`teacher`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dziennik`.`teacher` (
   `teacher_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   `school_id` INT NOT NULL,
+  `subject_id` INT NOT NULL,
   `teacher_name` VARCHAR(50) NOT NULL,
   `teacher_surname` VARCHAR(50) NOT NULL,
-  `teacher_subject` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`teacher_id`),
   INDEX `teacher_user_id_fk_idx` (`user_id` ASC) VISIBLE,
   INDEX `teacher_school_id_fk_idx` (`school_id` ASC) VISIBLE,
+  INDEX `teacher_subject_id_fk_idx` (`subject_id` ASC) VISIBLE,
   CONSTRAINT `teacher_school_id_fk`
     FOREIGN KEY (`school_id`)
     REFERENCES `dziennik`.`school` (`school_id`)
     ON DELETE CASCADE,
+  CONSTRAINT `teacher_school_subject_id_fk`
+    FOREIGN KEY (`subject_id`)
+    REFERENCES `dziennik`.`school_subject` (`subject_id`)
+    ON DELETE CASCADE,
   CONSTRAINT `teacher_user_id_fk`
     FOREIGN KEY (`user_id`)
     REFERENCES `dziennik`.`user` (`user_id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `dziennik`.`lesson`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dziennik`.`lesson` (
+  `lesson_id` INT NOT NULL,
+  `teacher_id` INT NOT NULL,
+  `lesson_subject` VARCHAR(75) NOT NULL,
+  `lesson_date` DATETIME NOT NULL,
+  PRIMARY KEY (`lesson_id`),
+  INDEX `lesson_teacher_id_fk_idx` (`teacher_id` ASC) VISIBLE,
+  CONSTRAINT `lesson_teacher_id_fk`
+    FOREIGN KEY (`teacher_id`)
+    REFERENCES `dziennik`.`teacher` (`teacher_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -127,6 +144,81 @@ CREATE TABLE IF NOT EXISTS `dziennik`.`class` (
   CONSTRAINT `class_teacher_id_fk`
     FOREIGN KEY (`class_supervising_teacher`)
     REFERENCES `dziennik`.`teacher` (`teacher_id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `dziennik`.`student`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dziennik`.`student` (
+  `student_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `school_id` INT NOT NULL,
+  `class_id` INT NOT NULL,
+  `student_name` VARCHAR(50) NOT NULL,
+  `student_surname` VARCHAR(50) NOT NULL,
+  `student_date_of_birth` DATE NOT NULL,
+  PRIMARY KEY (`student_id`),
+  INDEX `student_user_id_fk_idx` (`user_id` ASC) VISIBLE,
+  INDEX `student_school_id_fk_idx` (`school_id` ASC) VISIBLE,
+  INDEX `student_class_id_fk_idx` (`class_id` ASC) VISIBLE,
+  CONSTRAINT `student_class_id_fk`
+    FOREIGN KEY (`class_id`)
+    REFERENCES `dziennik`.`class` (`class_id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `student_school_id_fk`
+    FOREIGN KEY (`school_id`)
+    REFERENCES `dziennik`.`school` (`school_id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `student_user_id_fk`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `dziennik`.`user` (`user_id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `dziennik`.`absences`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dziennik`.`absences` (
+  `absence_id` INT NOT NULL,
+  `student_id` INT NOT NULL,
+  `lesson_id` INT NOT NULL,
+  `student_absence` TINYINT NOT NULL,
+  PRIMARY KEY (`absence_id`),
+  INDEX `absences_student_id_fk_idx` (`student_id` ASC) VISIBLE,
+  INDEX `absences_lesson_id_fk_idx` (`lesson_id` ASC) VISIBLE,
+  CONSTRAINT `absences_lesson_id_fk`
+    FOREIGN KEY (`lesson_id`)
+    REFERENCES `dziennik`.`lesson` (`lesson_id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `absences_student_id_fk`
+    FOREIGN KEY (`student_id`)
+    REFERENCES `dziennik`.`student` (`student_id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `dziennik`.`admin`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dziennik`.`admin` (
+  `admin_id` INT NOT NULL,
+  `user_id` INT NOT NULL,
+  `admin_name` VARCHAR(50) NOT NULL,
+  `admin_surname` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`admin_id`),
+  INDEX `admin_user_id_fk_idx` (`user_id` ASC) VISIBLE,
+  CONSTRAINT `admin_user_id_fk`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `dziennik`.`user` (`user_id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
@@ -181,38 +273,6 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
--- Table `dziennik`.`student`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dziennik`.`student` (
-  `student_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `school_id` INT NOT NULL,
-  `class_id` INT NOT NULL,
-  `student_name` VARCHAR(50) NOT NULL,
-  `student_surname` VARCHAR(50) NOT NULL,
-  `student_date_of_birth` DATE NOT NULL,
-  PRIMARY KEY (`student_id`),
-  INDEX `student_user_id_fk_idx` (`user_id` ASC) VISIBLE,
-  INDEX `student_school_id_fk_idx` (`school_id` ASC) VISIBLE,
-  INDEX `student_class_id_fk_idx` (`class_id` ASC) VISIBLE,
-  CONSTRAINT `student_class_id_fk`
-    FOREIGN KEY (`class_id`)
-    REFERENCES `dziennik`.`class` (`class_id`)
-    ON DELETE CASCADE,
-  CONSTRAINT `student_school_id_fk`
-    FOREIGN KEY (`school_id`)
-    REFERENCES `dziennik`.`school` (`school_id`)
-    ON DELETE CASCADE,
-  CONSTRAINT `student_user_id_fk`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `dziennik`.`user` (`user_id`)
-    ON DELETE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
 -- Table `dziennik`.`guardian_student_list`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dziennik`.`guardian_student_list` (
@@ -228,19 +288,6 @@ CREATE TABLE IF NOT EXISTS `dziennik`.`guardian_student_list` (
     FOREIGN KEY (`student_id`)
     REFERENCES `dziennik`.`student` (`student_id`)
     ON DELETE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `dziennik`.`lesson`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dziennik`.`lesson` (
-  `lesson_id` INT NOT NULL,
-  `lesson_subject` VARCHAR(50) NOT NULL,
-  `student_presence` TINYINT NOT NULL,
-  PRIMARY KEY (`lesson_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -293,6 +340,32 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `dziennik`.`notes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dziennik`.`notes` (
+  `note_id` INT NOT NULL,
+  `student_id` INT NOT NULL,
+  `teacher_id` INT NOT NULL,
+  `note_description` VARCHAR(200) NOT NULL,
+  `note_value` INT NOT NULL,
+  `note_date` DATETIME NOT NULL,
+  PRIMARY KEY (`note_id`),
+  INDEX `notes_student_id_fk_idx` (`student_id` ASC) VISIBLE,
+  INDEX `notes_teacher_id_fk_idx` (`teacher_id` ASC) VISIBLE,
+  CONSTRAINT `notes_student_id_fk`
+    FOREIGN KEY (`student_id`)
+    REFERENCES `dziennik`.`student` (`student_id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `notes_teacher_id_fk`
+    FOREIGN KEY (`teacher_id`)
+    REFERENCES `dziennik`.`teacher` (`teacher_id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `dziennik`.`teacher_class_list`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dziennik`.`teacher_class_list` (
@@ -305,27 +378,6 @@ CREATE TABLE IF NOT EXISTS `dziennik`.`teacher_class_list` (
     REFERENCES `dziennik`.`class` (`class_id`)
     ON DELETE CASCADE,
   CONSTRAINT `teacher_class_list_teacher_id_fk`
-    FOREIGN KEY (`teacher_id`)
-    REFERENCES `dziennik`.`teacher` (`teacher_id`)
-    ON DELETE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `dziennik`.`teacher_lesson_list`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `dziennik`.`teacher_lesson_list` (
-  `teacher_id` INT NOT NULL,
-  `lesson_id` INT NOT NULL,
-  INDEX `teacher_lesson_list_teacher_id_fk_idx` (`teacher_id` ASC) VISIBLE,
-  INDEX `teacher_lesson_list_lesson_id_fk_idx` (`lesson_id` ASC) VISIBLE,
-  CONSTRAINT `teacher_lesson_list_lesson_id_fk`
-    FOREIGN KEY (`lesson_id`)
-    REFERENCES `dziennik`.`lesson` (`lesson_id`)
-    ON DELETE CASCADE,
-  CONSTRAINT `teacher_lesson_list_teacher_id_fk`
     FOREIGN KEY (`teacher_id`)
     REFERENCES `dziennik`.`teacher` (`teacher_id`)
     ON DELETE CASCADE)

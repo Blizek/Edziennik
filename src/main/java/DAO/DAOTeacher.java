@@ -44,12 +44,12 @@ public class DAOTeacher implements DAO<Teacher> {
         int teacher_id = teacher.getTeacher_id();
         int user_id = teacher.getUser_id();
         int school_id = teacher.getSchool_id();
+        int subject_id = teacher.getSubject_id();
         String teacher_name = teacher.getTeacher_name();
         String teacher_surname = teacher.getTeacher_surname();
-        String teacher_subject = teacher.getTeacher_subject();
-        String sql = "INSERT INTO teacher(teacher_id, user_id, school_id, teacher_name, teacher_surname, teacher_subject) VALUES("
-                + teacher_id + ", " + user_id + ", " + school_id + ", '" + teacher_name + "', '" + teacher_surname + "', '"
-                + teacher_subject + "')";
+        String sql = "INSERT INTO teacher(teacher_id, user_id, school_id, subject_id, teacher_name, teacher_surname) VALUES("
+                + teacher_id + ", " + user_id + ", " + school_id + ", " + subject_id +", '" + teacher_name + "', '"
+                + teacher_surname + "')";
         statement.executeUpdate(sql);
     }
 
@@ -58,12 +58,12 @@ public class DAOTeacher implements DAO<Teacher> {
         int new_teacher_id = teacher.getTeacher_id();
         int new_user_id = teacher.getUser_id();
         int new_school_id = teacher.getSchool_id();
+        int new_subject_id = teacher.getSubject_id();
         String new_teacher_name = teacher.getTeacher_name();
         String new_teacher_surname = teacher.getTeacher_surname();
-        String new_teacher_subject = teacher.getTeacher_subject();
         String sql = "UPDATE teacher SET teacher_id = " + new_teacher_id + ", user_id = " + new_user_id + ", school_id = "
-                + new_school_id + ", teacher_name = '" + new_teacher_name + "', teacher_surname = '" + new_teacher_surname
-                + "', teacher_subject = '" + new_teacher_subject + "' WHERE teacher_id = " + new_teacher_id;
+                + new_school_id + ", subject_id = " + new_subject_id +", teacher_name = '" + new_teacher_name +
+                "', teacher_surname = '" + new_teacher_surname + "' WHERE teacher_id = " + new_teacher_id;
         statement.executeUpdate(sql);
     }
 
@@ -81,10 +81,10 @@ public class DAOTeacher implements DAO<Teacher> {
             int teacher_id = resultSet.getInt(1);
             int user_id = resultSet.getInt(2);
             int school_id = resultSet.getInt(3);
-            String teacher_name = resultSet.getString(4);
-            String teacher_surname = resultSet.getString(5);
-            String teacher_subject = resultSet.getString(6);
-            teachers.add(new Teacher(teacher_id, user_id, school_id, teacher_name, teacher_surname, teacher_subject));
+            int subject_id = resultSet.getInt(4);
+            String teacher_name = resultSet.getString(5);
+            String teacher_surname = resultSet.getString(6);
+            teachers.add(new Teacher(teacher_id, user_id, school_id, subject_id, teacher_name, teacher_surname));
         }
         return teachers;
     }

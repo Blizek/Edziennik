@@ -2,6 +2,7 @@ package DAO;
 
 import database.DBConnection;
 import model.Class;
+import model.Teacher;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -30,13 +31,19 @@ public class DAOClass implements DAO<Class> {
     }
 
     public List<Class> getBySupervisingTeacher(int class_supervising_teacher_id) throws SQLException {
-        String sql = "SELECT * FROM class WHERE class_supervising_teacher_id = " + class_supervising_teacher_id;
+        String sql = "SELECT * FROM class WHERE class_supervising_teacher = " + class_supervising_teacher_id;
         return classDatabaseCommends(sql);
     }
 
     public List<Class> getByClassName(String class_name) throws SQLException {
         String sql = "SELECT * FROM class WHERE class_name = '" + class_name + "'";
         return classDatabaseCommends(sql);
+    }
+
+    public boolean checkIfItIsClassSupervisingTeacher(int user_id) throws SQLException {
+        Teacher lookingTeacher = new DAOTeacher().getByUserID(user_id).get(0);
+        List<Class> teachersClasses = getBySupervisingTeacher(lookingTeacher.getTeacher_id());
+        return teachersClasses.size() > 0;
     }
 
     @Override

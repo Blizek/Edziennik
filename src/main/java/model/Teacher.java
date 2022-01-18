@@ -4,19 +4,18 @@ public class Teacher {
     private int teacher_id;
     private int user_id;
     private int school_id;
+    private int subject_id;
     private String teacher_name;
     private String teacher_surname;
-    private String teacher_subject;
     private Class teacherClass;
-    private Lesson lesson;
 
-    public Teacher(int teacher_id, int user_id, int school_id, String teacher_name, String teacher_surname, String teacher_subject) {
+    public Teacher(int teacher_id, int user_id, int school_id, int subject_id, String teacher_name, String teacher_surname) {
         this.teacher_id = teacher_id;
         this.user_id = user_id;
         this.school_id = school_id;
+        this.subject_id = subject_id;
         this.teacher_name = teacher_name;
         this.teacher_surname = teacher_surname;
-        this.teacher_subject = teacher_subject;
     }
 
     public int getTeacher_id() {
@@ -43,6 +42,14 @@ public class Teacher {
         this.school_id = school_id;
     }
 
+    public int getSubject_id() {
+        return subject_id;
+    }
+
+    public void setSubject_id(int subject_id) {
+        this.subject_id = subject_id;
+    }
+
     public String getTeacher_name() {
         return teacher_name;
     }
@@ -59,13 +66,6 @@ public class Teacher {
         this.teacher_surname = teacher_surname;
     }
 
-    public String getTeacher_subject() {
-        return teacher_subject;
-    }
-
-    public void setTeacher_subject(String teacher_subject) {
-        this.teacher_subject = teacher_subject;
-    }
 
     public Class getTeacherClass() {
         return teacherClass;
@@ -75,13 +75,6 @@ public class Teacher {
         this.teacherClass = teacherClass;
     }
 
-    public Lesson getLesson() {
-        return lesson;
-    }
-
-    public void setLesson(Lesson lesson) {
-        this.lesson = lesson;
-    }
 
     @Override
     public String toString() {
@@ -91,7 +84,6 @@ public class Teacher {
                 ", school_id=" + school_id +
                 ", teacher_name='" + teacher_name + '\'' +
                 ", teacher_surname='" + teacher_surname + '\'' +
-                ", teacher_subject='" + teacher_subject + '\'' +
                 '}';
     }
 }

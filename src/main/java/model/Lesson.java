@@ -1,16 +1,19 @@
 package model;
 
+import java.sql.Timestamp;
+
 public class Lesson {
     private int lesson_id;
+    private int teacher_id;
     private String lesson_subject;
-    private boolean student_presence;
+    private Timestamp lesson_date;
     private Student student;
-    private Teacher teacher;
 
-    public Lesson(int lesson_id, String lesson_subject, boolean student_presence) {
+    public Lesson(int lesson_id, int teacher_id, String lesson_subject, Timestamp lesson_date) {
         this.lesson_id = lesson_id;
+        this.teacher_id = teacher_id;
         this.lesson_subject = lesson_subject;
-        this.student_presence = student_presence;
+        this.lesson_date = lesson_date;
     }
 
     public int getLesson_id() {
@@ -21,6 +24,14 @@ public class Lesson {
         this.lesson_id = lesson_id;
     }
 
+    public int getTeacher_id() {
+        return teacher_id;
+    }
+
+    public void setTeacher_id(int teacher_id) {
+        this.teacher_id = teacher_id;
+    }
+
     public String getLesson_subject() {
         return lesson_subject;
     }
@@ -29,36 +40,21 @@ public class Lesson {
         this.lesson_subject = lesson_subject;
     }
 
-    public boolean isStudent_presence() {
-        return student_presence;
+    public Timestamp getLesson_date() {
+        return lesson_date;
     }
 
-    public void setStudent_presence(boolean student_presence) {
-        this.student_presence = student_presence;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
-    public Teacher getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setLesson_date(Timestamp lesson_date) {
+        this.lesson_date = lesson_date;
     }
 
     @Override
     public String toString() {
         return "Lesson{" +
                 "lesson_id=" + lesson_id +
+                ", teacher_id=" + teacher_id +
                 ", lesson_subject='" + lesson_subject + '\'' +
-                ", student_presence=" + student_presence +
+                ", lesson_date=" + lesson_date +
                 '}';
     }
 }
