@@ -366,6 +366,32 @@ COLLATE = utf8mb4_0900_ai_ci;
 
 
 -- -----------------------------------------------------
+-- Table `dziennik`.`plan`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `dziennik`.`plan` (
+  `plan_id` INT NOT NULL,
+  `class_id` INT NOT NULL,
+  `teacher_id` INT NOT NULL,
+  `day` VARCHAR(15) NOT NULL,
+  `start_hour` VARCHAR(7) NULL DEFAULT NULL,
+  `finish_hour` VARCHAR(7) NULL DEFAULT NULL,
+  PRIMARY KEY (`plan_id`),
+  INDEX `plan_class_id_fk_idx` (`class_id` ASC) VISIBLE,
+  INDEX `plan_teacher_id_fk_idx` (`teacher_id` ASC) VISIBLE,
+  CONSTRAINT `plan_class_id_fk`
+    FOREIGN KEY (`class_id`)
+    REFERENCES `dziennik`.`class` (`class_id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `plan_teacher_id_fk`
+    FOREIGN KEY (`teacher_id`)
+    REFERENCES `dziennik`.`teacher` (`teacher_id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
 -- Table `dziennik`.`teacher_class_list`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `dziennik`.`teacher_class_list` (
