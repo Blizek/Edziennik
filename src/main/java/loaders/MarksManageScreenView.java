@@ -1,6 +1,8 @@
 package loaders;
 
+import DAO.DAOTeacher;
 import features.GetAllStudentSubjects;
+import features.GetNotDuplicatedLearningClasses;
 import features.GetUser;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
@@ -9,9 +11,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.Class;
 import model.SchoolSubject;
+import model.Teacher;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -28,7 +33,7 @@ public class MarksManageScreenView {
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         if (!userRole.equals("TEACHER")) viewNotForTeacher(scroll, scrollAnchor, pageInformation);
-        else viewForTeacher(scrollAnchor);
+        else viewForTeacher(scroll, scrollAnchor, pageInformation);
     }
 
     private static void viewNotForTeacher(ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation) throws SQLException {
@@ -81,13 +86,60 @@ public class MarksManageScreenView {
         createLine(scrollAnchor, YPosition);
 
         if (YPosition >= 544) {
-            scrollAnchor.setPrefHeight(YPosition + 50);
+            scrollAnchor.setPrefHeight(YPosition + 124);
             scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         }
     }
 
-    private static void viewForTeacher(AnchorPane pane) {
+    private static void viewForTeacher(ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation) throws SQLException {
+        scrollAnchor.getChildren().clear();
 
+        scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        pageInformation.setText("Choose class");
+
+        Teacher teacher = new DAOTeacher().getByUserID(GetUser.get().getUser_id()).get(0);
+        List<Class> classes = GetNotDuplicatedLearningClasses.get(teacher.getTeacher_id());
+
+        int XPosition;
+        int YPosition = 37;
+        for (int i = 0; i < classes.size(); i++) {
+            if (i % 3 == 0) XPosition = 51;
+            else if (i % 3 == 1) XPosition = 393;
+            else XPosition = 718;
+
+            Class actualClass = classes.get(i);
+
+            AnchorPane classPane = new AnchorPane();
+            classPane.setLayoutX(XPosition);
+            classPane.setLayoutY(YPosition);
+            classPane.setPrefWidth(200);
+            classPane.setPrefHeight(200);
+            classPane.setId(Integer.toString(actualClass.getClass_id()));
+            classPane.setStyle("-fx-background-color: #3c56bc; -fx-border-color: black; -fx-border-width: 3;");
+
+            Text className = new Text(12, 130, actualClass.getClass_name());
+            className.setWrappingWidth(175);
+            className.setFont(Font.font("Calibri", FontWeight.BOLD, 100));
+            className.setFill(Color.rgb(255, 255, 255));
+            className.setTextAlignment(TextAlignment.CENTER);
+            classPane.getChildren().add(className);
+
+            EventHandler<MouseEvent> boxClicked = e -> System.out.println(classPane.getId());
+            classPane.addEventHandler(MouseEvent.MOUSE_CLICKED, boxClicked);
+
+            scrollAnchor.getChildren().add(classPane);
+
+            if (i % 3 == 2) {
+                YPosition += 248;
+            }
+        }
+
+        if (YPosition >= 544) {
+            scrollAnchor.setPrefHeight(YPosition + 250);
+            scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        }
     }
 
     private static void createLine(AnchorPane paneToAdd, int YPosition) {
