@@ -4,6 +4,7 @@ import DAO.DAOSchoolSubject;
 import DAO.DAOStudent;
 import model.SchoolSubject;
 import model.Student;
+import model.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,7 +17,11 @@ public class GetAllStudentSubjects {
         ArrayList<Integer> subjectsID = new ArrayList<>();
         ArrayList<SchoolSubject> subjects = new ArrayList<>();
 
-        Student student = new DAOStudent().getByUserID(GetUser.get().getUser_id()).get(0);
+        User user = GetUser.get();
+        Student student;
+
+        if (user.getUser_role().equals("STUDENT")) student = GetStudent.getForStudent(user.getUser_id());
+        else student = GetStudent.getForGuardian(user.getUser_id());
 
         List<SchoolSubject> everyLesson = new DAOSchoolSubject().getAllStudentSubjects(student);
 

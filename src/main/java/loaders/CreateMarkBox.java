@@ -1,9 +1,13 @@
 package loaders;
 
+import DAO.DAOGuardian;
 import DAO.DAOMark;
+import DAO.DAOStudent;
 import com.jfoenix.controls.JFXButton;
 import features.ConvertMarkView;
 import features.GetNameAndSurnameByTableID;
+import features.GetStudent;
+import features.GetUser;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -13,7 +17,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.Guardian;
 import model.Mark;
+import model.Student;
+import model.User;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,9 +30,16 @@ public class CreateMarkBox {
         int XPosition;
         int YPosition = 83;
 
+        User user = GetUser.get();
+        Student student;
+
+        if (user.getUser_role().equals("STUDENT")) student = GetStudent.getForStudent(user.getUser_id());
+        else student = GetStudent.getForGuardian(user.getUser_id());
+
+
         scrollAnchor.getChildren().clear();
 
-        List<Mark> marks = new DAOMark().getAllStudentMarksFromSubject(subjectID);
+        List<Mark> marks = new DAOMark().getAllStudentMarksFromSubject(subjectID, student.getStudent_id());
 
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);

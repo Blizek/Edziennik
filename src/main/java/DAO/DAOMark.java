@@ -39,10 +39,11 @@ public class DAOMark implements DAO<Mark> {
         return markDatabaseCommends(sql);
     }
 
-    public List<Mark> getAllStudentMarksFromSubject(int subject_id) throws SQLException {
+    public List<Mark> getAllStudentMarksFromSubject(int subject_id, int student_id) throws SQLException {
         String sql = "SELECT mark.* FROM student INNER JOIN mark ON student.student_id = mark.student_id INNER JOIN " +
                 "teacher ON teacher.teacher_id = mark.teacher_id INNER JOIN school_subject ON school_subject.subject_id " +
-                "= teacher.subject_id WHERE school_subject.subject_id = " + subject_id;
+                "= teacher.subject_id WHERE school_subject.subject_id = " + subject_id + " AND student.student_id = "
+                + student_id;
         return markDatabaseCommends(sql);
     }
 

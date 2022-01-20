@@ -5,14 +5,15 @@ import java.time.LocalDate;
 public class Guardian {
     private int guardian_id;
     private int user_id;
+    private int student_id;
     private String guardian_name;
     private String guardian_surname;
     private LocalDate guardian_date_of_birth;
-    private Student student;
 
-    public Guardian(int guardian_id, int user_id, String guardian_name, String guardian_surname, LocalDate guardian_date_of_birth) {
+    public Guardian(int guardian_id, int user_id, int student_id, String guardian_name, String guardian_surname, LocalDate guardian_date_of_birth) {
         this.guardian_id = guardian_id;
         this.user_id = user_id;
+        this.student_id = student_id;
         this.guardian_name = guardian_name;
         this.guardian_surname = guardian_surname;
         this.guardian_date_of_birth = guardian_date_of_birth;
@@ -32,6 +33,14 @@ public class Guardian {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public int getStudent_id() {
+        return student_id;
+    }
+
+    public void setStudent_id(int student_id) {
+        this.student_id = student_id;
     }
 
     public String getGuardian_name() {
@@ -58,19 +67,12 @@ public class Guardian {
         this.guardian_date_of_birth = guardian_date_of_birth;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
     @Override
     public String toString() {
         return "Guardian{" +
                 "guardian_id=" + guardian_id +
                 ", user_id=" + user_id +
+                ", student_id=" + student_id +
                 ", guardian_name='" + guardian_name + '\'' +
                 ", guardian_surname='" + guardian_surname + '\'' +
                 ", guardian_date_of_birth=" + guardian_date_of_birth +
