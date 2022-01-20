@@ -11,11 +11,11 @@ public class GetUserNameAndRole {
         String userName = "";
 
         switch (user.getUser_role()) {
-            case "STUDENT" -> userName = GetUserNameAndSurname.getStudentName(userID);
-            case "TEACHER" -> userName = GetUserNameAndSurname.getTeacherName(userID);
-            case "PRINCIPAL" -> userName = GetUserNameAndSurname.getPrincipalName(userID);
-            case "GUARDIAN" -> userName = GetUserNameAndSurname.getGuardianName(userID);
-            case "ADMIN" -> userName = GetUserNameAndSurname.getAdminName(userID);
+            case "STUDENT" -> userName = GetUserNameAndSurnameByUserID.getStudentName(userID);
+            case "TEACHER" -> userName = GetUserNameAndSurnameByUserID.getTeacherName(userID);
+            case "PRINCIPAL" -> userName = GetUserNameAndSurnameByUserID.getPrincipalName(userID);
+            case "GUARDIAN" -> userName = GetUserNameAndSurnameByUserID.getGuardianName(userID);
+            case "ADMIN" -> userName = GetUserNameAndSurnameByUserID.getAdminName(userID);
         }
 
         return userName + " - " + user.getUser_role();

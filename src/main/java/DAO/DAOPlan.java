@@ -3,6 +3,7 @@ package DAO;
 import database.DBConnection;
 import model.Mark;
 import model.Plan;
+import model.Student;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

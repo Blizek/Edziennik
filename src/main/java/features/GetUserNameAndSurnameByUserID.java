@@ -5,7 +5,7 @@ import model.*;
 
 import java.sql.SQLException;
 
-public class GetUserNameAndSurname {
+public class GetUserNameAndSurnameByUserID {
     public static String getStudentName(int id) throws SQLException {
         Student student = new DAOStudent().getByUserID(id).get(0);
         return student.getStudent_name() + " " + student.getStudent_surname();
