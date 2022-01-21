@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="313.0" prefWidth="570.0" style="-fx-border-color: #3c56bc; -fx-border-width: 5; -fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageGradeController">
+   <children>
+      <JFXCheckBox fx:id="normalGradeCheckBox" checkedColor="#3c56bc" layoutX="94.0" layoutY="24.0" onAction="#setNormalMarkStatus" prefHeight="44.0" prefWidth="160.0" text="Normal mark" textFill="#3c56bc">
+         <font>
+            <Font name="Calibri Bold" size="15.0" />
+         </font>
+      </JFXCheckBox>
+      <JFXCheckBox fx:id="customGradeCheckBox" checkedColor="#3c56bc" layoutX="329.0" layoutY="24.0" onAction="#setCustomMarkStatus" prefHeight="44.0" prefWidth="160.0" text="Custom mark" textFill="#3c56bc">
+         <font>
+            <Font name="Calibri Bold" size="15.0" />
+         </font>
+      </JFXCheckBox>
+      <Text fill="#3c56bc" layoutX="151.0" layoutY="96.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mark: " textAlignment="RIGHT" wrappingWidth="80.017578125">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Text>
+      <TextField fx:id="markField" layoutX="231.0" layoutY="70.0" prefHeight="25.0" prefWidth="213.0" style="-fx-background-color: white;">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </TextField>
+      <Line endX="327.0" layoutX="117.0" layoutY="107.0" startX="114.0" stroke="#3c56bc" strokeWidth="2.0" />
+      <Text fill="#3c56bc" layoutX="14.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description: " textAlignment="RIGHT" wrappingWidth="147.017578125">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Text>
+      <TextField fx:id="descriptionField" layoutX="160.0" layoutY="114.0" prefHeight="25.0" prefWidth="377.0" style="-fx-background-color: white;">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </TextField>
+      <Line endX="276.0" layoutX="261.0" layoutY="151.0" startX="-100.0" stroke="#3c56bc" strokeWidth="2.0" />
+      <Text fill="#3c56bc" layoutX="130.0" layoutY="199.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Weight: " textAlignment="RIGHT" wrappingWidth="100.017578125">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Text>
+      <TextField fx:id="weightField" layoutX="231.0" layoutY="173.0" prefHeight="25.0" prefWidth="213.0" style="-fx-background-color: white;">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </TextField>
+      <Line endX="327.0" layoutX="117.0" layoutY="210.0" startX="114.0" stroke="#3c56bc" strokeWidth="2.0" />
+      <JFXButton fx:id="addOrEditButton" layoutX="197.0" layoutY="241.0" onAction="#addOrEditGrade" prefHeight="52.0" prefWidth="176.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Add" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="25.0" />
+         </font>
+      </JFXButton>
+      <Text fx:id="doesntExistMarkErrorText" fill="RED" layoutX="94.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You can't add this number because grade like this doesn't exist" visible="false">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="notNumberErrorText" fill="RED" layoutX="141.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You can't add this mark because it isn't number" visible="false">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="tooLongDescriptionError" fill="RED" layoutX="74.0" layoutY="168.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You can't add this description because it has more than 50 characters" visible="false">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </Text>
+      <Text fx:id="weightNumberError" fill="RED" layoutX="92.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You can't set this mark weight because it isn't possitive number" visible="false">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

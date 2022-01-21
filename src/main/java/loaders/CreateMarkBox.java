@@ -1,10 +1,10 @@
 package loaders;
 
-import DAO.DAOFinalGrade;
-import DAO.DAOGuardian;
-import DAO.DAOMark;
-import DAO.DAOStudent;
+import DAO.*;
 import com.jfoenix.controls.JFXButton;
+import controller.DeleteGradeController;
+import controller.ManageGradeController;
+import enumTypes.DatabaseTablesName;
 import features.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
@@ -19,11 +19,16 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import locations.FilesLocations;
 import model.*;
+import routings.DeleteGradeMain;
+import routings.ManageGradeMain;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class CreateMarkBox {
+    static Mark mark = new Mark(0, 0, 0, 0, 0, "");
+
     public static void create(ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation, int subjectID) throws SQLException {
         int XPosition;
         int YPosition = 83;
@@ -88,8 +93,24 @@ public class CreateMarkBox {
 
         if (user.getUser_role().equals("TEACHER")) {
             JFXButton addGradeButton = createRightCornerButton(65, "Add new grade");
+
+            EventHandler<MouseEvent> goToManageGradeScreen = e -> {
+                try {
+                    mark.setMark_id(GetMaxID.get(DatabaseTablesName.MARK) + 1);
+                    mark.setStudent_id(student.getStudent_id());
+                    mark.setTeacher_id(new DAOTeacher().getByUserID(GetUser.get().getUser_id()).get(0).getTeacher_id());
+                    ManageGradeController.mark = mark;
+                    ManageGradeController.editing = false;
+                    new ManageGradeMain().runThis();
+                } catch (IOException | SQLException ioException) {
+                    ioException.printStackTrace();
+                }
+            };
+            addGradeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, goToManageGradeScreen);
+
             scrollAnchor.getChildren().add(addGradeButton);
-            JFXButton addFinalGradeButton = createRightCornerButton(110, "Add final grade");
+
+            JFXButton addFinalGradeButton = createRightCornerButton(110, "Set final grade");
             scrollAnchor.getChildren().add(addFinalGradeButton);
         }
 
@@ -103,13 +124,23 @@ public class CreateMarkBox {
             markPane.setLayoutY(YPosition);
             markPane.setPrefWidth(371);
             markPane.setPrefHeight(198);
+            markPane.setId(String.valueOf(marks.get(i).getMark_id()));
             markPane.setStyle("-fx-border-color: black; -fx-border-width: 2; -fx-background-color: #3c56bc;");
 
             fillMarkBox(marks.get(i), markPane);
 
+            if (user.getUser_role().equals("TEACHER")) {
+                createTeacherManageGradeButtons(markPane, marks.get(i));
+            }
+
             scrollAnchor.getChildren().add(markPane);
 
             if (i % 2 == 1) YPosition += 230;
+        }
+
+        if (YPosition >= 264) {
+            scrollAnchor.setPrefHeight(YPosition + 280);
+            scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         }
     }
 
@@ -170,5 +201,51 @@ public class CreateMarkBox {
         button.setStyle("-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;");
 
         return button;
+    }
+
+    private static void createTeacherManageGradeButtons(AnchorPane pane, Mark mark) {
+        JFXButton editButton = new JFXButton();
+        editButton.setLayoutX(301);
+        editButton.setLayoutY(119);
+        editButton.setPrefSize(70, 37);
+        editButton.setText("Edit");
+        editButton.setFont(Font.font("Calibri", 15));
+        editButton.setTextFill(Color.rgb(60, 86, 188));
+        editButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 5; -fx-border-radius: 5;");
+
+        EventHandler<MouseEvent> editMark = e -> {
+            ManageGradeController.mark = mark;
+            ManageGradeController.editing = true;
+            try {
+                new ManageGradeMain().runThis();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        };
+        editButton.addEventHandler(MouseEvent.MOUSE_CLICKED, editMark);
+
+        pane.getChildren().add(editButton);
+
+
+        JFXButton deleteButton = new JFXButton();
+        deleteButton.setLayoutX(301);
+        deleteButton.setLayoutY(161);
+        deleteButton.setPrefSize(70, 37);
+        deleteButton.setText("Delete");
+        deleteButton.setFont(Font.font("Calibri", 15));
+        deleteButton.setTextFill(Color.rgb(60, 86, 188));
+        deleteButton.setStyle("-fx-background-color: #FFFFFF; -fx-background-radius: 5; -fx-border-radius: 5;");
+
+        EventHandler<MouseEvent> deleteGrade = e -> {
+            DeleteGradeController.mark = mark;
+            try {
+                new DeleteGradeMain().runThis();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        };
+        deleteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, deleteGrade);
+
+        pane.getChildren().add(deleteButton);
     }
 }
