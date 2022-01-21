@@ -40,7 +40,7 @@ public class MarksManageScreenView {
         int YPosition = 10;
         List<SchoolSubject> subjects = GetAllStudentSubjects.get();
         for (SchoolSubject subject : subjects) {
-            createLine(scrollAnchor, YPosition);
+            CreateLine.create(scrollAnchor, YPosition);
 
             AnchorPane subjectPane = new AnchorPane();
             subjectPane.setLayoutX(34);
@@ -83,7 +83,7 @@ public class MarksManageScreenView {
             YPosition += 74;
         }
 
-        createLine(scrollAnchor, YPosition);
+        CreateLine.create(scrollAnchor, YPosition);
 
         if (YPosition >= 544) {
             scrollAnchor.setPrefHeight(YPosition + 124);
@@ -126,7 +126,14 @@ public class MarksManageScreenView {
             className.setTextAlignment(TextAlignment.CENTER);
             classPane.getChildren().add(className);
 
-            EventHandler<MouseEvent> boxClicked = e -> System.out.println(classPane.getId());
+            EventHandler<MouseEvent> boxClicked = e -> {
+                try {
+                    LoadAllCLassStudents.load(scroll, scrollAnchor, pageInformation,
+                            Integer.parseInt(classPane.getId()));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            };
             classPane.addEventHandler(MouseEvent.MOUSE_CLICKED, boxClicked);
 
             scrollAnchor.getChildren().add(classPane);
@@ -140,18 +147,5 @@ public class MarksManageScreenView {
             scrollAnchor.setPrefHeight(YPosition + 250);
             scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         }
-    }
-
-    private static void createLine(AnchorPane paneToAdd, int YPosition) {
-        Line line = new Line();
-        line.setLayoutX(135);
-        line.setLayoutY(YPosition);
-        line.setStartX(-100);
-        line.setStartY(0);
-        line.setEndX(817);
-        line.setEndY(0);
-        line.setStroke(Color.rgb(154, 154, 154));
-        line.setStrokeWidth(2);
-        paneToAdd.getChildren().add(line);
     }
 }

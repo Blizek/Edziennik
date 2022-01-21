@@ -53,9 +53,11 @@ public class DAOMark implements DAO<Mark> {
         int student_id = mark.getStudent_id();
         int teacher_id = mark.getTeacher_id();
         float mark_value = mark.getMark_value();
+        int mark_weight = mark.getMark_weight();
         String mark_description = mark.getMark_description();
-        String sql = "INSERT INTO mark(mark_id, student_id, teacher_id, mark_value, mark_description) VALUES(" + mark_id
-                + ", " + student_id + ", " + teacher_id + ", " + mark_value + ", '" + mark_description + "')";
+        String sql = "INSERT INTO mark(mark_id, student_id, teacher_id, mark_value, mark_weight, mark_description) VALUES("
+                + mark_id + ", " + student_id + ", " + teacher_id + ", " + mark_value + ", " + mark_weight +", '"
+                + mark_description + "')";
         statement.executeUpdate(sql);
     }
 
@@ -65,10 +67,11 @@ public class DAOMark implements DAO<Mark> {
         int new_student_id = mark.getStudent_id();
         int new_teacher_id = mark.getTeacher_id();
         float new_mark_value = mark.getMark_value();
+        int new_mark_weight = mark.getMark_weight();
         String new_mark_description = mark.getMark_description();
         String sql = "UPDATE mark SET mark_id = " + new_mark_id + ", student_id = " + new_student_id + ", teacher_id = "
-                + new_teacher_id + ", mark_value = " + new_mark_value + ", mark_description = '" + new_mark_description
-                + "' WHERE mark_id = " + new_mark_id;
+                + new_teacher_id + ", mark_value = " + new_mark_value + ", mark_weight = " + new_mark_weight +
+                ", mark_description = '" + new_mark_description + "' WHERE mark_id = " + new_mark_id;
         statement.executeUpdate(sql);
     }
 
@@ -87,8 +90,9 @@ public class DAOMark implements DAO<Mark> {
             int student_id = resultSet.getInt(2);
             int teacher_id = resultSet.getInt(3);
             float mark_value = resultSet.getFloat(4);
-            String mark_description = resultSet.getString(5);
-            marks.add(new Mark(mark_id, student_id, teacher_id, mark_value, mark_description));
+            int mark_weight = resultSet.getInt(5);
+            String mark_description = resultSet.getString(6);
+            marks.add(new Mark(mark_id, student_id, teacher_id, mark_value, mark_weight, mark_description));
         }
         return marks;
     }

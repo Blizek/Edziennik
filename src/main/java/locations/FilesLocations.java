@@ -28,4 +28,6 @@ public class FilesLocations {
     public static final String PLUS_RECEIVER_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\plus_receiver_icon.png";
 
     public static final String MINUS_RECEIVER_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\minus_receiver_icon.png";
+
+    public static final String FALLING_CLASS_ATTENTION_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\falling_class_attention_icon.png";
 }

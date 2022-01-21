@@ -5,13 +5,15 @@ public class Mark {
     private int student_id;
     private int teacher_id;
     private float mark_value;
+    private int mark_weight;
     private String mark_description;
 
-    public Mark(int mark_id, int student_id, int teacher_id, float mark_value, String mark_description) {
+    public Mark(int mark_id, int student_id, int teacher_id, float mark_value, int mark_weight, String mark_description) {
         this.mark_id = mark_id;
         this.student_id = student_id;
         this.teacher_id = teacher_id;
         this.mark_value = mark_value;
+        this.mark_weight = mark_weight;
         this.mark_description = mark_description;
     }
 
@@ -47,6 +49,14 @@ public class Mark {
         this.mark_value = mark_value;
     }
 
+    public int getMark_weight() {
+        return mark_weight;
+    }
+
+    public void setMark_weight(int mark_weight) {
+        this.mark_weight = mark_weight;
+    }
+
     public String getMark_description() {
         return mark_description;
     }
@@ -62,6 +72,7 @@ public class Mark {
                 ", student_id=" + student_id +
                 ", teacher_id=" + teacher_id +
                 ", mark_value=" + mark_value +
+                ", mark_weight=" + mark_weight +
                 ", mark_description='" + mark_description + '\'' +
                 '}';
     }

@@ -1,15 +1,15 @@
 package loaders;
 
+import DAO.DAOFinalGrade;
 import DAO.DAOGuardian;
 import DAO.DAOMark;
 import DAO.DAOStudent;
 import com.jfoenix.controls.JFXButton;
-import features.ConvertMarkView;
-import features.GetNameAndSurnameByTableID;
-import features.GetStudent;
-import features.GetUser;
+import features.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -17,10 +17,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import model.Guardian;
-import model.Mark;
-import model.Student;
-import model.User;
+import locations.FilesLocations;
+import model.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -32,37 +30,68 @@ public class CreateMarkBox {
 
         User user = GetUser.get();
         Student student;
+        String buttonText = "Go back to subjects";
 
         if (user.getUser_role().equals("STUDENT")) student = GetStudent.getForStudent(user.getUser_id());
-        else student = GetStudent.getForGuardian(user.getUser_id());
-
+        else if (user.getUser_role().equals("GUARDIAN")) student = GetStudent.getForGuardian(user.getUser_id());
+        else {
+            student = new DAOStudent().get(LoadAllCLassStudents.studentID).get(0);
+            buttonText = "Go back to students";
+            YPosition = 173;
+        }
 
         scrollAnchor.getChildren().clear();
 
         List<Mark> marks = new DAOMark().getAllStudentMarksFromSubject(subjectID, student.getStudent_id());
+        List<FinalGrade> finalGrades = new DAOFinalGrade().getStudentFinalGradeFromSuitableSubject(student.getStudent_id(), subjectID);
 
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        JFXButton getBackButton = new JFXButton();
-        getBackButton.setLayoutX(771);
-        getBackButton.setLayoutY(20);
-        getBackButton.setPrefSize(200, 37);
-        getBackButton.setText("Go back to subjects");
-        getBackButton.setFont(Font.font("Calibri", 20));
-        getBackButton.setTextFill(Color.rgb(255, 255, 255));
-        getBackButton.setStyle("-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;");
+        Text finalGradeText = new Text(23, 44, "");
+        finalGradeText.setFont(Font.font("Calibri", FontWeight.BOLD, 25));
+        finalGradeText.setFill(Color.rgb(60, 86, 188));
+        if (finalGrades.size() == 0) finalGradeText.setText("Final grade: None");
+        else finalGradeText.setText("Final grade: " + finalGrades.get(0).getGrade_value());
+        scrollAnchor.getChildren().add(finalGradeText);
+
+        double averageGrade = AverageGradeCalculator.calculate(marks);
+        Text averageGradeText = new Text(0, 44, "Average grade: " + averageGrade);
+        averageGradeText.setFont(Font.font("Calibri", FontWeight.BOLD, 25));
+        averageGradeText.setFill(Color.rgb(60, 86, 188));
+        double halfOfAverageGradeTextWidth = averageGradeText.getLayoutBounds().getWidth() / 2.0;
+        averageGradeText.setLayoutX(492.5 - halfOfAverageGradeTextWidth);
+        scrollAnchor.getChildren().add(averageGradeText);
+
+        if (averageGrade <= 2.0) {
+            ImageView attentionIcon = new ImageView();
+            attentionIcon.setFitWidth(30);
+            attentionIcon.setFitHeight(30);
+            attentionIcon.setLayoutX(497.5 + halfOfAverageGradeTextWidth);
+            attentionIcon.setLayoutY(20);
+            attentionIcon.setImage(new Image(FilesLocations.FALLING_CLASS_ATTENTION_ICON));
+            scrollAnchor.getChildren().add(attentionIcon);
+        }
+
+        JFXButton getBackButton = createRightCornerButton(20, buttonText);
 
         EventHandler<MouseEvent> getBack = e -> {
             try {
-                MarksManageScreenView.view(scroll, scrollAnchor, pageInformation);
+                if (user.getUser_role().equals("TEACHER")) LoadAllCLassStudents.load(scroll, scrollAnchor,pageInformation, LoadAllCLassStudents.staticClassID);
+                else MarksManageScreenView.view(scroll, scrollAnchor, pageInformation);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         };
         getBackButton.addEventHandler(MouseEvent.MOUSE_CLICKED, getBack);
-
         scrollAnchor.getChildren().add(getBackButton);
+
+        if (user.getUser_role().equals("TEACHER")) {
+            JFXButton addGradeButton = createRightCornerButton(65, "Add new grade");
+            scrollAnchor.getChildren().add(addGradeButton);
+            JFXButton addFinalGradeButton = createRightCornerButton(110, "Add final grade");
+            scrollAnchor.getChildren().add(addFinalGradeButton);
+        }
 
         for (int i = 0; i < marks.size(); i++) {
             if (i % 2 == 0) XPosition = 61;
@@ -90,6 +119,7 @@ public class CreateMarkBox {
         int wrappingWidth = 322;
 
         String markValue = ConvertMarkView.convert(mark.getMark_value());
+        int markWeight = mark.getMark_weight();
         String markDescription = mark.getMark_description();
         String teacherName = GetNameAndSurnameByTableID.getTeacher(mark.getTeacher_id());
         String studentName = GetNameAndSurnameByTableID.getStudent(mark.getStudent_id());
@@ -100,6 +130,12 @@ public class CreateMarkBox {
         markValueText.setFill(textColor);
         markValueText.setWrappingWidth(wrappingWidth);
         box.getChildren().add(markValueText);
+
+        Text markWeightText = new Text(212, 43, "Weight: " + markWeight);
+        markWeightText.setFont(Font.font("Calibri", 20));
+        markWeightText.setTextAlignment(textAlignment);
+        markWeightText.setFill(textColor);
+        box.getChildren().add(markWeightText);
 
         Text markDescriptionText = new Text(24, 84, "Description: " + markDescription);
         markDescriptionText.setFont(Font.font("Calibri", 20));
@@ -121,5 +157,18 @@ public class CreateMarkBox {
         markStudentText.setFill(textColor);
         markStudentText.setWrappingWidth(wrappingWidth);
         box.getChildren().add(markStudentText);
+    }
+
+    private static JFXButton createRightCornerButton(int YPosition, String buttonText) {
+        JFXButton button = new JFXButton();
+        button.setLayoutX(771);
+        button.setLayoutY(YPosition);
+        button.setPrefSize(200, 37);
+        button.setText(buttonText);
+        button.setFont(Font.font("Calibri", 20));
+        button.setTextFill(Color.rgb(255, 255, 255));
+        button.setStyle("-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;");
+
+        return button;
     }
 }
