@@ -33,6 +33,12 @@ public class DAOFinalGrade implements DAO<FinalGrade> {
         return finalGradeDatabaseCommends(sql);
     }
 
+    public List<FinalGrade> getAllStudentsGrades(int student_id) throws SQLException {
+        String sql = "SELECT final_grade.* FROM final_grade INNER JOIN student ON final_grade.student_id = student.student_id " +
+                "WHERE student.student_id = " + student_id;
+        return finalGradeDatabaseCommends(sql);
+    }
+
     @Override
     public void save(FinalGrade finalGrade) throws SQLException {
         int grade_id = finalGrade.getGrade_id();

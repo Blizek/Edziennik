@@ -4,6 +4,7 @@ import DAO.*;
 import com.jfoenix.controls.JFXButton;
 import controller.DeleteGradeController;
 import controller.ManageGradeController;
+import controller.SetFinalGradeController;
 import enumTypes.DatabaseTablesName;
 import features.*;
 import javafx.event.EventHandler;
@@ -21,6 +22,7 @@ import locations.FilesLocations;
 import model.*;
 import routings.DeleteGradeMain;
 import routings.ManageGradeMain;
+import routings.SetFinalGradeMain;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -28,8 +30,9 @@ import java.util.List;
 
 public class CreateMarkBox {
     static Mark mark = new Mark(0, 0, 0, 0, 0, "");
+    static FinalGrade grade = new FinalGrade(0, 0, 0, 0);
 
-    public static void create(ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation, int subjectID) throws SQLException {
+    public static void create(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation, int subjectID) throws SQLException {
         int XPosition;
         int YPosition = 83;
 
@@ -40,7 +43,7 @@ public class CreateMarkBox {
         if (user.getUser_role().equals("STUDENT")) student = GetStudent.getForStudent(user.getUser_id());
         else if (user.getUser_role().equals("GUARDIAN")) student = GetStudent.getForGuardian(user.getUser_id());
         else {
-            student = new DAOStudent().get(LoadAllCLassStudents.studentID).get(0);
+            student = new DAOStudent().get(LoadAllClassStudents.studentID).get(0);
             buttonText = "Go back to students";
             YPosition = 173;
         }
@@ -53,12 +56,36 @@ public class CreateMarkBox {
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
+        JFXButton refreshButton = createRightCornerButton(38, "Refresh");
+        EventHandler<MouseEvent> refresh = e -> {
+            try {
+                mainAnchor.getChildren().remove(refreshButton);
+                CreateMarkBox.create(mainAnchor, scroll, scrollAnchor, pageInformation, subjectID);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        };
+        refreshButton.addEventHandler(MouseEvent.MOUSE_CLICKED, refresh);
+        mainAnchor.getChildren().add(refreshButton);
+
         Text finalGradeText = new Text(23, 44, "");
         finalGradeText.setFont(Font.font("Calibri", FontWeight.BOLD, 25));
         finalGradeText.setFill(Color.rgb(60, 86, 188));
         if (finalGrades.size() == 0) finalGradeText.setText("Final grade: None");
         else finalGradeText.setText("Final grade: " + finalGrades.get(0).getGrade_value());
         scrollAnchor.getChildren().add(finalGradeText);
+
+        if (finalGrades.size() != 0) {
+            if (finalGrades.get(0).getGrade_value() == 1) {
+                ImageView warning = new ImageView();
+                warning.setFitWidth(30);
+                warning.setFitHeight(30);
+                warning.setLayoutX(44 + finalGradeText.getLayoutBounds().getWidth());
+                warning.setLayoutY(20);
+                warning.setImage(new Image(FilesLocations.FALLING_CLASS_WARNING_ICON));
+                scrollAnchor.getChildren().add(warning);
+            }
+        }
 
         double averageGrade = AverageGradeCalculator.calculate(marks);
         Text averageGradeText = new Text(0, 44, "Average grade: " + averageGrade);
@@ -82,8 +109,9 @@ public class CreateMarkBox {
 
         EventHandler<MouseEvent> getBack = e -> {
             try {
-                if (user.getUser_role().equals("TEACHER")) LoadAllCLassStudents.load(scroll, scrollAnchor,pageInformation, LoadAllCLassStudents.staticClassID);
-                else MarksManageScreenView.view(scroll, scrollAnchor, pageInformation);
+                mainAnchor.getChildren().remove(refreshButton);
+                if (user.getUser_role().equals("TEACHER")) LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor,pageInformation, LoadAllClassStudents.staticClassID);
+                else MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor, pageInformation);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -110,7 +138,30 @@ public class CreateMarkBox {
 
             scrollAnchor.getChildren().add(addGradeButton);
 
+
             JFXButton addFinalGradeButton = createRightCornerButton(110, "Set final grade");
+
+            EventHandler<MouseEvent> setFinalGrade = e -> {
+                try {
+                    grade.setStudent_id(student.getStudent_id());
+                    grade.setSubject_id(subjectID);
+                    if (finalGrades.size() > 0) {
+                        grade.setGrade_id(finalGrades.get(0).getGrade_id());
+                        grade.setGrade_value(finalGrades.get(0).getGrade_value());
+                    } else {
+                        grade.setGrade_id(GetMaxID.get(DatabaseTablesName.FINAL_GRADE) + 1);
+                        grade.setGrade_value(0);
+                    }
+                    SetFinalGradeController.grade = grade;
+                    SetFinalGradeController.average = averageGrade;
+                    SetFinalGradeController.editing = (finalGrades.size() == 0);
+                    new SetFinalGradeMain().runThis();
+                } catch (IOException | SQLException exception) {
+                    exception.printStackTrace();
+                }
+            };
+            addFinalGradeButton.addEventHandler(MouseEvent.MOUSE_CLICKED, setFinalGrade);
+
             scrollAnchor.getChildren().add(addFinalGradeButton);
         }
 

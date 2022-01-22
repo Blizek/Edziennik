@@ -36,7 +36,8 @@ public class DAOStudent implements DAO<Student> {
     }
 
     public List<Student> getByClass(int class_id) throws SQLException {
-        String sql = "SELECT * FROM student WHERE class_id = " + class_id;
+        String sql = "SELECT student.* FROM class INNER JOIN student ON student.class_id = class.class_id WHERE" +
+                " class.class_id = " + class_id + " ORDER BY student.student_surname, student.student_name";
         return studentDatabaseCommends(sql);
     }
 

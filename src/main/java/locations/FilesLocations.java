@@ -30,4 +30,30 @@ public class FilesLocations {
     public static final String MINUS_RECEIVER_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\minus_receiver_icon.png";
 
     public static final String FALLING_CLASS_ATTENTION_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\falling_class_attention_icon.png";
+
+    public static final String ONE_MARK = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\one_mark.png";
+
+    public static final String ONE_MARK_GREY = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\one_mark_grey.png";
+
+    public static final String TWO_MARK = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\two_mark.png";
+
+    public static final String TWO_MARK_GREY = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\two_mark_grey.png";
+
+    public static final String THREE_MARK = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\three_mark.png";
+
+    public static final String THREE_MARK_GREY = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\three_mark_grey.png";
+
+    public static final String FOUR_MARK = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\four_mark.png";
+
+    public static final String FOUR_MARK_GREY = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\four_mark_grey.png";
+
+    public static final String FIVE_MARK = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\five_mark.png";
+
+    public static final String FIVE_MARK_GREY = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\five_mark_grey.png";
+
+    public static final String SIX_MARK = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\six_mark.png";
+
+    public static final String SIX_MARK_GREY = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\six_mark_grey.png";
+
+    public static final String FALLING_CLASS_WARNING_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\falling_class_warning_icon.png";
 }

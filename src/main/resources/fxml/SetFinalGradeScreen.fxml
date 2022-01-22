@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="272.0" prefWidth="700.0" style="-fx-background-color: #fff; -fx-border-color: #3c56bc; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SetFinalGradeController">
+   <children>
+      <ImageView fx:id="one" fitHeight="100.0" fitWidth="100.0" layoutX="15.0" layoutY="21.0" onMouseClicked="#setOne" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/one_mark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="two" fitHeight="100.0" fitWidth="100.0" layoutX="130.0" layoutY="21.0" onMouseClicked="#setTwo" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/two_mark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="three" fitHeight="100.0" fitWidth="100.0" layoutX="245.0" layoutY="21.0" onMouseClicked="#setThree" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/three_mark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="four" fitHeight="100.0" fitWidth="100.0" layoutX="360.0" layoutY="21.0" onMouseClicked="#setFour" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/four_mark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="five" fitHeight="100.0" fitWidth="100.0" layoutX="475.0" layoutY="21.0" onMouseClicked="#setFive" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/five_mark.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="six" fitHeight="100.0" fitWidth="100.0" layoutX="590.0" layoutY="21.0" onMouseClicked="#setSix" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/six_mark.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="averageText" fill="#3c56bc" layoutX="28.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Average grade: 5.72" wrappingWidth="280.0">
+         <font>
+            <Font name="Calibri Bold" size="30.0" />
+         </font>
+      </Text>
+      <Text fx:id="finalGradeText" fill="#3c56bc" layoutX="28.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Final grade: None" wrappingWidth="280.0">
+         <font>
+            <Font name="Calibri Bold" size="30.0" />
+         </font>
+      </Text>
+      <JFXButton layoutX="442.0" layoutY="168.0" onAction="#setGrade" prefHeight="63.0" prefWidth="192.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Set" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="30.0" />
+         </font>
+      </JFXButton>
+      <Text fx:id="error" fill="RED" layoutX="227.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have to choose one of the number" visible="false">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

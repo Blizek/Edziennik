@@ -21,11 +21,11 @@ import model.Teacher;
 import java.sql.SQLException;
 import java.util.List;
 
-public class LoadAllCLassStudents {
+public class LoadAllClassStudents {
     public static int studentID;
     public static int staticClassID;
 
-    public static void load(ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation, int classID) throws SQLException {
+    public static void load(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation, int classID) throws SQLException {
         Class actualClass = new DAOClass().get(classID).get(0);
         List<Student> students = new DAOStudent().getByClass(classID);
 
@@ -49,7 +49,7 @@ public class LoadAllCLassStudents {
 
         EventHandler<MouseEvent> getBack = e -> {
             try {
-                MarksManageScreenView.view(scroll, scrollAnchor, pageInformation);
+                MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor, pageInformation);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -94,7 +94,7 @@ public class LoadAllCLassStudents {
                 try {
                     studentID = Integer.parseInt(studentPane.getId());
                     Teacher teacher = new DAOTeacher().getByUserID(GetUser.get().getUser_id()).get(0);
-                    LoadAllStudentMarkFromSubject.load(scroll, scrollAnchor, pageInformation, teacher.getSubject_id());
+                    LoadAllStudentMarkFromSubject.load(mainAnchor, scroll, scrollAnchor, pageInformation, teacher.getSubject_id());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

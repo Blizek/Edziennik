@@ -1,9 +1,8 @@
 package loaders;
 
+import DAO.DAOStudent;
 import DAO.DAOTeacher;
-import features.GetAllStudentSubjects;
-import features.GetNotDuplicatedLearningClasses;
-import features.GetUser;
+import features.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -14,15 +13,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import model.*;
 import model.Class;
-import model.SchoolSubject;
-import model.Teacher;
 
 import java.sql.SQLException;
 import java.util.List;
 
 public class MarksManageScreenView {
-    public static void view(ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation) throws SQLException {
+    public static void view(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation) throws SQLException {
         scrollAnchor.getChildren().clear();
 
         String userRole = GetUser.get().getUser_role();
@@ -32,12 +30,24 @@ public class MarksManageScreenView {
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        if (!userRole.equals("TEACHER")) viewNotForTeacher(scroll, scrollAnchor, pageInformation);
-        else viewForTeacher(scroll, scrollAnchor, pageInformation);
+        if (!userRole.equals("TEACHER")) viewNotForTeacher(mainAnchor, scroll, scrollAnchor, pageInformation);
+        else viewForTeacher(mainAnchor, scroll, scrollAnchor, pageInformation);
     }
 
-    private static void viewNotForTeacher(ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation) throws SQLException {
+    private static void viewNotForTeacher(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation) throws SQLException {
         int YPosition = 10;
+
+        Student student;
+        User user = GetUser.get();
+
+        if (user.getUser_role().equals("STUDENT")) student = GetStudent.getForStudent(user.getUser_id());
+        else student = GetStudent.getForGuardian(user.getUser_id());
+
+        Text average = new Text(35, 70, "Average: " + AllGradesAverageCalculator.calculate(student));
+        average.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
+        average.setFill(Color.rgb(60, 86, 188));
+        mainAnchor.getChildren().add(average);
+
         List<SchoolSubject> subjects = GetAllStudentSubjects.get();
         for (SchoolSubject subject : subjects) {
             CreateLine.create(scrollAnchor, YPosition);
@@ -70,8 +80,9 @@ public class MarksManageScreenView {
             subjectPane.addEventHandler(MouseEvent.MOUSE_EXITED, mouseNotOnBox);
 
             EventHandler<MouseEvent> boxClicked = e -> {
+                mainAnchor.getChildren().remove(average);
                 try {
-                    LoadAllStudentMarkFromSubject.load(scroll, scrollAnchor, pageInformation, Integer.parseInt(String.valueOf(subjectPane.getId())));
+                    LoadAllStudentMarkFromSubject.load(mainAnchor, scroll, scrollAnchor, pageInformation, Integer.parseInt(String.valueOf(subjectPane.getId())));
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
@@ -91,7 +102,7 @@ public class MarksManageScreenView {
         }
     }
 
-    private static void viewForTeacher(ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation) throws SQLException {
+    private static void viewForTeacher(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation) throws SQLException {
         scrollAnchor.getChildren().clear();
 
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -128,7 +139,7 @@ public class MarksManageScreenView {
 
             EventHandler<MouseEvent> boxClicked = e -> {
                 try {
-                    LoadAllCLassStudents.load(scroll, scrollAnchor, pageInformation,
+                    LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, pageInformation,
                             Integer.parseInt(classPane.getId()));
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
