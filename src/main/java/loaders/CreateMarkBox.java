@@ -32,7 +32,7 @@ public class CreateMarkBox {
     static Mark mark = new Mark(0, 0, 0, 0, 0, "");
     static FinalGrade grade = new FinalGrade(0, 0, 0, 0);
 
-    public static void create(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation, int subjectID) throws SQLException {
+    public static void create(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, int subjectID) throws SQLException {
         int XPosition;
         int YPosition = 83;
 
@@ -50,6 +50,11 @@ public class CreateMarkBox {
 
         scrollAnchor.getChildren().clear();
 
+        String subjectName = new DAOSchoolSubject().get(subjectID).get(0).getSubject_name();
+
+        Text pageInfo = CreateMainText.create("Marks: " + subjectName);
+        mainAnchor.getChildren().add(pageInfo);
+
         List<Mark> marks = new DAOMark().getAllStudentMarksFromSubject(subjectID, student.getStudent_id());
         List<FinalGrade> finalGrades = new DAOFinalGrade().getStudentFinalGradeFromSuitableSubject(student.getStudent_id(), subjectID);
 
@@ -60,7 +65,8 @@ public class CreateMarkBox {
         EventHandler<MouseEvent> refresh = e -> {
             try {
                 mainAnchor.getChildren().remove(refreshButton);
-                CreateMarkBox.create(mainAnchor, scroll, scrollAnchor, pageInformation, subjectID);
+                mainAnchor.getChildren().remove(pageInfo);
+                CreateMarkBox.create(mainAnchor, scroll, scrollAnchor, subjectID);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -110,8 +116,9 @@ public class CreateMarkBox {
         EventHandler<MouseEvent> getBack = e -> {
             try {
                 mainAnchor.getChildren().remove(refreshButton);
-                if (user.getUser_role().equals("TEACHER")) LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor,pageInformation, LoadAllClassStudents.staticClassID);
-                else MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor, pageInformation);
+                mainAnchor.getChildren().remove(pageInfo);
+                if (user.getUser_role().equals("TEACHER")) LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, LoadAllClassStudents.staticClassID);
+                else MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }

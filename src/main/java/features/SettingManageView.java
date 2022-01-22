@@ -8,9 +8,9 @@ import loaders.MarksManageScreenView;
 import java.sql.SQLException;
 
 public class SettingManageView {
-    public static void set(String buttonID, AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation) throws SQLException {
+    public static void set(String buttonID, AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) throws SQLException {
         switch (buttonID) {
-            case "marks" -> MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor, pageInformation);
+            case "marks" -> MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             case "absences" -> System.out.println("Frekwencja");
             case "notes" -> System.out.println("Uwagi");
             case "lesson_plan" -> System.out.println("Plan lekcji");

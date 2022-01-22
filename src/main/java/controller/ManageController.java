@@ -23,7 +23,7 @@ public class ManageController {
     ScrollPane scroll;
 
     @FXML
-    Text userNameText, pageInformation;
+    Text userNameText;
 
     User user;
 
@@ -35,7 +35,7 @@ public class ManageController {
         userNameText.setText(getNameAndSurnameByRole(user.getUser_id()));
         LoadAllLeftButtons.buttonToDisableID = "main";
         LoadAllLeftButtons.YPosition = 0;
-        LoadAllLeftButtons.load(leftBarPane, user.getUser_role(), mainValueAnchorPane, scroll, scrollAnchor, pageInformation);
+        LoadAllLeftButtons.load(leftBarPane, user.getUser_role(), mainValueAnchorPane, scroll, scrollAnchor);
         CreateFooter.create(mainAnchorPane);
     }
 

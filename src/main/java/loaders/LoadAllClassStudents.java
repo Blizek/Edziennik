@@ -25,7 +25,7 @@ public class LoadAllClassStudents {
     public static int studentID;
     public static int staticClassID;
 
-    public static void load(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation, int classID) throws SQLException {
+    public static void load(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, int classID) throws SQLException {
         Class actualClass = new DAOClass().get(classID).get(0);
         List<Student> students = new DAOStudent().getByClass(classID);
 
@@ -33,7 +33,8 @@ public class LoadAllClassStudents {
 
         scrollAnchor.getChildren().clear();
 
-        pageInformation.setText(actualClass.getClass_name() + "'s students");
+        Text pageInfo = CreateMainText.create(actualClass.getClass_name() + "'s students");
+        mainAnchor.getChildren().add(pageInfo);
 
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -48,8 +49,9 @@ public class LoadAllClassStudents {
         getBackButton.setStyle("-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;");
 
         EventHandler<MouseEvent> getBack = e -> {
+            mainAnchor.getChildren().remove(pageInfo);
             try {
-                MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor, pageInformation);
+                MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -91,10 +93,11 @@ public class LoadAllClassStudents {
             studentPane.addEventHandler(MouseEvent.MOUSE_EXITED, mouseNotOnBox);
 
             EventHandler<MouseEvent> boxClicked = e -> {
+                mainAnchor.getChildren().remove(pageInfo);
                 try {
                     studentID = Integer.parseInt(studentPane.getId());
                     Teacher teacher = new DAOTeacher().getByUserID(GetUser.get().getUser_id()).get(0);
-                    LoadAllStudentMarkFromSubject.load(mainAnchor, scroll, scrollAnchor, pageInformation, teacher.getSubject_id());
+                    LoadAllStudentMarkFromSubject.load(mainAnchor, scroll, scrollAnchor, teacher.getSubject_id());
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

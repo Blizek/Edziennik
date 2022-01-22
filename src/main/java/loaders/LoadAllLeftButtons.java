@@ -2,7 +2,6 @@ package loaders;
 
 import DAO.DAOClass;
 import com.jfoenix.controls.JFXButton;
-import controller.ManageController;
 import features.GetUser;
 import features.SettingManageView;
 import javafx.event.EventHandler;
@@ -20,26 +19,26 @@ import java.sql.SQLException;
 public class LoadAllLeftButtons {
     public static int YPosition = 0;
     public static String buttonToDisableID;
-    public static void load(AnchorPane pane, String userRole, AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation) throws SQLException {
+    public static void load(AnchorPane pane, String userRole, AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) throws SQLException {
         User user = GetUser.get();
         if (userRole.equals("STUDENT") || userRole.equals("TEACHER") || userRole.equals("GUARDIAN")) {
-            createButton("Marks", "marks", pane, mainAnchor, scroll, scrollAnchor, pageInformation);
-            createButton("Absences", "absences", pane, mainAnchor, scroll, scrollAnchor, pageInformation);
-            createButton("Notes", "notes", pane, mainAnchor, scroll, scrollAnchor, pageInformation);
-            createButton("Lesson plan", "lesson_plan", pane, mainAnchor, scroll, scrollAnchor, pageInformation);
-            createButton("Exams", "exams", pane, mainAnchor, scroll, scrollAnchor, pageInformation);
+            createButton("Marks", "marks", pane, mainAnchor, scroll, scrollAnchor);
+            createButton("Absences", "absences", pane, mainAnchor, scroll, scrollAnchor);
+            createButton("Notes", "notes", pane, mainAnchor, scroll, scrollAnchor);
+            createButton("Lesson plan", "lesson_plan", pane, mainAnchor, scroll, scrollAnchor);
+            createButton("Exams", "exams", pane, mainAnchor, scroll, scrollAnchor);
         } else {
-            createButton("Students", "students", pane, mainAnchor, scroll, scrollAnchor, pageInformation);
-            createButton("Teachers", "teachers", pane, mainAnchor, scroll, scrollAnchor, pageInformation);
+            createButton("Students", "students", pane, mainAnchor, scroll, scrollAnchor);
+            createButton("Teachers", "teachers", pane, mainAnchor, scroll, scrollAnchor);
         }
         if (userRole.equals("TEACHER")) {
             if (new DAOClass().checkIfItIsClassSupervisingTeacher(user.getUser_id())) {
-                createButton("Your class", "your_class", pane, mainAnchor, scroll, scrollAnchor, pageInformation);
+                createButton("Your class", "your_class", pane, mainAnchor, scroll, scrollAnchor);
             }
         }
     }
 
-    private static void createButton(String textValue, String idValue, AnchorPane paneToAdd, AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, Text pageInformation) {
+    private static void createButton(String textValue, String idValue, AnchorPane paneToAdd, AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) {
         JFXButton button = new JFXButton();
 
         button.setLayoutX(21);
@@ -66,8 +65,9 @@ public class LoadAllLeftButtons {
                 LoadAllLeftButtons.buttonToDisableID = button.getId();
                 LoadAllLeftButtons.YPosition = 0;
                 try {
-                    LoadAllLeftButtons.load(paneToAdd, GetUser.get().getUser_role(), mainAnchor, scroll, scrollAnchor, pageInformation);
-                    SettingManageView.set(buttonToDisableID, mainAnchor, scroll, scrollAnchor, pageInformation);
+                    scrollAnchor.getChildren().clear();
+                    LoadAllLeftButtons.load(paneToAdd, GetUser.get().getUser_role(), mainAnchor, scroll, scrollAnchor);
+                    SettingManageView.set(buttonToDisableID, mainAnchor, scroll, scrollAnchor);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

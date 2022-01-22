@@ -32,11 +32,6 @@
                 <AnchorPane fx:id="scrollAnchor" minHeight="0.0" minWidth="0.0" prefHeight="544.0" prefWidth="985.0" style="-fx-background-color: white;" />
               </content>
             </ScrollPane>
-            <Text fx:id="pageInformation" fill="#3c56bc" layoutX="34.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="930.0">
-               <font>
-                  <Font name="Calibri Bold" size="25.0" />
-               </font>
-            </Text>
          </children></AnchorPane>
       <AnchorPane fx:id="leftBarPane" layoutX="-1.0" layoutY="88.0" prefHeight="626.0" prefWidth="192.0" />
    </children>
