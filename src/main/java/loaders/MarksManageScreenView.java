@@ -1,6 +1,5 @@
 package loaders;
 
-import DAO.DAOStudent;
 import DAO.DAOTeacher;
 import features.*;
 import javafx.event.EventHandler;
@@ -14,6 +13,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.*;
 import model.Class;
+import variables.MainText;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -21,6 +21,9 @@ import java.util.List;
 public class MarksManageScreenView {
     public static void view(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) throws SQLException {
         scrollAnchor.getChildren().clear();
+        mainAnchor.getChildren().clear();
+
+        mainAnchor.getChildren().add(MainText.main);
 
         String userRole = GetUser.get().getUser_role();
 
@@ -40,8 +43,7 @@ public class MarksManageScreenView {
         if (user.getUser_role().equals("STUDENT")) student = GetStudent.getForStudent(user.getUser_id());
         else student = GetStudent.getForGuardian(user.getUser_id());
 
-        Text pageInfo = CreateMainText.create("Marks");
-        mainAnchor.getChildren().add(pageInfo);
+        MainText.main.setText("Marks");
 
         Text average = new Text(35, 70, "Average: " + AllGradesAverageCalculator.calculate(student));
         average.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
@@ -81,7 +83,6 @@ public class MarksManageScreenView {
 
             EventHandler<MouseEvent> boxClicked = e -> {
                 mainAnchor.getChildren().remove(average);
-                mainAnchor.getChildren().remove(pageInfo);
                 try {
                     LoadAllStudentMarkFromSubject.load(mainAnchor, scroll, scrollAnchor, Integer.parseInt(String.valueOf(subjectPane.getId())));
                 } catch (SQLException throwables) {
@@ -109,8 +110,7 @@ public class MarksManageScreenView {
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        Text pageInfo = CreateMainText.create("Choose class");
-        mainAnchor.getChildren().add(pageInfo);
+        MainText.main.setText("Choose class");
 
         Teacher teacher = new DAOTeacher().getByUserID(GetUser.get().getUser_id()).get(0);
         List<Class> classes = GetNotDuplicatedLearningClasses.get(teacher.getTeacher_id());
@@ -140,7 +140,6 @@ public class MarksManageScreenView {
             classPane.getChildren().add(className);
 
             EventHandler<MouseEvent> boxClicked = e -> {
-                mainAnchor.getChildren().remove(pageInfo);
                 try {
                     LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, Integer.parseInt(classPane.getId()));
                 } catch (SQLException throwables) {

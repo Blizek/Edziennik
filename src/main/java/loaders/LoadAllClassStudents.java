@@ -17,6 +17,7 @@ import javafx.scene.text.TextAlignment;
 import model.Class;
 import model.Student;
 import model.Teacher;
+import variables.MainText;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -33,8 +34,7 @@ public class LoadAllClassStudents {
 
         scrollAnchor.getChildren().clear();
 
-        Text pageInfo = CreateMainText.create(actualClass.getClass_name() + "'s students");
-        mainAnchor.getChildren().add(pageInfo);
+        MainText.main.setText(actualClass.getClass_name() + "'s students");
 
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -49,7 +49,6 @@ public class LoadAllClassStudents {
         getBackButton.setStyle("-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;");
 
         EventHandler<MouseEvent> getBack = e -> {
-            mainAnchor.getChildren().remove(pageInfo);
             try {
                 MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             } catch (SQLException throwables) {
@@ -93,7 +92,6 @@ public class LoadAllClassStudents {
             studentPane.addEventHandler(MouseEvent.MOUSE_EXITED, mouseNotOnBox);
 
             EventHandler<MouseEvent> boxClicked = e -> {
-                mainAnchor.getChildren().remove(pageInfo);
                 try {
                     studentID = Integer.parseInt(studentPane.getId());
                     Teacher teacher = new DAOTeacher().getByUserID(GetUser.get().getUser_id()).get(0);

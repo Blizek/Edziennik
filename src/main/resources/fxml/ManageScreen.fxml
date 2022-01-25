@@ -25,14 +25,12 @@
             <Font name="Calibri Bold" size="60.0" />
          </font>
       </Text>
-      <AnchorPane fx:id="mainValueAnchorPane" layoutX="191.0" layoutY="88.0" prefHeight="626.0" prefWidth="991.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-radius: 5;">
-         <children>
-            <ScrollPane fx:id="scroll" layoutY="80.0" prefHeight="546.0" prefWidth="991.0">
-              <content>
-                <AnchorPane fx:id="scrollAnchor" minHeight="0.0" minWidth="0.0" prefHeight="544.0" prefWidth="985.0" style="-fx-background-color: white;" />
-              </content>
-            </ScrollPane>
-         </children></AnchorPane>
       <AnchorPane fx:id="leftBarPane" layoutX="-1.0" layoutY="88.0" prefHeight="626.0" prefWidth="192.0" />
+      <ScrollPane fx:id="scroll" layoutX="191.0" layoutY="165.0" prefHeight="546.0" prefWidth="991.0">
+        <content>
+          <AnchorPane fx:id="scrollAnchor" minHeight="0.0" minWidth="0.0" prefHeight="544.0" prefWidth="985.0" style="-fx-background-color: white;" />
+        </content>
+      </ScrollPane>
+      <AnchorPane fx:id="mainValueAnchorPane" layoutX="191.0" layoutY="88.0" prefHeight="81.0" prefWidth="991.0" style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-radius: 5;" />
    </children>
 </AnchorPane>

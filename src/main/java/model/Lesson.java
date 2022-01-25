@@ -5,13 +5,15 @@ import java.sql.Timestamp;
 public class Lesson {
     private int lesson_id;
     private int teacher_id;
+    private int plan_id;
     private String lesson_subject;
     private Timestamp lesson_date;
     private Student student;
 
-    public Lesson(int lesson_id, int teacher_id, String lesson_subject, Timestamp lesson_date) {
+    public Lesson(int lesson_id, int teacher_id, int plan_id, String lesson_subject, Timestamp lesson_date) {
         this.lesson_id = lesson_id;
         this.teacher_id = teacher_id;
+        this.plan_id = plan_id;
         this.lesson_subject = lesson_subject;
         this.lesson_date = lesson_date;
     }
@@ -32,6 +34,14 @@ public class Lesson {
         this.teacher_id = teacher_id;
     }
 
+    public int getPlan_id() {
+        return plan_id;
+    }
+
+    public void setPlan_id(int plan_id) {
+        this.plan_id = plan_id;
+    }
+
     public String getLesson_subject() {
         return lesson_subject;
     }
@@ -49,10 +59,12 @@ public class Lesson {
     }
 
     @Override
-    public String toString() {
+    public String
+    toString() {
         return "Lesson{" +
                 "lesson_id=" + lesson_id +
                 ", teacher_id=" + teacher_id +
+                ", plan_id=" + plan_id +
                 ", lesson_subject='" + lesson_subject + '\'' +
                 ", lesson_date=" + lesson_date +
                 '}';

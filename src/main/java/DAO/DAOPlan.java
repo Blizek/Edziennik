@@ -31,6 +31,12 @@ public class DAOPlan implements DAO<Plan> {
         return planDatabaseCommends(sql);
     }
 
+    public List<Plan> getAbsencePlanLesson(int absence_id) throws SQLException {
+        String sql = "SELECT plan.* FROM plan INNER JOIN lesson ON plan.plan_id = lesson.plan_id INNER JOIN absences ON" +
+                " absences.lesson_id = lesson.lesson_id WHERE absences.absence_id = " + absence_id;
+        return planDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Plan plan) throws SQLException {
         int plan_id = plan.getPlan_id();

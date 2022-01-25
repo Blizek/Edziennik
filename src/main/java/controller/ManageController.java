@@ -11,6 +11,7 @@ import loaders.CreateFooter;
 import loaders.LoadAllLeftButtons;
 import model.User;
 import routings.GoToHomeScreen;
+import variables.MainText;
 
 import java.sql.SQLException;
 
@@ -33,6 +34,9 @@ public class ManageController {
     public void initialize() throws SQLException {
         user = GetUser.get();
         userNameText.setText(getNameAndSurnameByRole(user.getUser_id()));
+        mainValueAnchorPane.getChildren().remove(MainText.main);
+        mainValueAnchorPane.getChildren().add(MainText.main);
+        MainText.main.setText("");
         LoadAllLeftButtons.buttonToDisableID = "main";
         LoadAllLeftButtons.YPosition = 0;
         LoadAllLeftButtons.load(leftBarPane, user.getUser_role(), mainValueAnchorPane, scroll, scrollAnchor);

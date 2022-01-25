@@ -39,6 +39,13 @@ public class DAOSchoolSubject implements DAO<SchoolSubject> {
         return schoolSubjectDatabaseCommends(sql);
     }
 
+    public List<SchoolSubject> getSubjectFromAbsence(int absence_id) throws SQLException {
+        String sql = "SELECT school_subject.* FROM absences INNER JOIN lesson ON absences.lesson_id = lesson.lesson_id " +
+                "INNER JOIN teacher ON lesson.teacher_id = teacher.teacher_id INNER JOIN school_subject ON " +
+                "school_subject.subject_id = teacher.subject_id WHERE absences.absence_id = " + absence_id;
+        return schoolSubjectDatabaseCommends(sql);
+    }
+
     @Override
     public void save(SchoolSubject subject) throws SQLException {
         int subject_id = subject.getSubject_id();

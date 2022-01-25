@@ -23,6 +23,7 @@ import model.*;
 import routings.DeleteGradeMain;
 import routings.ManageGradeMain;
 import routings.SetFinalGradeMain;
+import variables.MainText;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -52,8 +53,7 @@ public class CreateMarkBox {
 
         String subjectName = new DAOSchoolSubject().get(subjectID).get(0).getSubject_name();
 
-        Text pageInfo = CreateMainText.create("Marks: " + subjectName);
-        mainAnchor.getChildren().add(pageInfo);
+        MainText.main.setText("Marks: " + subjectName);
 
         List<Mark> marks = new DAOMark().getAllStudentMarksFromSubject(subjectID, student.getStudent_id());
         List<FinalGrade> finalGrades = new DAOFinalGrade().getStudentFinalGradeFromSuitableSubject(student.getStudent_id(), subjectID);
@@ -61,11 +61,10 @@ public class CreateMarkBox {
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        JFXButton refreshButton = createRightCornerButton(38, "Refresh");
+        JFXButton refreshButton = CreateRightCornerButton.create(38, "Refresh");
         EventHandler<MouseEvent> refresh = e -> {
             try {
                 mainAnchor.getChildren().remove(refreshButton);
-                mainAnchor.getChildren().remove(pageInfo);
                 CreateMarkBox.create(mainAnchor, scroll, scrollAnchor, subjectID);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -111,12 +110,11 @@ public class CreateMarkBox {
             scrollAnchor.getChildren().add(attentionIcon);
         }
 
-        JFXButton getBackButton = createRightCornerButton(20, buttonText);
+        JFXButton getBackButton = CreateRightCornerButton.create(20, buttonText);
 
         EventHandler<MouseEvent> getBack = e -> {
             try {
                 mainAnchor.getChildren().remove(refreshButton);
-                mainAnchor.getChildren().remove(pageInfo);
                 if (user.getUser_role().equals("TEACHER")) LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, LoadAllClassStudents.staticClassID);
                 else MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             } catch (SQLException throwables) {
@@ -127,7 +125,7 @@ public class CreateMarkBox {
         scrollAnchor.getChildren().add(getBackButton);
 
         if (user.getUser_role().equals("TEACHER")) {
-            JFXButton addGradeButton = createRightCornerButton(65, "Add new grade");
+            JFXButton addGradeButton = CreateRightCornerButton.create(65, "Add new grade");
 
             EventHandler<MouseEvent> goToManageGradeScreen = e -> {
                 try {
@@ -146,7 +144,7 @@ public class CreateMarkBox {
             scrollAnchor.getChildren().add(addGradeButton);
 
 
-            JFXButton addFinalGradeButton = createRightCornerButton(110, "Set final grade");
+            JFXButton addFinalGradeButton = CreateRightCornerButton.create(110, "Set final grade");
 
             EventHandler<MouseEvent> setFinalGrade = e -> {
                 try {
@@ -246,19 +244,6 @@ public class CreateMarkBox {
         markStudentText.setFill(textColor);
         markStudentText.setWrappingWidth(wrappingWidth);
         box.getChildren().add(markStudentText);
-    }
-
-    private static JFXButton createRightCornerButton(int YPosition, String buttonText) {
-        JFXButton button = new JFXButton();
-        button.setLayoutX(771);
-        button.setLayoutY(YPosition);
-        button.setPrefSize(200, 37);
-        button.setText(buttonText);
-        button.setFont(Font.font("Calibri", 20));
-        button.setTextFill(Color.rgb(255, 255, 255));
-        button.setStyle("-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;");
-
-        return button;
     }
 
     private static void createTeacherManageGradeButtons(AnchorPane pane, Mark mark) {

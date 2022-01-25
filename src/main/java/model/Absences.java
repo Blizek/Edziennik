@@ -5,12 +5,14 @@ public class Absences {
     private int student_id;
     private int lesson_id;
     private boolean student_absence;
+    private boolean excused_absence;
 
-    public Absences(int absence_id, int student_id, int lesson_id, boolean student_absence) {
+    public Absences(int absence_id, int student_id, int lesson_id, boolean student_absence, boolean excused_absence) {
         this.absence_id = absence_id;
         this.student_id = student_id;
         this.lesson_id = lesson_id;
         this.student_absence = student_absence;
+        this.excused_absence = excused_absence;
     }
 
     public int getAbsence_id() {
@@ -45,6 +47,14 @@ public class Absences {
         this.student_absence = student_absence;
     }
 
+    public boolean isExcused_absence() {
+        return excused_absence;
+    }
+
+    public void setExcused_absence(boolean excused_absence) {
+        this.excused_absence = excused_absence;
+    }
+
     @Override
     public String toString() {
         return "Absences{" +
@@ -52,6 +62,7 @@ public class Absences {
                 ", student_id=" + student_id +
                 ", lesson_id=" + lesson_id +
                 ", student_absence=" + student_absence +
+                ", excused_absence=" + excused_absence +
                 '}';
     }
 }

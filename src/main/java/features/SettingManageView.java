@@ -3,6 +3,7 @@ package features;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import loaders.AbsencesManageScreenView;
 import loaders.MarksManageScreenView;
 
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ public class SettingManageView {
     public static void set(String buttonID, AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) throws SQLException {
         switch (buttonID) {
             case "marks" -> MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
-            case "absences" -> System.out.println("Frekwencja");
+            case "absences" -> AbsencesManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             case "notes" -> System.out.println("Uwagi");
             case "lesson_plan" -> System.out.println("Plan lekcji");
             case "exams" -> System.out.println("Sprawdziany");
