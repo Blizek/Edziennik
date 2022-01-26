@@ -37,6 +37,19 @@ public class DAOPlan implements DAO<Plan> {
         return planDatabaseCommends(sql);
     }
 
+    public List<Plan> getTeachersPlanLessonsFromWeekDay(int teacher_id, String week_day) throws SQLException {
+        String sql = "SELECT plan.* FROM plan INNER JOIN teacher ON plan.teacher_id = teacher.teacher_id WHERE" +
+                " teacher.teacher_id = " + teacher_id + " AND plan.day = '" + week_day + "'";
+        return planDatabaseCommends(sql);
+    }
+
+    public List<Plan> getStudentsPlanLessonsFromWeekDay(int student_id, String week_day) throws SQLException {
+        String sql = "SELECT plan.* FROM plan INNER JOIN class ON plan.class_id = class.class_id INNER JOIN student ON" +
+                " class.class_id = student.class_id WHERE student.student_id = " + student_id +" AND plan.day = '" +
+                week_day + "'";
+        return planDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Plan plan) throws SQLException {
         int plan_id = plan.getPlan_id();
@@ -45,8 +58,10 @@ public class DAOPlan implements DAO<Plan> {
         String day = plan.getDay();
         String start_hour = plan.getStart_hour();
         String finish_hour = plan.getFinish_hour();
-        String sql = "INSERT INTO plan(plan_id, class_id, teacher_id, day, start_hour, finish_hour) VALUES(" + plan_id
-                +", " + class_id + ", " + teacher_id + ", '" + day + "', '" + start_hour + "', '" + finish_hour + "')";
+        int classroom_number = plan.getClassroom_number();
+        String sql = "INSERT INTO plan(plan_id, class_id, teacher_id, day, start_hour, finish_hour, classroom_number) VALUES("
+                + plan_id +", " + class_id + ", " + teacher_id + ", '" + day + "', '" + start_hour + "', '" + finish_hour +
+                "', " + classroom_number + ")";
         statement.executeUpdate(sql);
     }
 
@@ -58,9 +73,10 @@ public class DAOPlan implements DAO<Plan> {
         String new_day = plan.getDay();
         String new_start_hour = plan.getStart_hour();
         String new_finish_hour = plan.getFinish_hour();
+        int new_classroom_number = plan.getClassroom_number();
         String sql = "UPDATE plan SET plan_id = " + new_plan_id + ", class_id = " + new_class_id + ", teacher_id = " +
                 new_teacher_id + ", day = '" + new_day + "', start_hour = '" + new_start_hour + "', finish_hour = '" +
-                new_finish_hour + "' WHERE plan_id = " + new_plan_id;
+                new_finish_hour + "', classroom_number = " + new_classroom_number + " WHERE plan_id = " + new_plan_id;
         statement.executeUpdate(sql);
     }
 
@@ -81,7 +97,8 @@ public class DAOPlan implements DAO<Plan> {
             String day = resultSet.getString(4);
             String start_hour = resultSet.getString(5);
             String finish_hour = resultSet.getString(6);
-            plans.add(new Plan(plan_id, class_id, teacher_id, day, start_hour, finish_hour));
+            int classroom_number = resultSet.getInt(7);
+            plans.add(new Plan(plan_id, class_id, teacher_id, day, start_hour, finish_hour, classroom_number));
         }
         return plans;
     }

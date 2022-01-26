@@ -32,13 +32,19 @@ public class DAOLesson implements DAO<Lesson> {
         return lessonDatabaseCommends(sql);
     }
 
+    public List<Lesson> getLessonByPlanIDAndDate(int plan_id, String date) throws SQLException {
+        String sql = "SELECT lesson.* FROM lesson INNER JOIN plan ON lesson.plan_id = plan.plan_id WHERE" +
+                " plan.plan_id = " + plan_id +" AND lesson.lesson_date = '" + date + "'";
+        return lessonDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Lesson lesson) throws SQLException {
         int lesson_id = lesson.getLesson_id();
         int teacher_id = lesson.getTeacher_id();
         int plan_id = lesson.getPlan_id();
         String lesson_subject = lesson.getLesson_subject();
-        String lesson_date = lesson.getLesson_date().toString().substring(0, 19);
+        String lesson_date = lesson.getLesson_date().toString().substring(0, 10) + " 00:00:00";
         String sql = "INSERT INTO lesson(lesson_id, teacher_id, plan_id, lesson_subject, lesson_date) VALUES (" + lesson_id + ", "
                 + teacher_id + ", " + plan_id + ", '" + lesson_subject + "', '" + lesson_date + "')";
         statement.executeUpdate(sql);

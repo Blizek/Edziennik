@@ -7,14 +7,16 @@ public class Plan {
     private String day;
     private String start_hour;
     private String finish_hour;
+    private int classroom_number;
 
-    public Plan(int plan_id, int class_id, int teacher_id, String day, String start_hour, String finish_hour) {
+    public Plan(int plan_id, int class_id, int teacher_id, String day, String start_hour, String finish_hour, int classroom_number) {
         this.plan_id = plan_id;
         this.class_id = class_id;
         this.teacher_id = teacher_id;
         this.day = day;
         this.start_hour = start_hour;
         this.finish_hour = finish_hour;
+        this.classroom_number = classroom_number;
     }
 
     public int getPlan_id() {
@@ -65,6 +67,14 @@ public class Plan {
         this.finish_hour = finish_hour;
     }
 
+    public int getClassroom_number() {
+        return classroom_number;
+    }
+
+    public void setClassroom_number(int classroom_number) {
+        this.classroom_number = classroom_number;
+    }
+
     @Override
     public String toString() {
         return "Plan{" +
@@ -74,6 +84,7 @@ public class Plan {
                 ", day='" + day + '\'' +
                 ", start_hour='" + start_hour + '\'' +
                 ", finish_hour='" + finish_hour + '\'' +
+                ", classroom_number=" + classroom_number +
                 '}';
     }
 }

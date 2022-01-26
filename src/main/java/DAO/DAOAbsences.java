@@ -52,6 +52,12 @@ public class DAOAbsences implements DAO<Absences> {
         return absencesDatabaseCommends(sql);
     }
 
+    public List<Absences> getLessonPresence(int lesson_id) throws SQLException {
+        String sql = "SELECT absences.* FROM absences INNER JOIN lesson ON absences.lesson_id = lesson.lesson_id" +
+                " WHERE lesson.lesson_id = " + lesson_id;
+        return absencesDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Absences absences) throws SQLException {
         int absence_id = absences.getAbsence_id();

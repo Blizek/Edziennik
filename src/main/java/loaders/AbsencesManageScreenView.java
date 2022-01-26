@@ -6,10 +6,7 @@ import DAO.DAOPlan;
 import DAO.DAOSchoolSubject;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXCheckBox;
-import features.CalculateFrequency;
-import features.GetAllStudentSubjects;
-import features.GetStudent;
-import features.GetUser;
+import features.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -137,7 +134,8 @@ public class AbsencesManageScreenView {
         return checkBox;
     }
 
-    private static void createAbsences(ScrollPane scroll, AnchorPane anchor, List<Absences> allPresencesAndAbsences, Student student) throws SQLException {
+    private static void createAbsences(ScrollPane scroll, AnchorPane anchor, List<Absences> allPresencesAndAbsences,
+                                       Student student) throws SQLException {
         anchor.getChildren().clear();
 
         int YPosition = 10;
@@ -155,8 +153,8 @@ public class AbsencesManageScreenView {
             createText(absencePane, 31, absenceSubject.getSubject_name());
 
             Plan absencePlanLesson = new DAOPlan().getAbsencePlanLesson(allPresencesAndAbsence.getAbsence_id()).get(0);
-            Lesson absenceLesson = new DAOLesson().getAbsenceLesson(allPresencesAndAbsence.getAbsence_id()).get(0);
-            String lessonDate = absenceLesson.getLesson_date().toString().substring(0, 10);
+            Lesson planPLesson = new DAOLesson().getAbsenceLesson(allPresencesAndAbsence.getAbsence_id()).get(0);
+            String lessonDate = FormatDay.format(planPLesson.getLesson_date().toString());
             String planLessonDescription = lessonDate + " " + absencePlanLesson.getDay() + " " +
                     absencePlanLesson.getStart_hour() + " - " + absencePlanLesson.getFinish_hour();
             createText(absencePane, 302, planLessonDescription);
@@ -189,7 +187,7 @@ public class AbsencesManageScreenView {
 
         YPosition += 45;
 
-        for (int i = 0; i < learningSubjects.size(); i++) {
+        for (SchoolSubject learningSubject : learningSubjects) {
             CreateLine.create(anchor, YPosition);
 
             AnchorPane subjectPane = new AnchorPane();
@@ -200,11 +198,11 @@ public class AbsencesManageScreenView {
             anchor.getChildren().add(subjectPane);
 
             List<Absences> studentSubjectsAbsences = new DAOAbsences().getAllStudentAbsencesFromSubject(student.getStudent_id(),
-                    learningSubjects.get(i).getSubject_id());
+                    learningSubject.getSubject_id());
 
             double subjectFrequency = CalculateFrequency.calculate(studentSubjectsAbsences);
 
-            createText(subjectPane, 75, learningSubjects.get(i).getSubject_name());
+            createText(subjectPane, 75, learningSubject.getSubject_name());
             createText(subjectPane, 500, subjectFrequency + "%");
 
             if (subjectFrequency < 80) {

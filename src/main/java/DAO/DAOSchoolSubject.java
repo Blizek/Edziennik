@@ -46,6 +46,12 @@ public class DAOSchoolSubject implements DAO<SchoolSubject> {
         return schoolSubjectDatabaseCommends(sql);
     }
 
+    public List<SchoolSubject> getTeacherSubject(int teacher_id) throws SQLException {
+        String sql = "SELECT school_subject.* FROM school_subject INNER JOIN teacher ON" +
+                " school_subject.subject_id = teacher.subject_id WHERE teacher.teacher_id = " + teacher_id;
+        return schoolSubjectDatabaseCommends(sql);
+    }
+
     @Override
     public void save(SchoolSubject subject) throws SQLException {
         int subject_id = subject.getSubject_id();

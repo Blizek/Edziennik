@@ -56,4 +56,8 @@ public class FilesLocations {
     public static final String SIX_MARK_GREY = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\six_mark_grey.png";
 
     public static final String FALLING_CLASS_WARNING_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\falling_class_warning_icon.png";
+
+    public static final String LEFT_ARROW_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\left_arrow.png";
+
+    public static final String RIGHT_ARROW_ICON = "file:/" + System.getProperty("user.dir") + "\\src\\main\\resources\\images\\right_arrow.png";
 }
