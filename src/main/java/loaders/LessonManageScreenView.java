@@ -34,6 +34,9 @@ public class LessonManageScreenView {
     static LocalDate date;
 
     public static void view(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, LocalDate actualDate) throws SQLException {
+        scroll.setVvalue(0);
+        scrollAnchor.setPrefHeight(544);
+
         scrollAnchor.getChildren().clear();
         mainAnchor.getChildren().clear();
 
@@ -82,7 +85,7 @@ public class LessonManageScreenView {
 
         MainText.main.setText(planOwnerNameAndSurname + "'s lesson plan");
 
-        String dayAndDate = GetWeekDay.get(date) + " " + FormatDay.format(date.toString());
+        String dayAndDate = GetWeekDay.get(date) + " " + FormatDay.formatDate(date.toString());
 
         Text dayAndDateText = new Text(313, 40, dayAndDate);
         dayAndDateText.setFont(Font.font("Calibri", FontWeight.BOLD, 35));

@@ -1,7 +1,9 @@
 package loaders;
 
 import DAO.DAOTeacher;
-import features.*;
+import features.GetNotDuplicatedLearningClasses;
+import features.GetStudent;
+import features.GetUser;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -11,14 +13,16 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import model.*;
 import model.Class;
+import model.Student;
+import model.Teacher;
+import model.User;
 import variables.MainText;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class MarksManageScreenView {
+public class NotesManageScreenView {
     public static void view(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) throws SQLException {
         scroll.setVvalue(0);
         scrollAnchor.setPrefHeight(544);
@@ -28,83 +32,22 @@ public class MarksManageScreenView {
 
         mainAnchor.getChildren().add(MainText.main);
 
-        String userRole = GetUser.get().getUser_role();
+        User user = GetUser.get();
 
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        if (!userRole.equals("TEACHER")) viewNotForTeacher(mainAnchor, scroll, scrollAnchor);
+        if (!user.getUser_role().equals("TEACHER")) viewNotForTeacher(mainAnchor, scroll, scrollAnchor, user);
         else viewForTeacher(mainAnchor, scroll, scrollAnchor);
     }
 
-    private static void viewNotForTeacher(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) throws SQLException {
-        int YPosition = 10;
-
+    private static void viewNotForTeacher(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, User user) throws SQLException {
         Student student;
-        User user = GetUser.get();
 
         if (user.getUser_role().equals("STUDENT")) student = GetStudent.getForStudent(user.getUser_id());
         else student = GetStudent.getForGuardian(user.getUser_id());
 
-        MainText.main.setText("Marks");
-
-        Text average = new Text(35, 70, "Average: " + AllGradesAverageCalculator.calculate(student));
-        average.setFont(Font.font("Calibri", FontWeight.BOLD, 20));
-        average.setFill(Color.rgb(60, 86, 188));
-        mainAnchor.getChildren().add(average);
-
-        List<SchoolSubject> subjects = GetAllStudentSubjects.get();
-        for (SchoolSubject subject : subjects) {
-            CreateLine.create(scrollAnchor, YPosition);
-
-            AnchorPane subjectPane = new AnchorPane();
-            subjectPane.setLayoutX(34);
-            subjectPane.setLayoutY(YPosition + 1);
-            subjectPane.setPrefWidth(919);
-            subjectPane.setPrefHeight(73);
-            subjectPane.setId(String.valueOf(subject.getSubject_id()));
-
-            Text subjectName = new Text(34, 41, subject.getSubject_name());
-            subjectName.setTextAlignment(TextAlignment.LEFT);
-            subjectName.setFont(Font.font("Calibri", 25));
-            subjectName.setWrappingWidth(344);
-            subjectName.setFill(Color.rgb(60, 86, 188));
-            subjectPane.getChildren().add(subjectName);
-
-            Text seeMore = new Text(690, 41, "See more");
-            seeMore.setTextAlignment(TextAlignment.LEFT);
-            seeMore.setFont(Font.font("Calibri", 25));
-            seeMore.setWrappingWidth(207);
-            seeMore.setFill(Color.rgb(60, 86, 188));
-            subjectPane.getChildren().add(seeMore);
-
-            EventHandler<MouseEvent> mouseOnBox = e -> subjectPane.setStyle("-fx-background-color: #DBDBDB;");
-            subjectPane.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseOnBox);
-
-            EventHandler<MouseEvent> mouseNotOnBox = e -> subjectPane.setStyle("-fx-background-color: transparent");
-            subjectPane.addEventHandler(MouseEvent.MOUSE_EXITED, mouseNotOnBox);
-
-            EventHandler<MouseEvent> boxClicked = e -> {
-                mainAnchor.getChildren().remove(average);
-                try {
-                    LoadAllStudentMarkFromSubject.load(mainAnchor, scroll, scrollAnchor, Integer.parseInt(String.valueOf(subjectPane.getId())));
-                } catch (SQLException throwables) {
-                    throwables.printStackTrace();
-                }
-            };
-            subjectPane.addEventHandler(MouseEvent.MOUSE_CLICKED, boxClicked);
-
-            scrollAnchor.getChildren().add(subjectPane);
-
-            YPosition += 74;
-        }
-
-        CreateLine.create(scrollAnchor, YPosition);
-
-        if (YPosition >= 544) {
-            scrollAnchor.setPrefHeight(YPosition + 124);
-            scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        }
+        CreateNoteBox.create(mainAnchor, scroll, scrollAnchor, student.getStudent_id());
     }
 
     private static void viewForTeacher(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) throws SQLException {
@@ -144,7 +87,7 @@ public class MarksManageScreenView {
 
             EventHandler<MouseEvent> boxClicked = e -> {
                 try {
-                    LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, Integer.parseInt(classPane.getId()), true);
+                    LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, Integer.parseInt(classPane.getId()), false);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

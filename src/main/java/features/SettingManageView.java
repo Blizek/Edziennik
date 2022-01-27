@@ -5,6 +5,7 @@ import javafx.scene.layout.AnchorPane;
 import loaders.AbsencesManageScreenView;
 import loaders.LessonManageScreenView;
 import loaders.MarksManageScreenView;
+import loaders.NotesManageScreenView;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ public class SettingManageView {
         switch (buttonID) {
             case "marks" -> MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             case "absences" -> AbsencesManageScreenView.view(mainAnchor, scroll, scrollAnchor, LocalDate.now());
-            case "notes" -> System.out.println("Uwagi");
+            case "notes" -> NotesManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             case "lesson_plan" -> LessonManageScreenView.view(mainAnchor, scroll, scrollAnchor, LocalDate.now());
             case "exams" -> System.out.println("Sprawdziany");
             case "students" -> System.out.println("Wszyscy uczniowie");

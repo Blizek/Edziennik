@@ -26,7 +26,10 @@ public class LoadAllClassStudents {
     public static int studentID;
     public static int staticClassID;
 
-    public static void load(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, int classID) throws SQLException {
+    public static void load(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, int classID, boolean marksView) throws SQLException {
+        scroll.setVvalue(0);
+        scrollAnchor.setPrefHeight(544);
+
         Class actualClass = new DAOClass().get(classID).get(0);
         List<Student> students = new DAOStudent().getByClass(classID);
 
@@ -50,7 +53,8 @@ public class LoadAllClassStudents {
 
         EventHandler<MouseEvent> getBack = e -> {
             try {
-                MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
+                if (marksView) MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
+                else NotesManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -94,8 +98,10 @@ public class LoadAllClassStudents {
             EventHandler<MouseEvent> boxClicked = e -> {
                 try {
                     studentID = Integer.parseInt(studentPane.getId());
-                    Teacher teacher = new DAOTeacher().getByUserID(GetUser.get().getUser_id()).get(0);
-                    LoadAllStudentMarkFromSubject.load(mainAnchor, scroll, scrollAnchor, teacher.getSubject_id());
+                    if (marksView) {
+                        Teacher teacher = new DAOTeacher().getByUserID(GetUser.get().getUser_id()).get(0);
+                        LoadAllStudentMarkFromSubject.load(mainAnchor, scroll, scrollAnchor, teacher.getSubject_id());
+                    } else CreateNoteBox.create(mainAnchor, scroll, scrollAnchor, studentID);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

@@ -28,6 +28,9 @@ public class AbsencesManageScreenView {
     static LocalDate date;
 
     public static void view(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, LocalDate actualDate) throws SQLException {
+        scroll.setVvalue(0);
+        scrollAnchor.setPrefHeight(544);
+
         scrollAnchor.getChildren().clear();
         mainAnchor.getChildren().clear();
 
@@ -142,7 +145,7 @@ public class AbsencesManageScreenView {
 
         MainText.main.setText(planOwnerNameAndSurname + "'s lesson plan");
 
-        String dayAndDate = GetWeekDay.get(date) + " " + FormatDay.format(date.toString());
+        String dayAndDate = GetWeekDay.get(date) + " " + FormatDay.formatDate(date.toString());
 
         Text dayAndDateText = new Text(313, 40, dayAndDate);
         dayAndDateText.setFont(Font.font("Calibri", FontWeight.BOLD, 35));
@@ -260,7 +263,7 @@ public class AbsencesManageScreenView {
 
             Plan absencePlanLesson = new DAOPlan().getAbsencePlanLesson(allPresencesAndAbsence.getAbsence_id()).get(0);
             Lesson planPLesson = new DAOLesson().getAbsenceLesson(allPresencesAndAbsence.getAbsence_id()).get(0);
-            String lessonDate = FormatDay.format(planPLesson.getLesson_date().toString());
+            String lessonDate = FormatDay.formatDate(planPLesson.getLesson_date().toString());
             String planLessonDescription = lessonDate + " " + absencePlanLesson.getDay() + " " +
                     absencePlanLesson.getStart_hour() + " - " + absencePlanLesson.getFinish_hour();
             createText(absencePane, 302, planLessonDescription);

@@ -26,6 +26,19 @@ public class DAONotes implements DAO<Notes> {
         return notesDatabaseCommends(sql);
     }
 
+    public List<Notes> getStudentNotes(int student_id, String moreLessOrEqualZeroSign) throws SQLException {
+        String sql = "SELECT notes.* FROM notes INNER JOIN student ON notes.student_id = student.student_id WHERE " +
+                "student.student_id = " + student_id + " AND notes.note_value " + moreLessOrEqualZeroSign + " 0";
+        return notesDatabaseCommends(sql);
+    }
+
+    public List<Notes> getStudentNotesFromTeacher(int student_id, int teacher_id, String moreLessEqualZeroSign) throws SQLException {
+        String sql = "SELECT notes.* FROM teacher INNER JOIN notes ON teacher.teacher_id = notes.teacher_id INNER JOIN " +
+                "student ON notes.student_id = student.student_id WHERE student.student_id = " + student_id + " " +
+                "AND teacher.teacher_id = " + teacher_id + " AND notes.note_value " + moreLessEqualZeroSign + " 0";
+        return notesDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Notes notes) throws SQLException {
         int note_id = notes.getNote_id();

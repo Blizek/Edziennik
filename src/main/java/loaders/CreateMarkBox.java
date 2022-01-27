@@ -34,6 +34,9 @@ public class CreateMarkBox {
     static FinalGrade grade = new FinalGrade(0, 0, 0, 0);
 
     public static void create(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, int subjectID) throws SQLException {
+        scroll.setVvalue(0);
+        scrollAnchor.setPrefHeight(544);
+
         int XPosition;
         int YPosition = 83;
 
@@ -115,7 +118,7 @@ public class CreateMarkBox {
         EventHandler<MouseEvent> getBack = e -> {
             try {
                 mainAnchor.getChildren().remove(refreshButton);
-                if (user.getUser_role().equals("TEACHER")) LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, LoadAllClassStudents.staticClassID);
+                if (user.getUser_role().equals("TEACHER")) LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, LoadAllClassStudents.staticClassID, true);
                 else MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

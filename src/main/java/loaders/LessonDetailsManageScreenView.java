@@ -28,13 +28,16 @@ import java.util.List;
 
 public class LessonDetailsManageScreenView {
     public static void load(AnchorPane mainPane, ScrollPane scroll, AnchorPane scrollAnchor, String planID) throws SQLException {
+        scroll.setVvalue(0);
+        scrollAnchor.setPrefHeight(544);
+
         scrollAnchor.getChildren().clear();
 
         User user = GetUser.get();
         Plan planLesson = new DAOPlan().get(Integer.parseInt(planID)).get(0);
         SchoolSubject subject = new DAOSchoolSubject().getTeacherSubject(planLesson.getTeacher_id()).get(0);
 
-        MainText.main.setText("Lesson: " + subject.getSubject_name() + " " + FormatDay.format(LessonManageScreenView.date.toString())
+        MainText.main.setText("Lesson: " + subject.getSubject_name() + " " + FormatDay.formatDate(LessonManageScreenView.date.toString())
         + " " + planLesson.getStart_hour() + " - " + planLesson.getFinish_hour());
 
         JFXButton getBackButton = CreateRightCornerButton.create(38, "Go back to schedule");
