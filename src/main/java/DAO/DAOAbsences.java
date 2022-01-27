@@ -37,9 +37,11 @@ public class DAOAbsences implements DAO<Absences> {
     }
 
     public List<Absences> getStudentAbsencesOrPresences(int student_id, boolean student_absence, boolean excused_absence) throws SQLException {
-        String sql = "SELECT absences.* FROM absences INNER JOIN student ON absences.student_id = student.student_id WHERE" +
-                " student.student_id = " + student_id + " and absences.student_absence = " + student_absence
-                + " and absences.excused_absence = " + excused_absence;
+        String sql = "SELECT absences.* FROM plan INNER JOIN lesson ON plan.plan_id = lesson.plan_id INNER JOIN " +
+                "absences ON lesson.lesson_id = absences.lesson_id INNER JOIN student ON " +
+                "absences.student_id = student.student_id WHERE student.student_id = " + student_id + " and " +
+                "absences.student_absence = " + student_absence + " and absences.excused_absence = " + excused_absence +
+                " ORDER BY lesson.lesson_date, HOUR(plan.start_hour), MINUTE(plan.start_hour)";
         return absencesDatabaseCommends(sql);
     }
 
