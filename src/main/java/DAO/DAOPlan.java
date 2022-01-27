@@ -38,15 +38,23 @@ public class DAOPlan implements DAO<Plan> {
     }
 
     public List<Plan> getTeachersPlanLessonsFromWeekDay(int teacher_id, String week_day) throws SQLException {
-        String sql = "SELECT plan.* FROM plan INNER JOIN teacher ON plan.teacher_id = teacher.teacher_id WHERE" +
-                " teacher.teacher_id = " + teacher_id + " AND plan.day = '" + week_day + "'";
+        String sql = "SELECT plan.* FROM plan INNER JOIN teacher ON plan.teacher_id = teacher.teacher_id WHERE " +
+                "teacher.teacher_id = " + teacher_id + " AND plan.day = '" + week_day + "' ORDER BY " +
+                "HOUR(plan.start_hour), MINUTE(plan.start_hour)";
         return planDatabaseCommends(sql);
     }
 
     public List<Plan> getStudentsPlanLessonsFromWeekDay(int student_id, String week_day) throws SQLException {
-        String sql = "SELECT plan.* FROM plan INNER JOIN class ON plan.class_id = class.class_id INNER JOIN student ON" +
-                " class.class_id = student.class_id WHERE student.student_id = " + student_id +" AND plan.day = '" +
-                week_day + "'";
+        String sql = "SELECT plan.* FROM plan INNER JOIN class ON plan.class_id = class.class_id INNER JOIN student ON " +
+                "class.class_id = student.class_id WHERE student.student_id = " + student_id +" AND plan.day = '" + week_day +
+                "' ORDER BY HOUR(plan.start_hour), MINUTE(plan.start_hour)";
+        return planDatabaseCommends(sql);
+    }
+
+    public List<Plan> getTeacherLessonFromDate(int teacher_id, String week_day, String date) throws SQLException {
+        String sql = "SELECT plan.* FROM plan INNER JOIN lesson ON plan.plan_id = lesson.plan_id INNER JOIN teacher ON " +
+                "lesson.teacher_id = teacher.teacher_id WHERE teacher.teacher_id = " + teacher_id +" AND " +
+                "plan.day = '" + week_day + "' AND lesson.lesson_date = '" + date + "'";
         return planDatabaseCommends(sql);
     }
 

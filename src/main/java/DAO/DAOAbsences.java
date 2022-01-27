@@ -52,9 +52,9 @@ public class DAOAbsences implements DAO<Absences> {
         return absencesDatabaseCommends(sql);
     }
 
-    public List<Absences> getLessonPresence(int lesson_id) throws SQLException {
+    public List<Absences> getStudentLessonPresence(int lesson_id, int student_id) throws SQLException {
         String sql = "SELECT absences.* FROM absences INNER JOIN lesson ON absences.lesson_id = lesson.lesson_id" +
-                " WHERE lesson.lesson_id = " + lesson_id;
+                " WHERE lesson.lesson_id = " + lesson_id + " AND absences.student_id = " + student_id;
         return absencesDatabaseCommends(sql);
     }
 

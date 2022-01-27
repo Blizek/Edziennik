@@ -13,7 +13,7 @@ public class SettingManageView {
     public static void set(String buttonID, AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) throws SQLException {
         switch (buttonID) {
             case "marks" -> MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
-            case "absences" -> AbsencesManageScreenView.view(mainAnchor, scroll, scrollAnchor);
+            case "absences" -> AbsencesManageScreenView.view(mainAnchor, scroll, scrollAnchor, LocalDate.now());
             case "notes" -> System.out.println("Uwagi");
             case "lesson_plan" -> LessonManageScreenView.view(mainAnchor, scroll, scrollAnchor, LocalDate.now());
             case "exams" -> System.out.println("Sprawdziany");

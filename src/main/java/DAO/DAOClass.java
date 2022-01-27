@@ -46,6 +46,12 @@ public class DAOClass implements DAO<Class> {
         return classDatabaseCommends(sql);
     }
 
+    public List<Class> getClassFromLesson(int lesson_id) throws SQLException {
+        String sql = "SELECT class.* FROM lesson INNER JOIN plan ON lesson.plan_id = plan.plan_id INNER JOIN class ON " +
+                "plan.class_id = class.class_id WHERE lesson.lesson_id = " + lesson_id;
+        return classDatabaseCommends(sql);
+    }
+
     public boolean checkIfItIsClassSupervisingTeacher(int user_id) throws SQLException {
         Teacher lookingTeacher = new DAOTeacher().getByUserID(user_id).get(0);
         List<Class> teachersClasses = getBySupervisingTeacher(lookingTeacher.getTeacher_id());

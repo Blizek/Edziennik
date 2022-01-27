@@ -11,7 +11,6 @@ import features.GetUser;
 import features.GetWeekDay;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -59,7 +58,8 @@ public class LessonManageScreenView {
         List<Plan> thisDayLessons;
 
         if (!user.getUser_role().equals("TEACHER")) {
-            student = GetStudent.getForGuardian(user.getUser_id());
+            if (user.getUser_role().equals("GUARDIAN")) student = GetStudent.getForGuardian(user.getUser_id());
+            else student = GetStudent.getForStudent(user.getUser_id());
             planOwnerNameAndSurname = student.getStudent_name() + " " + student.getStudent_surname();
             thisDayLessons = new DAOPlan().getStudentsPlanLessonsFromWeekDay(student.getStudent_id(), GetWeekDay.get(date));
         } else {
@@ -91,7 +91,7 @@ public class LessonManageScreenView {
         dayAndDateText.setTextAlignment(TextAlignment.CENTER);
         scrollAnchor.getChildren().add(dayAndDateText);
 
-        ImageView leftArrow = createArrow(257, FilesLocations.LEFT_ARROW_ICON);
+        ImageView leftArrow = CreateArrows.create(257, FilesLocations.LEFT_ARROW_ICON);
         EventHandler<MouseEvent> dayMinusOne = e -> {
             date = date.minusDays(1);
             try {
@@ -104,7 +104,7 @@ public class LessonManageScreenView {
         leftArrow.addEventHandler(MouseEvent.MOUSE_CLICKED, dayMinusOne);
         scrollAnchor.getChildren().add(leftArrow);
 
-        ImageView rightArrow = createArrow(678, FilesLocations.RIGHT_ARROW_ICON);
+        ImageView rightArrow = CreateArrows.create(678, FilesLocations.RIGHT_ARROW_ICON);
         EventHandler<MouseEvent> dayPlusOne = e -> {
             date = date.plusDays(1);
             try {
@@ -128,7 +128,7 @@ public class LessonManageScreenView {
             lessonPane.setPrefSize(919, 74);
             lessonPane.setId(Integer.toString(thisDayLessons.get(i).getPlan_id()));
 
-            createText(22, Integer.toString(i + 1), lessonPane);
+            CreateSchedulePlanLessonText.createText(22, Integer.toString(i + 1), lessonPane);
 
             String subjectName = new DAOSchoolSubject().getTeacherSubject(thisDayLessons.get(i).getTeacher_id()).get(0).getSubject_name();
             String className = new DAOClass().get(thisDayLessons.get(i).getClass_id()).get(0).getClass_name();
@@ -137,8 +137,8 @@ public class LessonManageScreenView {
 
             String lessonInformation = subjectName + ", " + className + ", " + lessonTime + ", " + classroomNumber;
 
-            createText(94, lessonInformation, lessonPane);
-            createText(720, "See more >", lessonPane);
+            CreateSchedulePlanLessonText.createText(94, lessonInformation, lessonPane);
+            CreateSchedulePlanLessonText.createText(720, "See more >", lessonPane);
 
             EventHandler<MouseEvent> paneClicked = e -> {
                 mainAnchor.getChildren().remove(refreshButton);
@@ -161,23 +161,5 @@ public class LessonManageScreenView {
             scrollAnchor.setPrefHeight(YPosition + 124);
             scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
         }
-    }
-
-    private static ImageView createArrow(double XPosition, String iconURL) {
-        ImageView arrow = new ImageView();
-        arrow.setLayoutX(XPosition);
-        arrow.setLayoutY(6);
-        arrow.setFitWidth(50);
-        arrow.setFitHeight(50);
-        arrow.setImage(new Image(iconURL));
-
-        return arrow;
-    }
-
-    private static void createText(int XPosition, String textValue, AnchorPane paneToAdd) {
-        Text text = new Text(XPosition, 42, textValue);
-        text.setFont(Font.font("Calibri", 25));
-        text.setFill(Color.rgb(60, 86, 188));
-        paneToAdd.getChildren().add(text);
     }
 }

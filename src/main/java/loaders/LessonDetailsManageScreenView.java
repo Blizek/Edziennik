@@ -6,10 +6,7 @@ import DAO.DAOPlan;
 import DAO.DAOSchoolSubject;
 import com.jfoenix.controls.JFXButton;
 import enumTypes.DatabaseTablesName;
-import features.FormatDay;
-import features.GetMaxID;
-import features.GetNameAndSurnameByTableID;
-import features.GetUser;
+import features.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -26,6 +23,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public class LessonDetailsManageScreenView {
@@ -51,13 +49,18 @@ public class LessonDetailsManageScreenView {
         getBackButton.addEventHandler(MouseEvent.MOUSE_CLICKED, goBack);
         mainPane.getChildren().add(getBackButton);
 
-        if (!user.getUser_role().equals("TEACHER")) viewNotForTeacher(scroll, scrollAnchor, Integer.parseInt(planID));
+        if (!user.getUser_role().equals("TEACHER")) viewNotForTeacher(scroll, scrollAnchor, Integer.parseInt(planID), user);
         else viewForTeacher(mainPane, scroll, scrollAnchor, Integer.parseInt(planID));
     }
 
-    private static void viewNotForTeacher(ScrollPane scroll, AnchorPane scrollAnchor, int planID) throws SQLException {
+    private static void viewNotForTeacher(ScrollPane scroll, AnchorPane scrollAnchor, int planID, User user) throws SQLException {
         List<Lesson> thisLesson = new DAOLesson().getLessonByPlanIDAndDate(planID, LessonManageScreenView.date.toString());
         Plan planLesson = new DAOPlan().get(planID).get(0);
+
+        Student student;
+
+        if (user.getUser_role().equals("STUDENT")) student = GetStudent.getForStudent(user.getUser_id());
+        else student = GetStudent.getForGuardian(user.getUser_id());
 
         String schoolSubjectName = new DAOSchoolSubject().getTeacherSubject(planLesson.getTeacher_id()).get(0).getSubject_name();
         String lessonTime = planLesson.getStart_hour() + " - " + planLesson.getFinish_hour();
@@ -71,7 +74,7 @@ public class LessonDetailsManageScreenView {
             lessonSubject = "No data";
             studentPresence = "No data";
         } else {
-            List<Absences> lessonPresence = new DAOAbsences().getLessonPresence(thisLesson.get(0).getLesson_id());
+            List<Absences> lessonPresence = new DAOAbsences().getStudentLessonPresence(thisLesson.get(0).getLesson_id(), student.getStudent_id());
             lessonSubject = thisLesson.get(0).getLesson_subject();
             if (lessonPresence.size() == 0) studentPresence = "No data";
             else {
@@ -136,16 +139,16 @@ public class LessonDetailsManageScreenView {
         JFXButton saveOrEditButton = CreateRightCornerButton.create(2, saveOrEditButtonText);
         EventHandler<MouseEvent> sendToDatabase = e -> {
             try {
+                LocalDate date = LessonManageScreenView.date;
                 if (save) {
                     Lesson lesson = new Lesson(GetMaxID.get(DatabaseTablesName.LESSON) + 1, planLesson.getTeacher_id(), planID,
-                            lessonSubjectField.getText(), Timestamp.valueOf(LocalDateTime.now()));
+                            lessonSubjectField.getText(), Timestamp.valueOf(LocalDateTime.of(date, LocalTime.now())));
                     new DAOLesson().save(lesson);
                 } else {
                     Lesson lesson = thisLesson.get(0);
                     lesson.setLesson_subject(lessonSubjectField.getText());
                     new DAOLesson().update(lesson);
                 }
-                LocalDate date = LessonManageScreenView.date;
                 LessonManageScreenView.view(mainAnchor, scroll, scrollAnchor, date);
             } catch (SQLException exception) {
                 exception.printStackTrace();
