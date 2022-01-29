@@ -144,7 +144,7 @@ public class MarksManageScreenView {
 
             EventHandler<MouseEvent> boxClicked = e -> {
                 try {
-                    LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, Integer.parseInt(classPane.getId()), true);
+                    LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, Integer.parseInt(classPane.getId()), "MARKS");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

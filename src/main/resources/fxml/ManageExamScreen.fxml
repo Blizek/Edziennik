@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="313.0" prefWidth="570.0" style="-fx-background-color: white; -fx-border-color: #3c56bc; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ManageExamController">
+   <children>
+      <JFXButton layoutX="197.0" layoutY="241.0" onAction="#submit" prefHeight="52.0" prefWidth="176.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Save" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="25.0" />
+         </font>
+      </JFXButton>
+      <Text fill="#3c56bc" layoutX="23.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date: ">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Text>
+      <TextField fx:id="examDateTextField" editable="false" layoutX="83.0" layoutY="39.0" prefHeight="37.0" prefWidth="299.0" style="-fx-background-color: white;">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </TextField>
+      <Line endX="107.0" endY="-26.0" layoutX="275.0" layoutY="102.0" startX="-192.0" startY="-26.0" stroke="#3c56bc" strokeWidth="2.0" />
+      <Text fill="#3c56bc" layoutX="20.0" layoutY="192.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description: ">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Text>
+      <TextField fx:id="examDescriptionTextField" layoutX="157.0" layoutY="167.0" prefHeight="25.0" prefWidth="396.0" style="-fx-background-color: white;">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </TextField>
+      <Line endX="296.0" endY="17.0" layoutX="257.0" layoutY="187.0" startX="-100.0" startY="17.0" stroke="#3c56bc" strokeWidth="2.0" />
+      <Text fx:id="noteValueError" fill="RED" layoutX="149.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note value must be integer name" visible="false">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </Text>
+      <Text fx:id="noteDescriptionError" fill="RED" layoutX="68.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Note description must have between 0 and 200 chars" visible="false">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </Text>
+      <Text fill="#3c56bc" layoutX="20.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scheduled lesson: ">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font>
+      </Text>
+      <TextField fx:id="examScheduledLessonTextField" editable="false" layoutX="203.0" layoutY="106.0" prefHeight="37.0" prefWidth="348.0" style="-fx-background-color: white;">
+         <font>
+            <Font name="Calibri" size="20.0" />
+         </font>
+      </TextField>
+      <Line endX="266.0" endY="31.0" layoutX="285.0" layoutY="112.0" startX="-82.0" startY="31.0" stroke="#3c56bc" strokeWidth="2.0" />
+      <JFXButton layoutX="384.0" layoutY="11.0" onAction="#selectScheduledLesson" prefHeight="30.0" prefWidth="176.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Select scheduled lesson" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </JFXButton>
+      <Text fx:id="scheduledLessonError" fill="RED" layoutX="81.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You have to choose scheduled lesson to add/edit exam!" visible="false">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="examDescriptionError" fill="RED" layoutX="90.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Exam description have to has less or equal 100 chars!" visible="false">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Text>
+      <JFXButton layoutX="384.0" layoutY="45.0" onAction="#refresh" prefHeight="30.0" prefWidth="176.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Refresh" textFill="WHITE">
+         <font>
+            <Font name="Calibri" size="15.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

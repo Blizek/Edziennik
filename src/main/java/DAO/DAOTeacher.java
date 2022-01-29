@@ -1,6 +1,7 @@
 package DAO;
 
 import database.DBConnection;
+import model.Exams;
 import model.Teacher;
 
 import java.sql.Connection;
@@ -36,6 +37,12 @@ public class DAOTeacher implements DAO<Teacher> {
 
     public List<Teacher> getByUserID(int id) throws SQLException {
         String sql = "SELECT * FROM teacher WHERE user_id = " + id;
+        return teacherDatabaseCommends(sql);
+    }
+
+    public List<Teacher> getExamTeacher(int exam_id) throws SQLException {
+        String sql = "SELECT teacher.* FROM teacher INNER JOIN plan ON teacher.teacher_id = plan.teacher_id INNER JOIN " +
+                "exams ON plan.plan_id = exams.plan_id WHERE exams.exam_id = " + exam_id;
         return teacherDatabaseCommends(sql);
     }
 

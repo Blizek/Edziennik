@@ -26,7 +26,7 @@ public class LoadAllClassStudents {
     public static int studentID;
     public static int staticClassID;
 
-    public static void load(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, int classID, boolean marksView) throws SQLException {
+    public static void load(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, int classID, String typeView) throws SQLException {
         scroll.setVvalue(0);
         scrollAnchor.setPrefHeight(544);
 
@@ -53,8 +53,10 @@ public class LoadAllClassStudents {
 
         EventHandler<MouseEvent> getBack = e -> {
             try {
-                if (marksView) MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
-                else NotesManageScreenView.view(mainAnchor, scroll, scrollAnchor);
+                switch (typeView) {
+                    case "MARKS" -> MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
+                    case "NOTES" -> NotesManageScreenView.view(mainAnchor, scroll, scrollAnchor);
+                }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -98,10 +100,13 @@ public class LoadAllClassStudents {
             EventHandler<MouseEvent> boxClicked = e -> {
                 try {
                     studentID = Integer.parseInt(studentPane.getId());
-                    if (marksView) {
-                        Teacher teacher = new DAOTeacher().getByUserID(GetUser.get().getUser_id()).get(0);
-                        LoadAllStudentMarkFromSubject.load(mainAnchor, scroll, scrollAnchor, teacher.getSubject_id());
-                    } else CreateNoteBox.create(mainAnchor, scroll, scrollAnchor, studentID);
+                    switch (typeView) {
+                        case "MARKS" -> {
+                            Teacher teacher = new DAOTeacher().getByUserID(GetUser.get().getUser_id()).get(0);
+                            LoadAllStudentMarkFromSubject.load(mainAnchor, scroll, scrollAnchor, teacher.getSubject_id());
+                        }
+                        case "NOTES" -> CreateNoteBox.create(mainAnchor, scroll, scrollAnchor, studentID);
+                    }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }

@@ -32,6 +32,11 @@ public class GetMaxID {
             List<Email> allEmails = daoEmail.getAll();
             if (allEmails.size() > 0) ID = allEmails.get(allEmails.size() - 1).getEmail_id();
             else ID = 0;
+        } else if (EXAMS.equals(tableName)) {
+            DAOExams daoExams = new DAOExams();
+            List<Exams> allExams = daoExams.getAll();
+            if (allExams.size() > 0) ID = allExams.get(allExams.size() - 1).getExam_id();
+            else ID = 0;
         } else if (FINAL_GRADE.equals(tableName)) {
             DAOFinalGrade daoFinalGrade = new DAOFinalGrade();
             List<FinalGrade> allFinalGrades = daoFinalGrade.getAll();

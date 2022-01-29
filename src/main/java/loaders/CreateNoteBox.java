@@ -61,7 +61,7 @@ public class CreateNoteBox {
             EventHandler<MouseEvent> getBack = e -> {
                 try {
                     int classID = LoadAllClassStudents.staticClassID;
-                    LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, classID, false);
+                    LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, classID, "NOTES");
                 } catch (SQLException exception) {
                     exception.printStackTrace();
                 }

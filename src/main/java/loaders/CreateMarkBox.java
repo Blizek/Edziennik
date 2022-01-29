@@ -118,7 +118,8 @@ public class CreateMarkBox {
         EventHandler<MouseEvent> getBack = e -> {
             try {
                 mainAnchor.getChildren().remove(refreshButton);
-                if (user.getUser_role().equals("TEACHER")) LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, LoadAllClassStudents.staticClassID, true);
+                if (user.getUser_role().equals("TEACHER")) LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor,
+                        LoadAllClassStudents.staticClassID, "MARKS");
                 else MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();

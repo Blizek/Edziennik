@@ -2,7 +2,6 @@ package loaders;
 
 import DAO.DAOTeacher;
 import features.GetNotDuplicatedLearningClasses;
-import features.GetStudent;
 import features.GetUser;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
@@ -14,40 +13,38 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import model.Class;
-import model.Student;
 import model.Teacher;
-import model.User;
 import variables.MainText;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
-public class NotesManageScreenView {
-    public static void view(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) throws SQLException {
+public class ExamsManageScreenView {
+    public static LocalDate date;
+
+    public static void view(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, LocalDate actualDate) throws SQLException {
         scroll.setVvalue(0);
         scrollAnchor.setPrefHeight(544);
 
         scrollAnchor.getChildren().clear();
         mainAnchor.getChildren().clear();
 
+        date = actualDate;
+
         mainAnchor.getChildren().add(MainText.main);
 
-        User user = GetUser.get();
+        String userRole = GetUser.get().getUser_role();
 
         scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
-        if (!user.getUser_role().equals("TEACHER")) viewNotForTeacher(mainAnchor, scroll, scrollAnchor, user);
+        if (!userRole.equals("TEACHER")) viewNotForTeacher(mainAnchor, scroll, scrollAnchor);
         else viewForTeacher(mainAnchor, scroll, scrollAnchor);
     }
 
-    private static void viewNotForTeacher(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor, User user) throws SQLException {
-        Student student;
-
-        if (user.getUser_role().equals("STUDENT")) student = GetStudent.getForStudent(user.getUser_id());
-        else student = GetStudent.getForGuardian(user.getUser_id());
-
-        CreateNoteBox.create(mainAnchor, scroll, scrollAnchor, student.getStudent_id());
+    private static void viewNotForTeacher(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) throws SQLException {
+        CreateExamsScreenView.view(mainAnchor, scroll, scrollAnchor);
     }
 
     private static void viewForTeacher(AnchorPane mainAnchor, ScrollPane scroll, AnchorPane scrollAnchor) throws SQLException {
@@ -87,7 +84,8 @@ public class NotesManageScreenView {
 
             EventHandler<MouseEvent> boxClicked = e -> {
                 try {
-                    LoadAllClassStudents.load(mainAnchor, scroll, scrollAnchor, Integer.parseInt(classPane.getId()), "NOTES");
+                    CreateExamsScreenView.classID = Integer.parseInt(classPane.getId());
+                    CreateExamsScreenView.view(mainAnchor, scroll, scrollAnchor);
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 }
