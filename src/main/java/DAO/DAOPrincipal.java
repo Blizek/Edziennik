@@ -39,6 +39,11 @@ public class DAOPrincipal implements DAO<Principal> {
         return principalDatabaseCommends(sql);
     }
 
+    public List<Principal> getAllWithSameNameAndSurname(String name, String surname) throws SQLException {
+        String sql = "SELECT * FROM principal WHERE principal_name = '" + name + "' AND principal_surname = '" + surname + "'";
+        return principalDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Principal principal) throws SQLException {
         int principal_id = principal.getPrincipal_id();

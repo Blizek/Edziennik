@@ -142,7 +142,9 @@ public class ManageTeacherAndPrincipalScreenView {
                 String name = nameField.getText();
                 String surname = surnameField.getText();
                 String user_email = name.toLowerCase() + "_" + surname.toLowerCase() + "@e-slowacki.kielce.eu";
-                if (principal) {
+                List<Principal> principalsWithSameNameAndSurname = new DAOPrincipal().getAllWithSameNameAndSurname(name, surname);
+                List<Teacher> teachersWithSameNameAndSurname = new DAOTeacher().getAllWithSameNameAndSurname(name, surname);
+                if (principal && principalsWithSameNameAndSurname.size() == 0) {
                     List<Principal> principalWithSuitableID = new DAOPrincipal().getByUserID(ID);
                     if (principalWithSuitableID.size() == 0) {
                         User newUser = new User(GetMaxID.get(DatabaseTablesName.USER) + 1,
@@ -163,7 +165,7 @@ public class ManageTeacherAndPrincipalScreenView {
                         new DAOPrincipal().update(principal);
                     }
                     TeachersManageScreenView.view(mainAnchor, scroll, scrollAnchor);
-                } else if (teacher) {
+                } else if (teacher && teachersWithSameNameAndSurname.size() == 0) {
                     List<Teacher> teacherWithSuitableID = new DAOTeacher().getByUserID(ID);
                     int databaseSubjectID = getSubjectID(subjectName.getText());
                     if (databaseSubjectID != -1) {

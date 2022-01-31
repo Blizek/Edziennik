@@ -53,6 +53,11 @@ public class DAOTeacher implements DAO<Teacher> {
         return teacherDatabaseCommends(sql);
     }
 
+    public List<Teacher> getAllWithSameNameAndSurname(String name, String surname) throws SQLException {
+        String sql = "SELECT * FROM teacher WHERE teacher_name = '" + name + "' AND teacher_surname = '" + surname + "'";
+        return teacherDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Teacher teacher) throws SQLException {
         int teacher_id = teacher.getTeacher_id();
