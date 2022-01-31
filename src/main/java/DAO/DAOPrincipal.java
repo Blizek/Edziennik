@@ -34,6 +34,11 @@ public class DAOPrincipal implements DAO<Principal> {
         return principalDatabaseCommends(sql);
     }
 
+    public List<Principal> getAllSorted() throws SQLException {
+        String sql = "SELECT * FROM principal ORDER BY principal_surname, principal_name";
+        return principalDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Principal principal) throws SQLException {
         int principal_id = principal.getPrincipal_id();

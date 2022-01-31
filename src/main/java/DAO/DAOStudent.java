@@ -30,6 +30,11 @@ public class DAOStudent implements DAO<Student> {
         return studentDatabaseCommends(sql);
     }
 
+    public List<Student> getAllSorted() throws SQLException {
+        String sql = "SELECT * FROM student ORDER BY student.student_surname, student.student_name";
+        return studentDatabaseCommends(sql);
+    }
+
     public List<Student> getBySchool(int school_id) throws SQLException {
         String sql = "SELECT * FROM student WHERE school_id = " + school_id;
         return studentDatabaseCommends(sql);

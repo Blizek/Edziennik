@@ -38,6 +38,11 @@ public class DAOAdmin implements DAO<Admin>{
         return adminDatabaseCommends(sql);
     }
 
+    public List<Admin> getAllSorted() throws SQLException {
+        String sql = "SELECT * FROM admin ORDER BY admin.admin_surname, admin.admin_name";
+        return adminDatabaseCommends(sql);
+    }
+
     /** function to get suitable admins by their user_id
      * @param id as user_id in table "User" in database
      * @return List of suitable admins

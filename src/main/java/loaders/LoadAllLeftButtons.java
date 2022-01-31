@@ -27,9 +27,10 @@ public class LoadAllLeftButtons {
             createButton("Notes", "notes", pane, mainAnchor, scroll, scrollAnchor);
             createButton("Lesson plan", "lesson_plan", pane, mainAnchor, scroll, scrollAnchor);
             createButton("Exams", "exams", pane, mainAnchor, scroll, scrollAnchor);
-        } else {
-            createButton("Students", "students", pane, mainAnchor, scroll, scrollAnchor);
+        } else if (userRole.equals("PRINCIPAL")){
             createButton("Teachers", "teachers", pane, mainAnchor, scroll, scrollAnchor);
+            createButton("Classes", "classes", pane, mainAnchor, scroll, scrollAnchor);
+            createButton("Everybody", "everybody", pane, mainAnchor, scroll, scrollAnchor);
         }
         if (userRole.equals("TEACHER")) {
             if (new DAOClass().checkIfItIsClassSupervisingTeacher(user.getUser_id())) {

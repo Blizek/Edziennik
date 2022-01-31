@@ -30,8 +30,15 @@ public class DAOTeacher implements DAO<Teacher> {
         return teacherDatabaseCommends(sql);
     }
 
-    public List<Teacher> getByTeachersSubject(String subject) throws SQLException {
-        String sql = "SELECT * FROM teacher WHERE teacher_subject = " + subject;
+    public List<Teacher> getAllSorted() throws SQLException {
+        String sql = "SELECT * FROM teacher ORDER BY teacher.teacher_surname, teacher.teacher_name";
+        return teacherDatabaseCommends(sql);
+    }
+
+    public List<Teacher> getByTeachersSubject(int subject_id) throws SQLException {
+        String sql = "SELECT teacher.* FROM teacher INNER JOIN school_subject ON " +
+                "teacher.subject_id = school_subject.subject_id WHERE school_subject.subject_id = " + subject_id +
+                " ORDER BY teacher.teacher_surname, teacher.teacher_name";
         return teacherDatabaseCommends(sql);
     }
 
