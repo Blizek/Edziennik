@@ -4,6 +4,8 @@ import DAO.DAOPrincipal;
 import DAO.DAOSchoolSubject;
 import DAO.DAOTeacher;
 import com.jfoenix.controls.JFXButton;
+import controller.DeleteTeacherOrPrincipalController;
+import features.DecodeID;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -15,8 +17,10 @@ import javafx.scene.text.Text;
 import model.Principal;
 import model.SchoolSubject;
 import model.Teacher;
+import routings.DeleteTeacherOrPrincipalMain;
 import variables.MainText;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -49,7 +53,13 @@ public class TeachersManageScreenView {
 
         JFXButton addPersonButton = CreateRightCornerButton.create(20, "Add person");
         EventHandler<MouseEvent> addPerson = e -> {
-            System.out.println("dodaj osobe");
+            try {
+                ManageTeacherAndPrincipalScreenView.teacher = false;
+                ManageTeacherAndPrincipalScreenView.principal = false;
+                ManageTeacherAndPrincipalScreenView.view(mainAnchor, scroll, scrollAnchor, -1);
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
         };
         addPersonButton.addEventHandler(MouseEvent.MOUSE_CLICKED, addPerson);
         scrollAnchor.getChildren().add(addPersonButton);
@@ -63,14 +73,39 @@ public class TeachersManageScreenView {
         for (Principal principal : principals) {
             String principalNameAndSurname = principal.getPrincipal_name() + " " + principal.getPrincipal_surname();
             AnchorPane pane = createPersonPane(YPosition + 1, principalNameAndSurname);
-            pane.setId(principal.getPrincipal_id() + "principal");
-            createManageButtons(pane);
+            pane.setId(principal.getUser_id() + "principal");
+            ManageTeacherAndPrincipalScreenView.principal = true;
+            ManageTeacherAndPrincipalScreenView.teacher = false;
+            JFXButton editButton = buttonSettings(693, "Edit");
+            EventHandler<MouseEvent> edit = e-> {
+                int id = DecodeID.decode(pane.getId());
+                try {
+                    ManageTeacherAndPrincipalScreenView.view(mainAnchor, scroll, scrollAnchor, id);
+                } catch (SQLException exception) {
+                    exception.printStackTrace();
+                }
+            };
+            editButton.addEventHandler(MouseEvent.MOUSE_CLICKED, edit);
+            pane.getChildren().add(editButton);
+
+            JFXButton deleteButton = buttonSettings(805, "Delete");
+            EventHandler<MouseEvent> delete = e -> {
+                try {
+                    DeleteTeacherOrPrincipalController.userID = DecodeID.decode(pane.getId());
+                    new DeleteTeacherOrPrincipalMain().runThis();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            };
+            deleteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, delete);
+            pane.getChildren().add(deleteButton);
+
             scrollAnchor.getChildren().add(pane);
 
             YPosition += 74;
-        }
 
-        CreateLine.create(scrollAnchor, YPosition);
+            CreateLine.create(scrollAnchor, YPosition);
+        }
 
         YPosition += 45;
         List<SchoolSubject> subjects = new DAOSchoolSubject().getAll();
@@ -84,13 +119,38 @@ public class TeachersManageScreenView {
             for (Teacher subjectTeacher : subjectTeachers) {
                 String nameAndSurname = subjectTeacher.getTeacher_name() + " " + subjectTeacher.getTeacher_surname();
                 AnchorPane teacherPane = createPersonPane(YPosition + 1, nameAndSurname);
-                teacherPane.setId(subjectTeacher.getTeacher_id() + "teacher");
-                createManageButtons(teacherPane);
+                teacherPane.setId(subjectTeacher.getUser_id() + "teacher");
+                JFXButton editButton = buttonSettings(693, "Edit");
+                EventHandler<MouseEvent> edit = e-> {
+                    int id = DecodeID.decode(teacherPane.getId());
+                    try {
+                        ManageTeacherAndPrincipalScreenView.teacher = true;
+                        ManageTeacherAndPrincipalScreenView.principal = false;
+                        ManageTeacherAndPrincipalScreenView.view(mainAnchor, scroll, scrollAnchor, id);
+                    } catch (SQLException exception) {
+                        exception.printStackTrace();
+                    }
+                };
+                editButton.addEventHandler(MouseEvent.MOUSE_CLICKED, edit);
+                teacherPane.getChildren().add(editButton);
+
+                JFXButton deleteButton = buttonSettings(805, "Delete");
+                EventHandler<MouseEvent> delete = e -> {
+                    try {
+                        DeleteTeacherOrPrincipalController.userID = DecodeID.decode(teacherPane.getId());
+                        new DeleteTeacherOrPrincipalMain().runThis();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                };
+                deleteButton.addEventHandler(MouseEvent.MOUSE_CLICKED, delete);
+                teacherPane.getChildren().add(deleteButton);
+
                 scrollAnchor.getChildren().add(teacherPane);
 
                 YPosition += 74;
+                CreateLine.create(scrollAnchor, YPosition);
             }
-            CreateLine.create(scrollAnchor, YPosition);
 
             YPosition += 65;
         }
@@ -117,14 +177,6 @@ public class TeachersManageScreenView {
         CreateSchedulePlanLessonText.createText(22, nameAndSurname, personPane);
 
         return personPane;
-    }
-
-    private static void createManageButtons(AnchorPane pane) {
-        JFXButton editButton = buttonSettings(693, "Edit");
-        pane.getChildren().add(editButton);
-
-        JFXButton deleteButton = buttonSettings(805, "Delete");
-        pane.getChildren().add(deleteButton);
     }
 
     private static JFXButton buttonSettings(int XPosition, String textValue) {

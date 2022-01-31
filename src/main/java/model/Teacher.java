@@ -75,13 +75,13 @@ public class Teacher {
         this.teacherClass = teacherClass;
     }
 
-
     @Override
     public String toString() {
         return "Teacher{" +
                 "teacher_id=" + teacher_id +
                 ", user_id=" + user_id +
                 ", school_id=" + school_id +
+                ", subject_id=" + subject_id +
                 ", teacher_name='" + teacher_name + '\'' +
                 ", teacher_surname='" + teacher_surname + '\'' +
                 '}';
