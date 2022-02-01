@@ -58,22 +58,29 @@ public class DAOClass implements DAO<Class> {
         return teachersClasses.size() > 0;
     }
 
+    public List<Class> getClassBySupervisingTeacherUserID(int user_id) throws SQLException {
+        String sql = "SELECT class.* FROM user INNER JOIN teacher ON user.user_id = teacher.user_id INNER JOIN " +
+                "class ON teacher.teacher_id = class.class_supervising_teacher WHERE user.user_id = " + user_id;
+        return classDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Class daoClass) throws SQLException {
         int class_id = daoClass.getClass_id();
         int class_supervising_teacher_id = daoClass.getClass_supervising_teacher();
         String class_name = daoClass.getClass_name();
-        String sql = "INSERT INTO class(class_id, class_supervising_teacher, class_name) VALUES(" + class_id + ", " + class_supervising_teacher_id
-                + ", '" + class_name + "')";
+        String sql = "INSERT INTO class(class_id, class_supervising_teacher, class_name) VALUES(" + class_id + ", " +
+                class_supervising_teacher_id + ", '" + class_name + "')";
         statement.executeUpdate(sql);
     }
 
     @Override
     public void update(Class daoClass) throws SQLException {
         int new_class_id = daoClass.getClass_id();
+        int new_supervising_teacher = daoClass.getClass_supervising_teacher();
         String new_class_name = daoClass.getClass_name();
-        String sql = "UPDATE class SET class_id = " + new_class_id + ", class_name = '" + new_class_name
-                + "' WHERE class_id = " + new_class_id;
+        String sql = "UPDATE class SET class_id = " + new_class_id + ", class_supervising_teacher = " + new_supervising_teacher
+                + ", class_name = '" + new_class_name + "' WHERE class_id = " + new_class_id;
         statement.executeUpdate(sql);
     }
 

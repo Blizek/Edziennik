@@ -58,6 +58,13 @@ public class DAOTeacher implements DAO<Teacher> {
         return teacherDatabaseCommends(sql);
     }
 
+    public List<Teacher> getAllScheduleTeachers(int class_id) throws SQLException {
+        String sql = "SELECT teacher.* FROM teacher INNER JOIN plan ON teacher.teacher_id = plan.teacher_id INNER JOIN " +
+                "class ON plan.class_id = class.class_id WHERE class.class_id = " + class_id + " ORDER BY " +
+                "teacher.teacher_surname, teacher.teacher_name";
+        return teacherDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Teacher teacher) throws SQLException {
         int teacher_id = teacher.getTeacher_id();
