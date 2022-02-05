@@ -25,7 +25,7 @@ public class EverybodyManageScreenView {
 
         mainAnchor.getChildren().add(MainText.main);
 
-        MainText.main.setText("All school teachers");
+        MainText.main.setText("Everybody in database");
 
         int YPosition = 20;
 

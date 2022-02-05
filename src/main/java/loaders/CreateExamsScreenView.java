@@ -151,7 +151,7 @@ public class CreateExamsScreenView {
 
             Plan actualPlanLesson = new DAOPlan().getExamPlanLesson(thisDayExam.getPlan_id()).get(0);
 
-            String subjectName = new DAOSchoolSubject().getLessonNameFromExam(thisDayExam.getPlan_id()).get(0).getSubject_name();
+            String subjectName = new DAOSchoolSubject().getLessonNameFromPlan(thisDayExam.getPlan_id()).get(0).getSubject_name();
             String className = new DAOClass().get(thisDayExam.getClass_id()).get(0).getClass_name();
             String lessonTime = actualPlanLesson.getStart_hour() + " - " + actualPlanLesson.getFinish_hour();
             int classroomNumber = actualPlanLesson.getClassroom_number();

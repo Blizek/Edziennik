@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="700.0" prefWidth="391.0" style="-fx-background-color: white; -fx-border-color: #3c56bc; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChooseTeacherController">
+   <children>
+      <JFXButton layoutX="238.0" layoutY="14.0" onAction="#getBack" prefHeight="50.0" prefWidth="139.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Get back" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <ScrollPane fx:id="scroll" layoutX="28.0" layoutY="104.0" prefHeight="565.0" prefWidth="346.0">
+        <content>
+          <AnchorPane fx:id="scrollAnchor" minHeight="0.0" minWidth="0.0" prefHeight="563.0" prefWidth="343.0" style="-fx-background-color: white;" />
+        </content>
+      </ScrollPane>
+   </children>
+</AnchorPane>

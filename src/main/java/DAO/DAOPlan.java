@@ -72,6 +72,13 @@ public class DAOPlan implements DAO<Plan> {
         return planDatabaseCommends(sql);
     }
 
+    public List<Plan> getThisDayClassLessons(int class_id, String week_day) throws SQLException {
+        String sql = "SELECT plan.* FROM plan INNER JOIN class ON plan.class_id = class.class_id WHERE " +
+                "class.class_id = " + class_id + " AND plan.day = '" + week_day + "' ORDER BY " +
+                "HOUR(plan.start_hour), MINUTE(plan.start_hour)";
+        return planDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Plan plan) throws SQLException {
         int plan_id = plan.getPlan_id();

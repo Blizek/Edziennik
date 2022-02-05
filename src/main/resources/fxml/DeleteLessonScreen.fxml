@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="282.0" prefWidth="414.0" style="-fx-border-color: #3c56bc; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DeleteLessonController">
+   <children>
+      <Text fill="#3c56bc" layoutX="16.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Are you sure that you want to delete this lesson?" textAlignment="CENTER" wrappingWidth="406.44384765625">
+         <font>
+            <Font name="Calibri Bold" size="40.0" />
+         </font>
+      </Text>
+      <JFXButton layoutX="37.0" layoutY="178.0" onAction="#deleteLesson" prefHeight="73.0" prefWidth="145.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="Yes" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="30.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="251.0" layoutY="178.0" onAction="#notDeleteLesson" prefHeight="73.0" prefWidth="145.0" style="-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;" text="No" textFill="WHITE">
+         <font>
+            <Font name="Calibri Bold" size="30.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

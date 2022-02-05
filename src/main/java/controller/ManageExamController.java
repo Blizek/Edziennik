@@ -90,7 +90,7 @@ public class ManageExamController {
         if (planLessons.size() > 0) {
             Plan actualPlanLesson = planLessons.get(0);
 
-            String subjectName = new DAOSchoolSubject().getLessonNameFromExam(PlanIDForExam.getID()).get(0).getSubject_name();
+            String subjectName = new DAOSchoolSubject().getLessonNameFromPlan(PlanIDForExam.getID()).get(0).getSubject_name();
             String className = new DAOClass().get(exam.getClass_id()).get(0).getClass_name();
             String lessonTime = actualPlanLesson.getStart_hour() + " - " + actualPlanLesson.getFinish_hour();
             int classroomNumber = actualPlanLesson.getClassroom_number();

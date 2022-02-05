@@ -45,6 +45,15 @@ public class ClassManageScreenView {
         mainAnchor.getChildren().add(getBackButton);
 
         JFXButton scheduleClassPlanButton = CreateRightCornerButton.create(20, "Schedule plan");
+        EventHandler<MouseEvent> scheduleClassPlan = e -> {
+            try {
+                SetClassSchedulePlanScreenView.day = "MONDAY";
+                SetClassSchedulePlanScreenView.view(mainAnchor, scroll, scrollAnchor, classID);
+            } catch (SQLException exception) {
+                exception.printStackTrace();
+            }
+        };
+        scheduleClassPlanButton.addEventHandler(MouseEvent.MOUSE_CLICKED, scheduleClassPlan);
         scrollAnchor.getChildren().add(scheduleClassPlanButton);
 
         JFXButton editClassButton = CreateRightCornerButton.create(65, "Edit class");
