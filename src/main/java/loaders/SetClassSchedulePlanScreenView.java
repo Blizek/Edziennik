@@ -6,10 +6,7 @@ import DAO.DAOSchoolSubject;
 import DAO.DAOTeacher;
 import com.jfoenix.controls.JFXButton;
 import controller.DeleteLessonController;
-import controller.DeleteTeacherOrPrincipalController;
-import features.DecodeID;
-import features.FormatDay;
-import features.GetWeekDay;
+import features.GetUser;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -24,7 +21,6 @@ import locations.FilesLocations;
 import model.Class;
 import model.Plan;
 import routings.DeleteLessonMain;
-import routings.DeleteTeacherOrPrincipalMain;
 import variables.MainText;
 import variables.SubjectTeacherID;
 
@@ -55,7 +51,10 @@ public class SetClassSchedulePlanScreenView {
         EventHandler<MouseEvent> getBack = e -> {
             try {
                 mainAnchor.getChildren().remove(getBackButton);
-                ClassManageScreenView.view(mainAnchor, scroll, scrollAnchor, classID);
+                if (GetUser.get().getUser_role().equals("PRINCIPAL"))
+                    ClassManageScreenView.view(mainAnchor, scroll, scrollAnchor, classID);
+                else
+                    YourClassManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             } catch (SQLException exception) {
                 exception.printStackTrace();
             }

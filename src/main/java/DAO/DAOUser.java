@@ -34,8 +34,9 @@ public class DAOUser implements DAO<User> {
         return userDatabaseCommends(sql);
     }
 
-    public List<User> getByRole(String role) throws SQLException {
-        String sql = "SELECT * FROM user WHERE user_role = '" + role + "'";
+    public List<User> getByStudentID(int student_id) throws SQLException {
+        String sql = "SELECT user.* FROM user INNER JOIN student ON user.user_id = student.user_id WHERE " +
+                "student.student_id = " + student_id;
         return userDatabaseCommends(sql);
     }
 

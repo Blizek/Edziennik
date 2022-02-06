@@ -18,7 +18,7 @@ public class SettingManageView {
             case "teachers" -> TeachersManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             case "classes" -> AllClassesManageScreenView.view(mainAnchor, scroll, scrollAnchor);
             case "everybody" -> EverybodyManageScreenView.view(mainAnchor, scroll, scrollAnchor);
-            case "your_class" -> System.out.println("Twoja klasa");
+            case "your_class" -> YourClassManageScreenView.view(mainAnchor, scroll, scrollAnchor);
         }
     }
 }

@@ -58,6 +58,12 @@ public class DAOStudent implements DAO<Student> {
         return studentDatabaseCommends(sql);
     }
 
+    public List<Student> getAllWithSameNameAndSurname(String student_name, String student_surname) throws SQLException {
+        String sql = "SELECT * FROM student WHERE student_name = '" + student_name + "' AND student_surname = '" +
+                student_surname + "'";
+        return studentDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Student student) throws SQLException {
         int student_id = student.getStudent_id();
@@ -85,7 +91,7 @@ public class DAOStudent implements DAO<Student> {
         String sql = "UPDATE student SET student_id = " + new_student_id + ", user_id = " + new_user_id + ", school_id = "
                 + new_school_id + ", class_id = " + new_class_id + ", student_name = '" + new_student_name + "', student_surname = '"
                 + new_student_surname + "', student_date_of_birth = '" + new_student_date_of_birth + "' WHERE student_id = "
-                + new_student_name;
+                + new_student_id;
         statement.executeUpdate(sql);
     }
 

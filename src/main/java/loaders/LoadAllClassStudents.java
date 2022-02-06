@@ -33,6 +33,7 @@ public class LoadAllClassStudents {
         Class actualClass = new DAOClass().get(classID).get(0);
         List<Student> students = new DAOStudent().getByClass(classID);
 
+        int YPosition = 83;
         staticClassID = classID;
 
         scrollAnchor.getChildren().clear();
@@ -51,11 +52,30 @@ public class LoadAllClassStudents {
         getBackButton.setTextFill(Color.rgb(255, 255, 255));
         getBackButton.setStyle("-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;");
 
+        if (typeView.equals("YOUR_CLASS")) {
+            getBackButton.setText("Get back");
+
+            JFXButton addStudentButton = CreateRightCornerButton.create(65, "Add student");
+            EventHandler<MouseEvent> addStudent = e -> {
+                try {
+                    ManageStudentScreenView.editing = false;
+                    ManageStudentScreenView.view(mainAnchor, scroll, scrollAnchor, classID);
+                } catch (SQLException exception) {
+                    exception.printStackTrace();
+                }
+            };
+            addStudentButton.addEventHandler(MouseEvent.MOUSE_CLICKED, addStudent);
+            scrollAnchor.getChildren().add(addStudentButton);
+
+            YPosition = 110;
+        }
+
         EventHandler<MouseEvent> getBack = e -> {
             try {
                 switch (typeView) {
                     case "MARKS" -> MarksManageScreenView.view(mainAnchor, scroll, scrollAnchor);
                     case "NOTES" -> NotesManageScreenView.view(mainAnchor, scroll, scrollAnchor);
+                    case "YOUR_CLASS" -> YourClassManageScreenView.view(mainAnchor, scroll, scrollAnchor);
                 }
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
@@ -65,7 +85,6 @@ public class LoadAllClassStudents {
 
         scrollAnchor.getChildren().add(getBackButton);
 
-        int YPosition = 83;
         for (Student student: students) {
             CreateLine.create(scrollAnchor, YPosition);
 
@@ -106,6 +125,11 @@ public class LoadAllClassStudents {
                             LoadAllStudentMarkFromSubject.load(mainAnchor, scroll, scrollAnchor, teacher.getSubject_id());
                         }
                         case "NOTES" -> CreateNoteBox.create(mainAnchor, scroll, scrollAnchor, studentID);
+                        case "YOUR_CLASS" -> {
+                            ManageStudentScreenView.studentID = Integer.parseInt(studentPane.getId());
+                            ManageStudentScreenView.editing = true;
+                            ManageStudentScreenView.view(mainAnchor, scroll, scrollAnchor, classID);
+                        }
                     }
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
