@@ -37,6 +37,18 @@ public class DAOGuardian implements DAO<Guardian> {
         return guardianDatabaseCommends(sql);
     }
 
+    public List<Guardian> getByStudentID(int student_id) throws SQLException {
+        String sql = "SELECT guardian.* FROM guardian INNER JOIN student ON guardian.student_id = student.student_id " +
+                "WHERE student.student_id = " + student_id + " ORDER BY guardian.guardian_surname, guardian.guardian_name";
+        return guardianDatabaseCommends(sql);
+    }
+
+    public List<Guardian> getGuardiansWithSameNameAndSurname(String guardian_name, String guardian_surname) throws SQLException {
+        String sql = "SELECT * FROM guardian WHERE guardian_name = '" + guardian_name + "' AND guardian_surname = '"
+                + guardian_surname + "'";
+        return guardianDatabaseCommends(sql);
+    }
+
     @Override
     public void save(Guardian guardian) throws SQLException {
         int guardian_id = guardian.getGuardian_id();

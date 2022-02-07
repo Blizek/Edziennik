@@ -1,11 +1,13 @@
 package loaders;
 
 import DAO.DAOClass;
+import DAO.DAOGuardian;
 import DAO.DAOStudent;
 import DAO.DAOUser;
 import com.jfoenix.controls.JFXButton;
 import enumTypes.DatabaseTablesName;
 import features.GetMaxID;
+import features.GetNameAndSurnameByTableID;
 import javafx.event.EventHandler;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ScrollPane;
@@ -16,6 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import model.Guardian;
 import model.Student;
 import model.User;
 import variables.MainText;
@@ -153,6 +156,90 @@ public class ManageStudentScreenView {
         };
         saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, save);
         scrollAnchor.getChildren().add(saveButton);
+
+        if (editing) {
+            createText(394, "Guardians", scrollAnchor);
+
+            JFXButton addGuardianButton = CreateRightCornerButton.create(370, "Add guardian");
+            EventHandler<MouseEvent> addGuardian = e -> {
+                try {
+                    ManageGuardianScreenView.editing = false;
+                    ManageGuardianScreenView.view(mainAnchor, scroll, scrollAnchor, -1, classID);
+                } catch (SQLException exception) {
+                    exception.printStackTrace();
+                }
+            };
+            addGuardianButton.addEventHandler(MouseEvent.MOUSE_CLICKED, addGuardian);
+            scrollAnchor.getChildren().add(addGuardianButton);
+
+            int YPosition = 418;
+            List<Guardian> studentGuardians = new DAOGuardian().getByStudentID(studentID);
+
+            for (int i = 0; i < studentGuardians.size(); i++) {
+                CreateLine.create(scrollAnchor, YPosition);
+
+                AnchorPane guardianPane = new AnchorPane();
+                guardianPane.setLayoutX(34);
+                guardianPane.setLayoutY(YPosition + 1);
+                guardianPane.setPrefWidth(919);
+                guardianPane.setPrefHeight(73);
+                guardianPane.setId(Integer.toString(studentGuardians.get(i).getGuardian_id()));
+                scrollAnchor.getChildren().add(guardianPane);
+
+                String nameAndSurname = GetNameAndSurnameByTableID.getGuardian(studentGuardians.get(i).getGuardian_id());
+                createText(43, nameAndSurname, guardianPane);
+
+                JFXButton editGuardianButton = new JFXButton();
+                editGuardianButton.setLayoutX(718);
+                editGuardianButton.setLayoutY(20);
+                editGuardianButton.setPrefSize(87, 35);
+                editGuardianButton.setText("Edit");
+                editGuardianButton.setFont(Font.font("Calibri", 20));
+                editGuardianButton.setTextFill(Color.rgb(255, 255, 255));
+                editGuardianButton.setStyle("-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;");
+                EventHandler<MouseEvent> editGuardian = e -> {
+                    try {
+                        ManageGuardianScreenView.editing = true;
+                        ManageGuardianScreenView.view(mainAnchor, scroll, scrollAnchor, Integer.parseInt(guardianPane.getId()), classID);
+                    } catch (SQLException exception) {
+                        exception.printStackTrace();
+                    }
+                };
+                editGuardianButton.addEventHandler(MouseEvent.MOUSE_CLICKED, editGuardian);
+                guardianPane.getChildren().add(editGuardianButton);
+
+                JFXButton deleteGuardianButton = new JFXButton();
+                deleteGuardianButton.setLayoutX(814);
+                deleteGuardianButton.setLayoutY(20);
+                deleteGuardianButton.setPrefSize(87, 35);
+                deleteGuardianButton.setText("Delete");
+                deleteGuardianButton.setFont(Font.font("Calibri", 20));
+                deleteGuardianButton.setTextFill(Color.rgb(255, 255, 255));
+                deleteGuardianButton.setStyle("-fx-background-color: #3c56bc; -fx-background-radius: 10; -fx-border-radius: 10;");
+                EventHandler<MouseEvent> deleteGuardian = e -> {
+                    try {
+                        Guardian guardian = new DAOGuardian().get(Integer.parseInt(guardianPane.getId())).get(0);
+                        new DAOGuardian().delete(guardian);
+                        mainAnchor.getChildren().remove(getBackButton);
+                        ManageStudentScreenView.editing = true;
+                        ManageStudentScreenView.view(mainAnchor, scroll, scrollAnchor, classID);
+                    } catch (SQLException exception) {
+                        exception.printStackTrace();
+                    }
+                };
+                deleteGuardianButton.addEventHandler(MouseEvent.MOUSE_CLICKED, deleteGuardian);
+                guardianPane.getChildren().add(deleteGuardianButton);
+
+                YPosition += 74;
+            }
+
+            CreateLine.create(scrollAnchor, YPosition);
+
+            if (YPosition >= 544) {
+                scrollAnchor.setPrefHeight(YPosition + 124);
+                scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+            }
+        }
     }
 
     private static void createText(int YPosition, String textValue, AnchorPane paneToAdd) {

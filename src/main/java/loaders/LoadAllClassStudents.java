@@ -142,5 +142,10 @@ public class LoadAllClassStudents {
             YPosition += 74;
         }
         CreateLine.create(scrollAnchor, YPosition);
+
+        if (YPosition >= 544) {
+            scrollAnchor.setPrefHeight(YPosition + 124);
+            scroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        }
     }
 }
